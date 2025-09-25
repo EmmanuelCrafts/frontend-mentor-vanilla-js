@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "Inter";
+    src: url("fonts/inter/Inter-Italic-VariableFont_opsz\,wght.ttf")format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter/Inter-VariableFont_opsz\,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: "Martiana Mono";
+    src: url("fonts/martian-mono/static/MartianMono-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+} 
+
+@font-face {
+    font-family: "Martiana Mono";
+    src: url("fonts/martian-mono/static/MartianMono-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Martiana Mono";
+    src: url("fonts/martian-mono/static/MartianMono-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-size: normal;
+}
+
+
+ h1 {
+    font-family: "Inter";
+    
+}
+.logo {
+    width: 193px;
+    height: 40px;
+    margin-top: 24px;
+}
