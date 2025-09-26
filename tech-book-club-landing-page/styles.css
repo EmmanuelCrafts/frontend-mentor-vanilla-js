@@ -7,11 +7,17 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("fonts/inter/Inter-VariableFont_opsz\,wght.ttf") format("truetype");
+  src: url("fonts/inter/static/Inter_18pt-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter/static/Inter_18pt-SemiBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
 @font-face {
     font-family: "Martiana Mono";
     src: url("fonts/martian-mono/static/MartianMono-Regular.ttf") format("truetype");
@@ -31,14 +37,149 @@
     font-weight: 600;
     font-size: normal;
 }
-
-
- h1 {
-    font-family: "Inter";
-    
+/* Basic CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased; /* smoother text on Mac/iOS */
+}
+
+/* Make images and media responsive */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove built-in form styles */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* Remove list styles */
+ul, ol {
+  list-style: none;
+}
+
+
+body {
+    min-width: 343px;
+    padding: 16px;
+    background: linear-gradient(90deg, #FFE2D1 0%,#FFF5EF 100%);
+}
+
 .logo {
     width: 193px;
     height: 40px;
     margin-top: 24px;
+}
+/* Inro section */
+ .gradient-text {
+    font-family: "Martiana Mono";
+    font-weight: bold;
+    font-size: 38px;
+    line-height: 120%;
+    letter-spacing: -2px;
+    margin-top: 48px;
+    background: linear-gradient(107deg, #ff9a60 -11.37%, #062630 61.84%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+
+.intro-p {
+    font-family: "Inter";
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.5px;
+    margin-top: 24px;
+}
+
+.review-opt {
+    border: 3px solid black;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    padding-top: 21.5px;
+    padding-bottom: 21.5px;
+    padding-left: 23px;
+    margin-top: 32px;
+}
+
+.review-opt p {
+    font-size: 18px;
+    line-height: 130%;
+    letter-spacing: -1px;
+    font-family: "Martiana Mono";
+    font-weight: 600;
+}
+.dev-avatars {
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.avatars {
+   width: 30%;
+}
+
+.star-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+.star-reviews  {
+   display: flex;
+   margin-top: 4px;
+}
+
+.star-reviews img {
+   width: 24px;
+   height: 24px;
+}
+
+.dev-avatars p {
+    font-size: 14px;
+    line-height: 120%;
+    letter-spacing: -1px;
+    font-family: "Martiana Mono";
+    font-weight: normal;
+    margin-top: 0px;
+}
+
+.hero-image {
+    max-width: 100%;
+    margin-top: 64px;
+    margin-bottom: 80px;
+}
+
+.list-benefits {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 14px;
+}
+
+.list-benefits img {
+    height: 24px;
+    width: 24px;
+}
+
+.list-benefits p {
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.5px;
+    font-family: "Inter";
+    font-style: normal;
 }
