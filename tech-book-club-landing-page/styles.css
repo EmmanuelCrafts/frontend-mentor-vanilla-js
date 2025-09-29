@@ -199,3 +199,41 @@ body {
 .list-benefits.four {
   margin-bottom: 3rem;
 }
+/* community section */
+.community {
+  margin-top: 4rem;
+  border: 1px solid black;
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.community h2 {
+  font-size: 34px;
+  line-height: 130%;
+  letter-spacing: -2px;
+  font-family: "Martiana Mono";
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 24px;
+}
+
+.community .circle {
+  position: absolute;
+  top: 58px;
+  left: -8px;
+  width: 25%;
+}
+
+.community p {
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: -0.5px;
+  font-family: "Inter";
+  font-weight: normal;
+  padding-bottom: 40px;
+}
+
+.community span {
+  font-family: "Inter";
+  font-weight: bold;
+}
