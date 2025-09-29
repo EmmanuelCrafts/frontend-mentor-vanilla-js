@@ -159,16 +159,28 @@ body {
 }
 
 .hero-image {
-    max-width: 100%;
     margin-top: 64px;
     margin-bottom: 80px;
 }
 
+/* read together section */
+.read-together {
+   margin-top: 144px;
+ 
+}
+.read-together h2 {
+   font-size: 34px;
+   letter-spacing: -2px;
+   line-height: 130%;
+   font-family: "Martiana Mono";
+   font-weight: 600;
+   margin-bottom: 24px;
+}
 .list-benefits {
     display: flex;
     align-items: center;
     margin-bottom: 16px;
-    gap: 14px;
+    column-gap: 14px;
 }
 
 .list-benefits img {
@@ -182,4 +194,8 @@ body {
     letter-spacing: -0.5px;
     font-family: "Inter";
     font-style: normal;
+}
+
+.list-benefits.four {
+  margin-bottom: 3rem;
 }
