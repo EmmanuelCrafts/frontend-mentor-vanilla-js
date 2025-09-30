@@ -48,10 +48,7 @@ html, body {
   height: 100%;
 }
 
-body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased; /* smoother text on Mac/iOS */
-}
+
 
 /* Make images and media responsive */
 img, picture, video, canvas, svg {
@@ -71,9 +68,14 @@ ul, ol {
 
 
 body {
-    min-width: 343px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background: linear-gradient(90deg, #FFE2D1 0%,#FFF5EF 100%);
+}
+
+main {
+   min-width: 343px;
     padding: 16px;
-    background: linear-gradient(90deg, #FFE2D1 0%,#FFF5EF 100%);
 }
 
 .logo {
@@ -373,7 +375,7 @@ body {
 
 /* Review section */
 .review {
-  margin-top: 64px;
+  margin: 64px 0px;
 }
 
 .review p {
@@ -386,10 +388,72 @@ body {
 }
 
 .review p:last-of-type {
-   font-size: 20px;
+  font-size: 20px;
   line-height: 140%;
   letter-spacing: -0.5px;
   font-family: "Inter";
   font-weight: normal;
   color: #385159;
+}
+
+footer {
+  background-color: #062630;
+ border-radius: 8px;
+ padding: 0px 16px;
+}
+
+.footer h2{
+  font-size: 34px;
+  line-height: 130%;
+  letter-spacing: -2px;
+  font-family: "Martiana Mono";
+  font-weight: 600;
+  color: #ffffff;
+  padding-top: 48px;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+footer .review-opt {
+  color: #ffffff;
+  border:2px solid #ffffff;
+ margin-bottom: 24px;
+}
+
+footer .review-opt p {
+  color: #ffffff;
+}
+
+footer .review-opt img {
+  color: #ffffff;
+}
+
+footer .dev-avatars p {
+  color: #ffffff;
+ 
+}
+
+footer .dev-avatars {
+   margin-bottom: 64px;
+}
+
+.bt-footer {
+  color: #ffffff;
+  text-align: center;
+   font-size: 14px;
+  line-height: 120%;
+  letter-spacing: -1px;
+  font-family: "Martiana Mono";
+  font-weight: normal;
+}
+
+footer .linebreak {
+  background: #385159;
+}
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  padding: 24px;
+  column-gap: 24px;
 }
