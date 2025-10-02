@@ -70,18 +70,34 @@ ul, ol {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background: linear-gradient(90deg, #FFE2D1 0%,#FFF5EF 100%);
+  background: #FFF5EF;
 }
 
 main {
    min-width: 343px;
-    padding: 16px;
+   padding: 16px;
 }
 
+
+@media  (min-width: 768px) {
+  main {
+    max-width: 100%;
+    padding: 32px;
+  }
+  
+}
 .logo {
     width: 193px;
     height: 40px;
     margin-top: 24px;
+    padding-left: 16px;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    padding-left: 32px;
+  }
+  
 }
 /* Inro section */
  .gradient-text {
@@ -96,6 +112,12 @@ main {
    -webkit-text-fill-color: transparent;
 }
 
+@media (min-width: 768px) {
+  .gradient-text {
+    font-size: 62px;
+  }
+  
+}
 .intro-p {
     font-family: "Inter";
     font-weight: normal;
@@ -109,24 +131,37 @@ main {
 .review-opt {
     border: 3px solid #062630;
     display: flex;
-    gap: 16px;
+    column-gap: 16px;
     justify-content: center;
     border-radius: 8px;
     cursor: pointer;
-    padding-top: 21.5px;
-    padding-bottom: 21.5px;
-    padding-left: 23px;
+    padding: 22px;
+    align-items: center;
     margin-top: 32px;
-   
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+  .review-opt {
+    width: fit-content;
+    width: 60%;
+  }
+  
 }
 
 .review-opt p {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 130%;
     letter-spacing: -1px;
     font-family: "Martiana Mono";
     font-weight: 600;
-     color: #062630;
+    color: #062630;
+}
+@media (min-width: 768px) {
+  .review-opt p {
+    font-size: 18px;
+  }
+  
 }
 .dev-avatars {
     display: flex;
@@ -137,6 +172,13 @@ main {
 
 .avatars {
    width: 30%;
+}
+
+@media (min-width: 768px) {
+  .avatars {
+    width: 20%;
+  }
+  
 }
 
 .star-container {
@@ -167,6 +209,7 @@ main {
 .hero-image {
     margin-top: 64px;
     margin-bottom: 80px;
+    border-radius: 8px;
 }
 
 /* read together section */
@@ -247,6 +290,10 @@ main {
   font-weight: bold;
 }
 /* journey section */
+
+.journey {
+  background-image: url("images/pattern-light-bg.svg");
+}
 .journey h2{
   font-size: 34px;
   line-height: 130%;
@@ -353,6 +400,10 @@ main {
   border-radius: 8px;
   margin-bottom: 24px;
 }
+
+.pro {
+  background-image: url("images/pattern-glow.svg");
+}
 .linebreak {
   background: #e6e1df;
   height: 1px;
@@ -397,9 +448,10 @@ main {
 }
 
 footer {
-  background-color: #062630;
+ background-color: #062630;
  border-radius: 8px;
  padding: 0px 16px;
+ background-image: url("images/pattern-dark-bg.svg");
 }
 
 .footer h2{
