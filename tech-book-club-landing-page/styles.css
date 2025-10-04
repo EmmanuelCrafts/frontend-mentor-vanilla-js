@@ -84,18 +84,30 @@ main {
     max-width: 100%;
     padding: 32px;
   }
-  
+
+@media (min-width: 1024px) {
+    main {
+      max-width: 100%;
+      padding: 0px 135px;
+    }
+  }
 }
 .logo {
     width: 193px;
     height: 40px;
     margin-top: 24px;
-    padding-left: 16px;
+    margin-left: 16px;
 }
 
 @media (min-width: 768px) {
   .logo {
-    padding-left: 32px;
+    margin-left: 32px;
+  }
+}
+
+  @media (min-width: 1024px) {
+    .logo {
+      margin-left: 135px;
   }
   
 }
@@ -212,6 +224,28 @@ main {
     border-radius: 8px;
 }
 
+@media (min-width: 1024px) {
+  .hero-image {
+    width: 540px;
+    height: 606px;
+  }
+  
+}
+
+@media (min-width: 1024px) {
+  .intro {
+      display: flex;
+      column-gap: 64px;
+      align-items: center;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .intro-container {
+   width: 50%;
+  }
+}
 /* read together section */
 .read-together {
    margin-top: 144px;
