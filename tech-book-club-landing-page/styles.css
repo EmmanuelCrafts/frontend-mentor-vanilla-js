@@ -56,6 +56,7 @@ img, picture, video, canvas, svg {
   max-width: 100%;
 }
 
+
 /* Remove built-in form styles */
 input, button, textarea, select {
   font: inherit;
@@ -249,7 +250,6 @@ main {
 /* read together section */
 .read-together {
    margin-top: 144px;
- 
 }
 .read-together h2 {
    font-size: 34px;
@@ -260,6 +260,14 @@ main {
    margin-bottom: 24px;
    color: #062630;
 }
+
+@media (min-width: 768px) {
+  .read-together h2 {
+    font-size: 50px;
+    margin-bottom: 34px;
+  }
+  
+}
 .list-benefits {
     display: flex;
     align-items: center;
@@ -268,6 +276,12 @@ main {
     color: #385159;
 }
 
+@media (min-width: 768px) {
+  .list-benefits {
+    margin-bottom: 24px;
+  }
+  
+}
 .list-benefits img {
     height: 24px;
     width: 24px;
@@ -283,6 +297,10 @@ main {
 
 .list-benefits.four {
   margin-bottom: 3rem;
+}
+
+.read-together-image {
+  border-radius: 8px;
 }
 /* community section */
 .community {
