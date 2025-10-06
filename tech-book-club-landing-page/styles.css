@@ -362,6 +362,17 @@ main {
   margin-bottom: 4rem;
 }
 
+@media (min-width: 1024px) {
+  .community {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    width: fit-content;
+    margin: 0px auto;
+    margin-bottom: 120px;
+  }
+  
+}
 .community h2 {
   font-size: 34px;
   line-height: 130%;
@@ -395,7 +406,14 @@ main {
   }
   
 }
-
+@media (min-width: 1024px) {
+  .community .circle {
+    width: 14%;
+    top: 195px;
+    left: 142px;
+  }
+  
+}
 .community p {
   font-size: 20px;
   line-height: 140%;
@@ -423,8 +441,37 @@ main {
   }
   
 }
+
+@media (min-width: 1024px) {
+  .link-ups {
+    bottom: 50px;
+    right: 44%;
+  }
+  
+}
 .community-image {
   border-radius: 8px;
+}
+
+@media (min-width: 1024px) {
+  .community-text {
+    flex-shrink: 0;
+    width: 530px;
+  }
+  
+}
+@media (min-width: 1024px) {
+  .community-image-container {
+    flex-shrink: 0;
+  }
+  
+}
+@media (min-width: 1024px) {
+  .community-image {
+    width: 560px;
+    height: 520px;
+  }
+  
 }
 /* journey section */
 
