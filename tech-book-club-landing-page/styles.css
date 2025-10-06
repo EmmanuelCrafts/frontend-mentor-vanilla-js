@@ -125,12 +125,13 @@ main {
    -webkit-text-fill-color: transparent;
 }
 
+
 @media (min-width: 768px) {
   .gradient-text {
     font-size: 62px;
   }
-  
 }
+
 .intro-p {
     font-family: "Inter";
     font-weight: normal;
@@ -142,7 +143,7 @@ main {
 }
 
 .review-opt {
-    border: 3px solid #062630;
+    border: 2px solid #062630;
     display: flex;
     column-gap: 16px;
     justify-content: center;
@@ -157,9 +158,8 @@ main {
 @media (min-width: 768px) {
   .review-opt {
     width: fit-content;
-    width: 60%;
+    margin-bottom: 20px;
   }
-  
 }
 
 .review-opt p {
@@ -174,14 +174,8 @@ main {
   .review-opt p {
     font-size: 18px;
   }
-  
 }
-.dev-avatars {
-    display: flex;
-    column-gap: 12px;
-    align-items: center;
-    margin-top: 20px;
-}
+
 
 .avatars {
    width: 30%;
@@ -219,6 +213,14 @@ main {
     color: #385159;
 }
 
+@media (min-width: 768px) {
+  .dev-avatars {
+    display: flex;
+    gap: 20px;
+  }
+  
+}
+
 .hero-image {
     margin-top: 64px;
     margin-bottom: 80px;
@@ -229,22 +231,30 @@ main {
   .hero-image {
     width: 540px;
     height: 606px;
-  }
-  
+    margin: 0px;
+  } 
 }
 
+@media (min-width: 1024px) {
+  .hero-image-container {
+    flex-shrink: 0; 
+  } 
+}
 @media (min-width: 1024px) {
   .intro {
       display: flex;
       column-gap: 64px;
       align-items: center;
+      width: fit-content;
+      margin: 80px auto;
   }
 }
 
 
 @media (min-width: 1024px) {
   .intro-container {
-   width: 50%;
+   width: 570px;
+   flex-shrink: 0;
   }
 }
 /* read together section */
@@ -301,6 +311,49 @@ main {
 
 .read-together-image {
   border-radius: 8px;
+}
+
+  .read-together-image {
+    width: 100%;
+  }
+
+@media (min-width: 1024px) {
+  .read-together {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    width: 1170px;
+    gap: 80px;
+    margin:120px auto;
+  }
+
+  @media (min-width: 1024px) {
+    .read-together-image {
+     width: 560px;
+     height: 520px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .read-image-container {
+     flex-shrink: 0;
+    }
+  }
+
+  .list-benefits {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 16px;
+    margin-bottom: 0px;
+  }
+
+  @media (min-width: 1024px) {
+    .list-benefits {
+      flex-direction: row;
+      margin-bottom: 24px;
+    }
+  }
+  
 }
 /* community section */
 .community {
