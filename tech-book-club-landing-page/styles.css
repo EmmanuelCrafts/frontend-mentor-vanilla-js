@@ -753,6 +753,13 @@ main {
   margin: 64px 0px;
 }
 
+@media (min-width: 1024px) {
+  .review {
+    width: 970px;
+    margin: 120px auto;
+  }
+  
+}
 .review p {
   font-size: 24px;
   line-height: 110%;
@@ -762,6 +769,20 @@ main {
   padding-top: 32px;
 }
 
+@media (min-width: 768px) {
+  .review p {
+    font-size: 34px;
+    line-height: 130%;
+  }
+  
+}
+
+@media (min-width: 1024px) {
+  .review p {
+    text-align: center;
+  }
+  
+}
 .review p:last-of-type {
   font-size: 20px;
   line-height: 140%;
@@ -771,6 +792,14 @@ main {
   color: #385159;
 }
 
+@media (min-width: 1024px) {
+  .review .star-reviews {
+    margin: 0px auto;
+    width: fit-content;
+  }
+  
+}
+/* footer section */
 footer {
  background-color: #062630;
  border-radius: 8px;
