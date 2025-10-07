@@ -816,15 +816,29 @@ footer {
   color: #ffffff;
   padding-top: 48px;
   text-align: center;
-  padding-bottom: 40px;
 }
 
+@media (min-width: 768px) {
+  footer h2 {
+    font-size: 50px;
+    width: 685px;
+    margin: 0 auto;
+  }
+  
+}
 footer .review-opt {
   color: #ffffff;
   border:2px solid #ffffff;
- margin-bottom: 24px;
+  margin-bottom: 24px;
+  margin-top: 40px;
 }
 
+@media (min-width: 768px) {
+  footer .review-opt {
+    margin: 40px auto 24px auto;
+  }
+  
+}
 footer .review-opt p {
   color: #ffffff;
 }
@@ -840,7 +854,18 @@ footer .dev-avatars p {
 
 footer .dev-avatars {
    margin-bottom: 64px;
+   display: flex;
+   gap: 12px;
+   justify-content: center;
 }
+
+@media (min-width: 1024px) {
+  .footer-container {
+    width: 753px;
+    margin: 0 auto;
+  }
+
+} 
 
 .bt-footer {
   color: #ffffff;
@@ -852,6 +877,15 @@ footer .dev-avatars {
   font-weight: normal;
 }
 
+@media (min-width: 1024px){
+  .bt-footer {
+    display: flex;
+    align-items: center;
+    padding: 24px 0px;
+    justify-content: space-between;
+  }
+}
+
 footer .linebreak {
   background: #385159;
 }
@@ -861,4 +895,19 @@ footer .linebreak {
   padding-top: 1rem;
   padding: 24px;
   column-gap: 24px;
+}
+@media (min-width: 1024px){
+  .footer-logo,
+  footer .linebreak {
+    padding: 0px;
+    margin: 0px;
+  }
+  }
+
+@media (min-width: 1024px) {
+  .logo-container {
+   width: 1170px;
+   margin: 0px auto;
+  }
+  
 }
