@@ -590,6 +590,14 @@ main {
   margin-top: 64px;
 }
 
+@media (min-width: 1024px) {
+  .membership {
+    margin-left: auto;
+    margin-right: auto;
+    width: 970px;
+  }
+  
+}
 @media (min-width: 768px) {
   .membership-container {
     display: flex;
@@ -617,6 +625,15 @@ main {
 @media (min-width: 768px) {
   .membership h2 {
     font-size: 50px;
+  }
+  
+}
+
+@media (min-width: 1024px) {
+  .membership h2 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
   
 }
@@ -680,6 +697,21 @@ main {
 .pro {
   background-image: url("images/pattern-glow.svg");
 }
+
+@media (min-width: 1024px) {
+  .pro {
+    width: 350px;
+  }
+
+}
+
+@media (min-width: 1024px) {
+  .enterprise,
+  .starter {
+    width: auto;
+  }
+
+}
 .linebreak {
   background: #e6e1df;
   height: 1px;
@@ -704,6 +736,15 @@ main {
   .membership button {
     width: fit-content;
     padding:20px 70px ;
+  }
+  
+}
+
+@media (min-width: 1024px) {
+  .starter button,
+  .enterprise button {
+    padding: 20px 45px;
+    height: auto;
   }
   
 }
