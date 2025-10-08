@@ -98,8 +98,7 @@ main {
 .hero-section {
   border: 1px solid black;
   padding: 0px 16px;
-  background-image: 
-       url("images/pattern-light-bg.svg");
+  background-image: url("images/pattern-light-bg.svg");
   background-repeat: no-repeat;
 }
 
@@ -283,7 +282,8 @@ main {
 }
 /* read together section */
 .read-together {
-   margin-top: 144px;
+   margin-top: 80px;
+   border: 1px solid black;
 }
 .read-together h2 {
    font-size: 34px;
@@ -381,9 +381,9 @@ main {
 }
 /* community section */
 .community {
-  margin-top: 4rem;
   position: relative;
-  margin-bottom: 4rem;
+  border: 1px solid black;
+  margin-top: 64px;
 }
 
 @media (min-width: 1024px) {
@@ -500,8 +500,11 @@ main {
 /* journey section */
 
 .journey {
+  margin-top: 64px;
   padding: 64px 16px;
-  background-image: url("images/pattern-light-bg.svg");
+  border: 1px solid black;
+  background-image: url("images/pattern-light-bg.svg"),
+                    url("images/pattern-glow.svg");
 }
 
 @media (min-width: 768px) {
