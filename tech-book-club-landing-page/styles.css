@@ -96,7 +96,6 @@ main {
 }
 
 .hero-section {
-  border: 1px solid black;
   padding: 0px 16px;
   background-image: url("images/pattern-light-bg.svg");
   background-repeat: no-repeat;
@@ -173,7 +172,8 @@ main {
     width: fit-content;
 }
 
-.review-opt:hover {  
+.review-opt:hover,
+.btn:hover {  
     box-shadow: 0px 0px 0px 3px #ffffff,
                 0px 0px 0px 5px #385159;
     background: linear-gradient(90deg, #ffe2d1 0%, #FFF5EF 100%);
@@ -283,7 +283,6 @@ main {
 /* read together section */
 .read-together {
    margin-top: 80px;
-   border: 1px solid black;
 }
 .read-together h2 {
    font-size: 34px;
@@ -382,7 +381,6 @@ main {
 /* community section */
 .community {
   position: relative;
-  border: 1px solid black;
   margin-top: 64px;
 }
 
@@ -502,7 +500,6 @@ main {
 .journey {
   margin-top: 64px;
   padding: 64px 16px;
-  border: 1px solid black;
   background-image: url("images/pattern-light-bg.svg"),
                     url("images/pattern-glow.svg");
 }
@@ -856,10 +853,15 @@ footer {
 footer .review-opt {
   color: #ffffff;
   border:2px solid #ffffff;
-  margin-bottom: 24px;
-  margin-top: 40px;
+  margin: 40px auto 24px auto;
 }
 
+footer .review-opt:hover {  
+    box-shadow: 0px 0px 0px 3px #062630,
+                0px 0px 0px 5px #e6e1df;
+      background: #385159;
+  
+}
 @media (min-width: 768px) {
   footer .review-opt {
     margin: 40px auto 24px auto;
