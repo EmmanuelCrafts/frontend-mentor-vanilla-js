@@ -759,6 +759,7 @@ main {
 @media (min-width: 1024px) {
   .pro {
     width: 350px;
+    padding-top: 40px;
   }
 
 }
