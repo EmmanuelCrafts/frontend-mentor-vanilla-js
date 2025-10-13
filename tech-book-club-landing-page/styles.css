@@ -71,7 +71,7 @@ ul, ol {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background: #FFF5EF;
+  background: #Faf5f3;
 }
 
 main {
@@ -96,20 +96,33 @@ main {
 }
 
 .hero-section {
-  padding: 0px 16px;
-  background-image: url("images/pattern-light-bg.svg");
-  background-repeat: no-repeat;
+  padding: 16px 16px;
+  background-image: url("images/pattern-light-bg.svg"),
+                    url("images/pattern-glow.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: top, 300px 600px;
+   background-image: url("images/pattern-light-bg.svg"),
+                    url("images/pattern-glow.svg");
+ 
 }
 
 @media (min-width: 768px) {
   .hero-section {
-    background-repeat: repeat;
+    background-repeat: repeat, no-repeat;
+    background-position: top, 0px 800px;
+
   }
 }  
 
+@media (min-width: 1024px) {
+  .hero-section {
+    background-size: cover, 50% 100%;
+    background-position: top, 1100px 300px;
+  }
+}
 @media (min-width: 768px) {
   .hero-section {
-    padding: 0px 32px;
+    padding: 32px 32px;
   }
 }
 .logo {
@@ -502,8 +515,15 @@ main {
   padding: 64px 16px;
   background-image: url("images/pattern-light-bg.svg"),
                     url("images/pattern-glow.svg");
+  background-repeat: repeat, no-repeat;
+  background-position: top, 50px 100px;
 }
 
+@media (min-width: 1024px) {
+  .journey {
+    background-position: top, 600px 0px;
+  }
+}
 @media (min-width: 768px) {
   .journey {
     padding: 80px 32px;
@@ -515,6 +535,7 @@ main {
   .journey {
     width: 1170px;
     margin: 0px auto;
+    height: 453px;
   }
   
 }
@@ -626,7 +647,7 @@ main {
   .membership-container {
     display: flex;
     flex-wrap: wrap;
-   column-gap: 24px;
+    gap: 24px;
   }
   
 }
@@ -718,8 +739,19 @@ main {
   margin-bottom: 24px;
 }
 
+@media (min-width: 768px) {
+  .starter,
+  .pro,
+  .enterprise {
+    margin-bottom: 0px;
+  }
+  
+}
 .pro {
   background-image: url("images/pattern-glow.svg");
+  background-color: #FFF5EF;
+  background-repeat: no-repeat;
+  background-position: -200px 0px;
 }
 
 @media (min-width: 1024px) {
@@ -733,6 +765,8 @@ main {
   .enterprise,
   .starter {
     width: auto;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 
 }
