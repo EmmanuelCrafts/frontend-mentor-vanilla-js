@@ -3,76 +3,76 @@
      NEUTRALS
   ========================== */
 
-  --white: #FFFFFF;
+  --white: #ffffff;
   --black: #000000;
 
   /* ==========================
      PURPLE
   ========================== */
 
-  --purple-950: #17062A;
-  --purple-900: #1E0936;
-  --purple-850: #331C4D;
-  --purple-800: #56077C;
-  --purple-700: #6C34AC;
-  --purple-650: #8631AF;
+  --purple-950: #17062a;
+  --purple-900: #1e0936;
+  --purple-850: #331c4d;
+  --purple-800: #56077c;
+  --purple-700: #6c34ac;
+  --purple-650: #8631af;
 
   /* ==========================
      NAVY
   ========================== */
 
-  --navy-950: #181F33;
-  --navy-900: #242D44;
-  --navy-850: #3A4663;
-  --navy-750: #434A59;
+  --navy-950: #181f33;
+  --navy-900: #242d44;
+  --navy-850: #3a4663;
+  --navy-750: #434a59;
   --navy-700: #647198;
-  --navy-400: #A2B2E1;
+  --navy-400: #a2b2e1;
 
   /* ==========================
      GRAYS
   ========================== */
 
-  --gray-900: #36362C;
-  --gray-300: #D2CDCD;
-  --gray-200: #E6E6E6;
-  --gray-100: #EEEEEE;
+  --gray-900: #36362c;
+  --gray-300: #d2cdcd;
+  --gray-200: #e6e6e6;
+  --gray-100: #eeeeee;
 
   /* ==========================
      BLUE
   ========================== */
 
-  --blue-950: #1A2327;
+  --blue-950: #1a2327;
   --blue-500: #378187;
-  --blue-400: #62B5BC;
+  --blue-400: #62b5bc;
 
   /* ==========================
      RED
   ========================== */
 
-  --red-800: #D03F2F;
-  --red-400: #F96B5B;
+  --red-600: #d03f2f;
+  --red-400: #f96b5b;
 
   /* ==========================
      ORANGE
   ========================== */
 
-  --orange-700: #CB5402;
-  --orange-400: #FF8A38;
+  --orange-700: #cb5402;
+  --orange-400: #ff8a38;
 
   /* ==========================
      CYAN
   ========================== */
 
-  --cyan-500: #00DED0;
-  --cyan-200: #93FFFB;
+  --cyan-500: #00ded0;
+  --cyan-200: #93fffb;
 
-   /* ==========================
+  /* ==========================
      YELLOW
   ========================== */
 
-  --yellow-300: #FFE53D;
+  --yellow-300: #ffe53d;
 
-   /* ==========================
+  /* ==========================
      SPACING
   ========================== */
   --spacing-0: 0px;
@@ -81,3 +81,257 @@
   --spacing-3: 24px;
   --spacing-4: 32px;
 }
+
+/* ==========================
+   CSS RESET
+========================== */
+
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-height: 100vh;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+    }
+
+
+
+    button,
+    input,
+    textarea,
+    select {
+        font: inherit;
+    }
+
+    button {
+        cursor: pointer;
+        border: none;
+        background: none;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    ul,
+    ol {
+        list-style: none;
+    }
+
+
+
+body {
+  background-color: var(--navy-850);
+  color: var(--gray-900);
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin: var(--spacing-4) var(--spacing-3);
+}
+
+.theme-toggle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  color: var(--white);
+  font-weight: bold;
+  font-size: 32px;
+  letter-spacing: -0.5px;
+}
+
+.theme-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.theme-container p {
+   font-size: 12px;
+   font-weight: bold;
+   letter-spacing: 1px;
+   color: var(--white);
+   margin-top: var(--spacing-2);
+}
+
+.toggle-container {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.toggle-circle-container {
+    height: 26px;
+    width: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    background-color: var(--navy-900);
+}
+
+.toggle-circle {
+    width: 16px;
+    height: 16px;
+    background-color: var(--red-600);
+    border-radius: 50%;
+    margin-left: var(--spacing-1);
+}
+
+.number-toggles {
+    color: var(--white);
+    display: flex;
+    gap: 6px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing-1);
+}
+
+.number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: var(--spacing-1);
+  font-size: 0.8rem;
+}
+
+.number span {
+  margin-bottom: var(--spacing-1);
+}
+
+.toggle-numbers p {
+  margin-right: var(--spacing-1);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.display {
+  width: 100%;
+  height: 128px;
+  margin: var(--spacing-3) 0;
+}
+
+.display-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--spacing-4);
+  background-color: var(--navy-950);
+  padding: var(--spacing-2);
+  border-radius: var(--spacing-1);
+  text-align: center;
+}
+
+.display p {
+  font-weight: bold;
+  margin-left: auto;
+  width: fit-content;
+  color: var(--white);
+  font-size: 56px;
+  letter-spacing: -1px;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  background-color: var(--navy-900);
+}
+
+.btn-inputs {
+  display: grid;
+  column-gap: var(--spacing-2);
+  row-gap: var(--spacing-2);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  padding: var(--spacing-2);
+
+}
+.button {
+  width: 60px;
+  height: 64px;
+  background-color: var(--gray-200);
+  border: none;
+  box-shadow: inset 0px -4px #B3A497;
+  padding: var(--spacing-2);
+  border-radius: var(--spacing-1);
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--navy-750);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+}
+
+.btn-DEL {
+  color: var(--white);
+  background-color: var(--navy-700);
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  box-shadow: inset 0px -4px #414e73;
+
+}
+
+.button-row {
+  display: grid;
+  padding: 0 var(--spacing-2);
+  padding-bottom: var(--spacing-2);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-2);
+}
+
+.btn {
+  height: 64px;
+  width: 136px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-reset {
+  color: var(--white);
+  background-color: var(--navy-700);
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  box-shadow: inset 0px -4px #414e73;
+}
+
+.btn-evaluate {
+  color: var(--white);
+  background-color: var(--red-600);
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  box-shadow: inset 0px -4px #93261A;
+}
+
+.button:hover {
+  background-color: var(--gray-100);
+}
+
+
