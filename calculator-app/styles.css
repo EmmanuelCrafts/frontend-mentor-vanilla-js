@@ -140,6 +140,13 @@ body {
 
 main {
   margin: var(--spacing-4) var(--spacing-3);
+  max-width: 540px;
+}
+
+@media (min-width: 768px) {
+  main {
+    margin: 48px auto 0 auto;
+  }
 }
 
 .theme-toggle {
@@ -225,7 +232,6 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
 }
 
 .display {
@@ -256,11 +262,20 @@ main {
   letter-spacing: -1px;
 }
 
+@media (min-width: 768px) {
+  .display p {
+    padding-right: var(--spacing-4);
+  }
+}
+
+
 .buttons {
   display: flex;
   width: 100%;
+  border-radius: var(--spacing-1);
   flex-direction: column;
   background-color: var(--navy-900);
+  padding: 0 var(--spacing-2);
 }
 
 .btn-inputs {
@@ -269,9 +284,27 @@ main {
   row-gap: var(--spacing-2);
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  padding: var(--spacing-2);
-
+  place-items: center;
+  padding: var(--spacing-2) 0;
 }
+
+@media (min-width: 768px) {
+  .btn-inputs,
+  .button-row {
+    max-width: 476px;
+    margin: 0 auto;
+  }
+}
+
+.button,
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.5px;
+  border-radius: var(--spacing-1);
+}
+
 .button {
   width: 60px;
   height: 64px;
@@ -279,15 +312,17 @@ main {
   border: none;
   box-shadow: inset 0px -4px #B3A497;
   padding: var(--spacing-2);
-  border-radius: var(--spacing-1);
   font-size: 32px;
   font-weight: bold;
   color: var(--navy-750);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: -0.5px;
   cursor: pointer;
+
+}
+
+@media (min-width: 768px) {
+  .button {
+    width: 101px;
+  }
 }
 
 .btn-DEL {
@@ -301,7 +336,7 @@ main {
 
 .button-row {
   display: grid;
-  padding: 0 var(--spacing-2);
+  place-items: center;
   padding-bottom: var(--spacing-2);
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-2);
@@ -309,10 +344,13 @@ main {
 
 .btn {
   height: 64px;
-  width: 136px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .btn {
+    width: 218px;
+  }
 }
 .btn-reset {
   color: var(--white);
