@@ -325,7 +325,7 @@ main {
   }
 }
 
-.btn-DEL {
+.DEL {
   color: var(--white);
   background-color: var(--navy-700);
   font-size: 20px;
@@ -352,7 +352,8 @@ main {
     width: 218px;
   }
 }
-.btn-reset {
+
+.reset {
   color: var(--white);
   background-color: var(--navy-700);
   font-size: 20px;
@@ -360,7 +361,7 @@ main {
   box-shadow: inset 0px -4px #414e73;
 }
 
-.btn-evaluate {
+.equal {
   color: var(--white);
   background-color: var(--red-600);
   font-size: 20px;
