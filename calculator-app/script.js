@@ -19,35 +19,43 @@ const del = document.querySelector('.DEL');
 const display = document.querySelector('.display-value');
 
 // number buttons
-one.addEventListener('click', () => display.textContent += "1");
-two.addEventListener('click', () => display.textContent += "2");
-three.addEventListener('click', () => display.textContent += "3");
-four.addEventListener('click', () => display.textContent += "4");
-five.addEventListener('click', () => display.textContent += "5");
-six.addEventListener('click', () => display.textContent += "6");
-seven.addEventListener('click', () => display.textContent += "7");
-eight.addEventListener('click', () => display.textContent += "8");
-nine.addEventListener('click', () => display.textContent += "9");
-zero.addEventListener('click', () => display.textContent += "0");
-dot.addEventListener('click', () => display.textContent += ".");
-multiply.addEventListener('click', () => display.textContent += "*");
-divide.addEventListener('click', () => display.textContent += "/");
-plus.addEventListener('click', () => display.textContent += "+");
-minus.addEventListener('click', () => display.textContent += "-");
-// check
-equal.addEventListener('click', calculate);
-// chek
+one.addEventListener('click', () => appendToDisplay("1"));
+two.addEventListener('click', () => appendToDisplay("2"));
+three.addEventListener('click', () => appendToDisplay("3"));
+four.addEventListener('click', () => appendToDisplay("4"));
+five.addEventListener('click', () => appendToDisplay("5"));
+six.addEventListener('click', () => appendToDisplay ("6"));
+seven.addEventListener('click', () => appendToDisplay ("7"));
+eight.addEventListener('click', () => appendToDisplay ("8"));
+nine.addEventListener('click', () => appendToDisplay ("9"));
+zero.addEventListener('click', () => appendToDisplay ("0"));
+dot.addEventListener('click', () => appendToDisplay ("."));
+// operator buttons
+plus.addEventListener('click', () => appendToDisplay ("+"));
+minus.addEventListener('click', () => appendToDisplay ("-"));
+multiply.addEventListener('click', () => appendToDisplay ("*"));
+divide.addEventListener('click', () => appendToDisplay ("/"));
+
+equal.addEventListener('click', () => {
+    const result = calculate();
+    display.textContent = result.toFixed(2);
+});
 reset.addEventListener('click', () => display.textContent = "");
 // check
 del.addEventListener('click', () => display.textContent = display.textContent.slice(0, -1));
 
 
+function appendToDisplay(value) {
+    if(display.textContent.length < 10) {
+         display.textContent += value;
+    }
+}
 
 function calculate() {
     const input = display.textContent;
     if(input.includes("+")) {
         const values = input.split("+");
-        return Number(values[0]) + Number(values[1]);
+        return  Number(values[0]) + Number(values[1]);
     }
 
     if(input.includes("-")) {
@@ -65,3 +73,4 @@ function calculate() {
         return Number(values[0]) / Number(values[1]);
     }
 }
+
