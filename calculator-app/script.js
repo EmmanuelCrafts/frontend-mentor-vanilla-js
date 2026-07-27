@@ -47,6 +47,12 @@ del.addEventListener('click', () => display.textContent = display.textContent.sl
 
 function appendToDisplay(value) {
     if(display.textContent.length < 10) {
+        const operators = "+-*/";
+        const lastchar = display.textContent[display.textContent.length - 1]
+
+         if(operators.includes(lastchar) && operators.includes(value)) {
+            return;
+         }
          display.textContent += value;
     }
 }
@@ -73,4 +79,7 @@ function calculate() {
         return Number(values[0]) / Number(values[1]);
     }
 }
+
+// calculation validity
+
 
