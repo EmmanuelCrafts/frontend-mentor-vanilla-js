@@ -50,9 +50,17 @@ function appendToDisplay(value) {
         const operators = "+-*/";
         const lastchar = display.textContent[display.textContent.length - 1]
 
-         if(operators.includes(lastchar) && operators.includes(value)) {
+        // check for multiple operators
+        if(operators.includes(lastchar) && operators.includes(value)) {
             return;
          }
+
+        //  check for operator at the start
+        if(lastchar === undefined && operators.includes(value)) {
+            return;
+         }
+
+
          display.textContent += value;
     }
 }
