@@ -35,21 +35,27 @@ plus.addEventListener('click', () => appendToDisplay ("+"));
 minus.addEventListener('click', () => appendToDisplay ("-"));
 multiply.addEventListener('click', () => appendToDisplay ("*"));
 divide.addEventListener('click', () => appendToDisplay ("/"));
-
-equal.addEventListener('click', () => {
-    const result = calculate();
-    display.textContent = result.toFixed(2);
-});
 reset.addEventListener('click', () => display.textContent = "");
-// check
 del.addEventListener('click', () => display.textContent = display.textContent.slice(0, -1));
-
+equal.addEventListener('click', () => {
+    const operators = "+-*/";
+    const hasOperators = /[+\-*/]/.test(display.textContent);
+    const lastchar = display.textContent[display.textContent.length - 1]
+    
+    if (display.textContent === "" || operators.includes(lastchar) ||
+         !hasOperators) {
+        return
+    }
+    const result = calculate();
+    display.textContent = result;
+});
 
 function appendToDisplay(value) {
     if(display.textContent.length < 10) {
         const operators = "+-*/";
         const lastchar = display.textContent[display.textContent.length - 1]
-
+        const numbers = display.textContent.split(/[+\-*/]/)
+        const CurrentNumber = numbers[numbers.length -1]
         // check for multiple operators
         if(operators.includes(lastchar) && operators.includes(value)) {
             return;
@@ -60,7 +66,22 @@ function appendToDisplay(value) {
             return;
          }
 
+        // check for decimal at the start
+        if(display.textContent === '' && value === ".") {
+            display.textContent ='0.'
+            return;
+        }
 
+        // check for multiple decimals
+        if (CurrentNumber.includes('.') && value === '.' ){
+            return
+        }
+
+        // check for 0 at the start
+        if (display.textContent === '0' && value !== '.') {
+            display.textContent = value;
+            return;
+        }
          display.textContent += value;
     }
 }
@@ -86,8 +107,9 @@ function calculate() {
         const values = input.split("/");
         return Number(values[0]) / Number(values[1]);
     }
+
 }
 
-// calculation validity
+
 
 
