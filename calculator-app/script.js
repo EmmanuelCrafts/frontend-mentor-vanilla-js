@@ -30,6 +30,8 @@ eight.addEventListener('click', () => appendToDisplay ("8"));
 nine.addEventListener('click', () => appendToDisplay ("9"));
 zero.addEventListener('click', () => appendToDisplay ("0"));
 dot.addEventListener('click', () => appendToDisplay ("."));
+
+
 // operator buttons
 plus.addEventListener('click', () => appendToDisplay ("+"));
 minus.addEventListener('click', () => appendToDisplay ("-"));
@@ -37,6 +39,8 @@ multiply.addEventListener('click', () => appendToDisplay ("*"));
 divide.addEventListener('click', () => appendToDisplay ("/"));
 reset.addEventListener('click', () => display.textContent = "");
 del.addEventListener('click', () => display.textContent = display.textContent.slice(0, -1));
+
+
 equal.addEventListener('click', () => {
     const operators = "+-*/";
     const hasOperators = /[+\-*/]/.test(display.textContent);
@@ -44,18 +48,33 @@ equal.addEventListener('click', () => {
     
     if (display.textContent === "" || operators.includes(lastchar) ||
          !hasOperators) {
-        return
+        return;
     }
     const result = calculate();
-    display.textContent = result;
+
+    if (result === "Error") {
+        display.textContent = result;
+        return;
+    }
+
+    const formattedResult = Number(result.toFixed(10));
+
+    if (String(formattedResult).length > 15) {
+        display.textContent = formattedResult.toExponential(4);
+        return;
+    }
+
+    display.textContent = formattedResult;
 });
 
+
 function appendToDisplay(value) {
-    if(display.textContent.length < 10) {
+    if(display.textContent.length < 15) {
         const operators = "+-*/";
         const lastchar = display.textContent[display.textContent.length - 1]
         const numbers = display.textContent.split(/[+\-*/]/)
         const CurrentNumber = numbers[numbers.length -1]
+
         // check for multiple operators
         if(operators.includes(lastchar) && operators.includes(value)) {
             return;
@@ -105,6 +124,9 @@ function calculate() {
 
     if(input.includes("/")) {
         const values = input.split("/");
+        if (Number(values[1]) === 0) {
+            return "Error";
+        }
         return Number(values[0]) / Number(values[1]);
     }
 
