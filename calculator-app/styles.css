@@ -116,7 +116,6 @@
     button {
         cursor: pointer;
         border: none;
-        background: none;
     }
 
     a {
@@ -353,12 +352,19 @@ main {
   }
 }
 
-.reset {
+.reset{
   color: var(--white);
   background-color: var(--navy-700);
   font-size: 20px;
   letter-spacing: -0.3px;
   box-shadow: inset 0px -4px #414e73;
+}
+
+.reset:active,
+.DEL:active {
+  transform: translateY(2px);
+   box-shadow: inset 0px -2px #414e73; 
+   opacity: 0.8;
 }
 
 .equal {
@@ -369,8 +375,21 @@ main {
   box-shadow: inset 0px -4px #93261A;
 }
 
-.button:hover {
-  background-color: var(--gray-100);
+.equal:active {
+  transform: translateY(2px);
+   box-shadow: inset 0px -2px #93261A; 
+   opacity: 0.8;
 }
+
+button {
+    transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+
+button:active {
+  transform: translateY(2px);
+   box-shadow: inset 0px -2px #B3A497; 
+   opacity: 0.8;
+}
+
 
 

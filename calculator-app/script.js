@@ -59,7 +59,7 @@ equal.addEventListener('click', () => {
 
     const formattedResult = Number(result.toFixed(10));
 
-    if (String(formattedResult).length > 15) {
+    if (String(formattedResult).length > 10) {
         display.textContent = formattedResult.toExponential(4);
         return;
     }
