@@ -26,15 +26,15 @@ Users should be able to:
 - Adjust the color theme based on their preference
 
 ### Screenshot
+<img width="661" height="772" alt="image" src="https://github.com/user-attachments/assets/a6045c31-3a9f-45bf-8b48-0abb460a5fc4" />
+<img width="661" height="772" alt="image" src="https://github.com/user-attachments/assets/a65fadec-06c7-485e-b6f7-4688111d0a6c" />
+<img width="661" height="772" alt="image" src="https://github.com/user-attachments/assets/8be736d4-fc42-489b-b1f8-3a3bcfb574b2" />
 
-![](./screenshot.jpg)
-
-<!-- Add a screenshot of the finished app here. -->
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Add live site URL here](https://c-a-l-c-app.netlify.app/)
+  
 
 ## My process
 
