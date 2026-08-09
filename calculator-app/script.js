@@ -18,6 +18,8 @@ const reset = document.querySelector('.reset');
 const del = document.querySelector('.DEL');
 const display = document.querySelector('.display-value');
 
+const themeSpans = document.querySelectorAll('.number-toggles span');
+const toggleCircle = document.querySelector('.toggle-circle');
 // number buttons
 one.addEventListener('click', () => appendToDisplay("1"));
 two.addEventListener('click', () => appendToDisplay("2"));
@@ -67,6 +69,18 @@ equal.addEventListener('click', () => {
     display.textContent = formattedResult;
 });
 
+// theme logic toggle between themes
+themeSpans.forEach(span => {
+    span.addEventListener('click', () => {
+        const theme = span.dataset.theme;
+
+        document.body.setAttribute('data-theme', theme);
+        toggleCircle.className = `toggle-circle pos-${theme}`;
+
+        themeSpans.forEach(s => s.classList.remove('active'));
+        span.classList.add('active');
+    });
+});
 
 function appendToDisplay(value) {
     if(display.textContent.length < 15) {

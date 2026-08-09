@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles.css">
     <title>Calculator App</title>
 </head>
-<body>
+<body data-theme="1">
     <main>
         <div class="theme-toggle">
             <div class="title">
@@ -19,12 +19,13 @@
                 <p>THEME</p>
                 <div class="toggle-container">
                    <div class="toggle-circle-container">
-                       <div class="toggle-circle"></div>
+                       <div class="toggle-circle pos-1"></div>
                    </div>
+                   <!-- data attributes -->
                    <div class="number-toggles">
-                       <span>1</span>
-                       <span>2</span>
-                       <span>3</span>
+                       <span data-theme="1" class="active">1</span>
+                       <span data-theme="2">2</span>
+                       <span data-theme="3">3</span>
                    </div>
                    </div>
                 </div>

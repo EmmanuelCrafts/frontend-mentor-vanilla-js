@@ -82,6 +82,61 @@
   --spacing-4: 32px;
 }
 
+/* theme */
+body[data-theme="1"] {
+  --bg-color: var(--navy-850);
+  --keypad-bg: var(--navy-900);
+  --screen-bg: var(--navy-950);
+  --key-bg: var(--gray-200);
+  --key-text: var(--navy-750);
+  --key-shadow: #B3A497;        
+  --key-secondary-bg: var(--navy-700);
+  --key-secondary-shadow: #414e73;
+  --key-secondary-text: var(--white);
+  --key-equals-bg: var(--red-600);
+  --key-equals-shadow: #93261A;
+  --key-equals-text: var(--white);
+  --toggle-circle-bg: var(--red-600);
+  --heading-text: var(--white);
+  --toggle-track-bg: var(--navy-900);
+}
+
+body[data-theme="2"] {
+  --bg-color: var(--white);
+  --keypad-bg: var(--gray-300);
+  --screen-bg: var(--gray-100);
+  --key-bg: var(--gray-200);
+  --key-text: var(--gray-900);
+  --key-shadow: #A79E91;
+  --key-secondary-bg: var(--blue-500);
+  --key-secondary-shadow: #1B6066;
+  --key-equals-bg: var(--orange-700);
+  --key-equals-shadow: #873901;
+  --key-equals-text: var(--white);
+  --key-secondary-text: var(--white);
+  --toggle-circle-bg: var(--orange-700);
+  --heading-text: var(--gray-900);
+  --toggle-track-bg: var(--gray-300);
+}
+
+body[data-theme="3"] {
+  --bg-color: var(--purple-950);
+  --keypad-bg: var(--purple-900);
+  --screen-bg: var(--purple-900);
+  --key-bg: var(--purple-850);
+  --key-text: var(--yellow-300);
+  --key-shadow: #881C9E;
+  --key-secondary-bg: var(--purple-800);
+  --key-secondary-shadow: #881C9E;
+  --key-equals-bg: var(--cyan-500);
+  --key-secondary-text: var(--white);
+  --key-equals-text: var(--black);
+  --key-equals-shadow: #6CF9F1;
+  --toggle-circle-bg: var(--cyan-500);
+  --heading-text: var(--yellow-300);
+  --toggle-track-bg: var(--purple-900);
+}
+
 /* ==========================
    CSS RESET
 ========================== */
@@ -131,8 +186,8 @@
 
 
 body {
-  background-color: var(--navy-850);
-  color: var(--gray-900);
+  background-color: var(--bg-color);
+  color: var(--heading-text);
   margin: 0;
   padding: 0;
 }
@@ -154,7 +209,7 @@ main {
 }
 
 .title {
-  color: var(--white);
+  color: var(--heading-text);
   font-weight: bold;
   font-size: 32px;
   letter-spacing: -0.5px;
@@ -170,61 +225,58 @@ main {
    font-size: 12px;
    font-weight: bold;
    letter-spacing: 1px;
-   color: var(--white);
+   color: var(--heading-text);
    margin-top: var(--spacing-2);
 }
 
 .toggle-container {
-    display: flex;
-    flex-direction: column-reverse;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  margin-left: var(--spacing-1);
 }
 
 .toggle-circle-container {
+    position: relative;
     height: 26px;
-    width: 50px;
+    width: 56px;
     border-radius: 12px;
     display: flex;
     align-items: center;
-    background-color: var(--navy-900);
+    background-color: var(--toggle-track-bg);
 }
 
 .toggle-circle {
+    position: absolute;
     width: 16px;
     height: 16px;
-    background-color: var(--red-600);
+    background-color: var(--toggle-circle-bg);
     border-radius: 50%;
-    margin-left: var(--spacing-1);
+    margin-left: 4px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+
 }
+.toggle-circle.pos-1 { transform: translateX(0px); }
+.toggle-circle.pos-2 { transform: translateX(15px); }
+.toggle-circle.pos-3 { transform: translateX(30px); }
+
 
 .number-toggles {
-    color: var(--white);
+    color: var(--heading-text);
     display: flex;
     gap: 6px;
     font-weight: bold;
     font-size: 12px;
 }
 
-
-.toggle-container {
-  display: flex;
-  align-items: center;
-  margin-left: var(--spacing-1);
+.number-toggles span {
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
 }
 
-.number {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: var(--spacing-1);
-  font-size: 0.8rem;
-}
-
-.number span {
-  margin-bottom: var(--spacing-1);
-}
-
-.toggle-numbers p {
-  margin-right: var(--spacing-1);
+.number-toggles span.active {
+  opacity: 1;
 }
 
 .container {
@@ -246,7 +298,7 @@ main {
   width: 100%;
   height: 100%;
   padding: var(--spacing-4);
-  background-color: var(--navy-950);
+  background-color: var(--screen-bg);
   padding: var(--spacing-2);
   border-radius: var(--spacing-1);
   text-align: center;
@@ -256,7 +308,7 @@ main {
   font-weight: bold;
   margin-left: auto;
   width: fit-content;
-  color: var(--white);
+  color: var(--heading-text);
   font-size: 56px;
   letter-spacing: -1px;
 }
@@ -273,7 +325,7 @@ main {
   width: 100%;
   border-radius: var(--spacing-1);
   flex-direction: column;
-  background-color: var(--navy-900);
+  background-color: var(--keypad-bg);
   padding: 0 var(--spacing-2);
 }
 
@@ -307,13 +359,13 @@ main {
 .button {
   width: 60px;
   height: 64px;
-  background-color: var(--gray-200);
+  background-color: var(--key-bg);
   border: none;
-  box-shadow: inset 0px -4px #B3A497;
+  box-shadow: inset 0px -4px var(--key-shadow);
   padding: var(--spacing-2);
   font-size: 32px;
   font-weight: bold;
-  color: var(--navy-750);
+  color: var(--key-text);
   cursor: pointer;
 
 }
@@ -325,12 +377,11 @@ main {
 }
 
 .DEL {
-  color: var(--white);
-  background-color: var(--navy-700);
+  background-color: var(--key-secondary-bg);
   font-size: 20px;
   letter-spacing: -0.3px;
-  box-shadow: inset 0px -4px #414e73;
-
+  box-shadow: inset 0px -4px var(--key-secondary-shadow);
+  color: var(--key-secondary-text);
 }
 
 .button-row {
@@ -344,6 +395,10 @@ main {
 .btn {
   height: 64px;
   width: 100%;
+  color: var(--key-secondary-text);
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: -0.3px;
 }
 
 @media (min-width: 768px) {
@@ -353,31 +408,26 @@ main {
 }
 
 .reset{
-  color: var(--white);
-  background-color: var(--navy-700);
-  font-size: 20px;
-  letter-spacing: -0.3px;
-  box-shadow: inset 0px -4px #414e73;
+  background-color: var(--key-secondary-bg);
+  box-shadow: inset 0px -4px var(--key-secondary-shadow);
 }
 
 .reset:active,
 .DEL:active {
   transform: translateY(2px);
-   box-shadow: inset 0px -2px #414e73; 
+   box-shadow: inset 0px -2px var(--key-secondary-shadow); 
    opacity: 0.8;
 }
 
 .equal {
-  color: var(--white);
-  background-color: var(--red-600);
-  font-size: 20px;
-  letter-spacing: -0.3px;
-  box-shadow: inset 0px -4px #93261A;
+  color: var(--key-equals-text);
+  background-color: var(--key-equals-bg);
+  box-shadow: inset 0px -4px var(--key-equals-shadow);
 }
 
 .equal:active {
   transform: translateY(2px);
-   box-shadow: inset 0px -2px #93261A; 
+   box-shadow: inset 0px -2px var(--key-equals-shadow); 
    opacity: 0.8;
 }
 
@@ -387,7 +437,7 @@ button {
 
 button:active {
   transform: translateY(2px);
-   box-shadow: inset 0px -2px #B3A497; 
+   box-shadow: inset 0px -2px var(--key-shadow); 
    opacity: 0.8;
 }
 
