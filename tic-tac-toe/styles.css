@@ -91,7 +91,10 @@ main {
 }
 
 .logo {
+    width: fit-content;
+    margin: 0 auto;
     margin-bottom: var(--spacing-7);
+
 }
 
 .pick-player {
