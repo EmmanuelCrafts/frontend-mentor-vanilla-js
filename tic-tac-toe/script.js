@@ -41,3 +41,30 @@ function changePlayerTitles() {
   player2.textContent = 'O (P1)';
 }
 
+// game logic
+let currentPlayer = 'X';
+let board = ['','','','','','','','',''];
+
+const cells = document.querySelectorAll('.cell');
+
+cells.forEach(cell => {
+    cell.addEventListener('click', () => {
+        let index = Number(cell.dataset.cell);
+        if (board[index] !== '') return;
+
+        board[index] = currentPlayer;
+
+         const img = cell.querySelector('img');
+         if (currentPlayer === "X") {
+              img.src = "assets/icon-x.svg";    
+              img.alt = "X";
+         } else {
+             img.src = "assets/icon-o.svg";
+             img.alt = "O";
+         }
+           img.classList.add('show');
+      // switch player
+       currentPlayer = currentPlayer === "X" ? "O" : "X";
+    });
+});
+

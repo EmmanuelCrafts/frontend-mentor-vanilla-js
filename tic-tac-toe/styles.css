@@ -130,6 +130,7 @@ main {
     background-color: var(--slate-900);
     border-radius: var(--radius-10);
     width: 90%;
+    padding: var(--spacing-2);
     margin-bottom: var(--spacing-3);
 }
 
@@ -171,8 +172,6 @@ main {
     background-color: var(--slate-300);
     color: var(--slate-900);
 }
-
-
 
 .buttons {
     display: flex;
@@ -277,6 +276,20 @@ main {
     background-color: var(--slate-800);
     box-shadow: 0 8px 0 0 #10212A;
     border-radius: var(--spacing-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.player-mark {
+    width: 40px;
+    height: 40px;
+    display: none;
+}
+
+.show {
+    display: block;
 }
 
 .scores-container {
@@ -285,6 +298,7 @@ main {
     width: 100%;
     gap: var(--spacing-4);
 }
+
 
 .scores {
     display: flex;
