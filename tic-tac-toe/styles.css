@@ -336,6 +336,13 @@ main {
     letter-spacing: 1.25px;
 }
 
+.X-wins,
+.O-wins,
+.draws {
+    font-size: 20px;
+    letter-spacing: 1.25px;
+}
+
 /* win message */
 .win-container {
     display: flex;
@@ -398,10 +405,6 @@ main {
 .round-text.draws {
     color: var(--slate-300);
 }
-
-/* .hide {
-    display: none;
-} */
 
 .win-buttons {
     margin-top: var(--spacing-5);

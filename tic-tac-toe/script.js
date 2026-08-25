@@ -44,14 +44,21 @@ function changePlayerTitles() {
 // game logic
 let currentPlayer = 'X';
 let board = ['','','','','','','','',''];
+
 const cells = document.querySelectorAll('.cell');
-    let winCard = document.querySelector('.win-container');
-    let xWins = document.querySelector('.X-wins');
-    let oWins = document.querySelector('.O-wins');
-    let draws = document.querySelector('.draws');
-    let title = document.querySelector('.win-title');
-    let roundText = document.querySelector('.round-text');
-    let winIcon = document.querySelector('.win-icon');
+
+let winCard = document.querySelector('.win-container');
+let xWins = document.querySelector('.X-wins');
+let oWins = document.querySelector('.O-wins');
+let draws = document.querySelector('.draws');
+let title = document.querySelector('.win-title');
+let roundText = document.querySelector('.round-text');
+let winIcon = document.querySelector('.win-icon');
+
+// scores count
+let xWinCount = 0;
+let oWinCount = 0;
+let drawCount = 0;
 
 cells.forEach(cell => {
     cell.addEventListener('click', () => {
@@ -72,8 +79,9 @@ cells.forEach(cell => {
 
       checkWinner();
       if(checkDraw()) {
+        drawCount += 1;
         winCard.classList.remove('hidden');
-        draws.textContent = Number(draws.textContent) + 1;
+        draws.textContent = drawCount;
         roundText.textContent = `ROUND TIED`;
         roundText.classList.add('draws');
         title.classList.add('hidden');
@@ -102,13 +110,16 @@ function checkWinner () {
         winCard.classList.remove('hidden');
         
         if (board[a] === "X") {
+            title.textContent = "YOU WON!";
             winIcon.src = "assets/icon-x.svg"
-            xWins.textContent = Number(xWins.textContent) + 1;
+            xWinCount += 1;
+            xWins.textContent = xWinCount;
         } else {
             winIcon.src =  "assets/icon-o.svg"
             title.textContent = "OH NO, YOU LOST...";
             roundText.classList.add('o-wins');
-            oWins.textContent = Number(oWins.textContent) + 1;
+            oWinCount += 1;
+            oWins.textContent = oWinCount;
         }
      }
    })
@@ -117,3 +128,30 @@ function checkWinner () {
 function checkDraw() {
   return board.every(cell => cell !== '');
 }
+
+// quit game logic
+const quit = document.querySelector('.quit');
+quit.addEventListener('click', () => {
+    winCard.classList.add('hidden');
+    menuScreen.classList.remove('screen-hidden');
+    gameScreen.classList.add('screen-hidden');
+})
+
+// next-round logic
+const nextRound = document.querySelector('.next-round');
+nextRound.addEventListener('click', () => {
+    winCard.classList.add('hidden');
+    // reset board
+    board = ['','','','','','','','',''];
+    // reset current player
+    currentPlayer = 'X';
+    title.classList.remove('hidden');
+    roundText.classList.remove('draws' ,'o-wins');
+  //reset images
+   cells.forEach(cell => {
+      const img = cell.querySelector('img');
+      img.classList.remove('show');
+      img.src = "";    
+      img.alt = "";
+   })
+})
