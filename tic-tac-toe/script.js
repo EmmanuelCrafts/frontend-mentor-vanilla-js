@@ -132,26 +132,28 @@ function checkDraw() {
 // quit game logic
 const quit = document.querySelector('.quit');
 quit.addEventListener('click', () => {
-    winCard.classList.add('hidden');
+    restoreBoardState();
+    xWins.textContent = 0;
+    oWins.textContent = 0;
+    draws.textContent = 0;
     menuScreen.classList.remove('screen-hidden');
     gameScreen.classList.add('screen-hidden');
 })
 
 // next-round logic
 const nextRound = document.querySelector('.next-round');
-nextRound.addEventListener('click', () => {
-    winCard.classList.add('hidden');
-    // reset board
+nextRound.addEventListener('click', restoreBoardState)
+
+function restoreBoardState () {
     board = ['','','','','','','','',''];
-    // reset current player
     currentPlayer = 'X';
+    winCard.classList.add('hidden');
     title.classList.remove('hidden');
     roundText.classList.remove('draws' ,'o-wins');
-  //reset images
-   cells.forEach(cell => {
-      const img = cell.querySelector('img');
-      img.classList.remove('show');
-      img.src = "";    
-      img.alt = "";
-   })
-})
+    cells.forEach(cell => {
+        const img = cell.querySelector('img');
+        img.classList.remove('show');
+        img.src = "";    
+        img.alt = "";
+     })
+}
