@@ -55,6 +55,8 @@ let title = document.querySelector('.win-title');
 let roundText = document.querySelector('.round-text');
 let winIcon = document.querySelector('.win-icon');
 
+let xIcon = document.querySelector('.icon-x');
+let oIcon = document.querySelector('.icon-o');
 // scores count
 let xWinCount = 0;
 let oWinCount = 0;
@@ -71,21 +73,19 @@ cells.forEach(cell => {
          if (currentPlayer === "X") {
               img.src = "assets/icon-x.svg";    
               img.alt = "X";
+              xIcon.classList.add('hidden');
+              oIcon.classList.remove('hidden');
          } else {
              img.src = "assets/icon-o.svg";
              img.alt = "O";
+             xIcon.classList.remove('hidden');
+             oIcon.classList.add('hidden');
          }
            img.classList.add('show');
 
       checkWinner();
       if(checkDraw()) {
-        drawCount += 1;
-        winCard.classList.remove('hidden');
-        draws.textContent = drawCount;
-        roundText.textContent = `ROUND TIED`;
-        roundText.classList.add('draws');
-        title.classList.add('hidden');
-        winIcon.classList.add('hidden');
+        drawStates();
       }
       // switch player
        currentPlayer = currentPlayer === "X" ? "O" : "X";
@@ -110,16 +110,9 @@ function checkWinner () {
         winCard.classList.remove('hidden');
         
         if (board[a] === "X") {
-            title.textContent = "YOU WON!";
-            winIcon.src = "assets/icon-x.svg"
-            xWinCount += 1;
-            xWins.textContent = xWinCount;
+            xWinStates();
         } else {
-            winIcon.src =  "assets/icon-o.svg"
-            title.textContent = "OH NO, YOU LOST...";
-            roundText.classList.add('o-wins');
-            oWinCount += 1;
-            oWins.textContent = oWinCount;
+            oWinStates();
         }
      }
    })
@@ -133,11 +126,7 @@ function checkDraw() {
 const quit = document.querySelector('.quit');
 quit.addEventListener('click', () => {
     restoreBoardState();
-    xWins.textContent = 0;
-    oWins.textContent = 0;
-    draws.textContent = 0;
-    menuScreen.classList.remove('screen-hidden');
-    gameScreen.classList.add('screen-hidden');
+    quitStates();
 })
 
 // next-round logic
@@ -157,3 +146,38 @@ function restoreBoardState () {
         img.alt = "";
      })
 }
+
+function drawStates() {
+    drawCount += 1;
+    winCard.classList.remove('hidden');
+    draws.textContent = drawCount;
+    roundText.textContent = `ROUND TIED`;
+    roundText.classList.add('draws');
+    title.classList.add('hidden');
+    winIcon.classList.add('hidden');
+}
+
+function quitStates() {
+    xWins.textContent = 0;
+    oWins.textContent = 0;
+    draws.textContent = 0;
+    menuScreen.classList.remove('screen-hidden');
+    gameScreen.classList.add('screen-hidden');
+}
+
+function xWinStates() {
+    title.textContent = "YOU WON!";
+    winIcon.src = "assets/icon-x.svg"
+    xWinCount += 1;
+    xWins.textContent = xWinCount;   
+}
+
+function oWinStates() {
+    winIcon.src =  "assets/icon-o.svg"
+    title.textContent = "OH NO, YOU LOST...";
+    roundText.classList.add('o-wins');
+    oWinCount += 1;
+    oWins.textContent = oWinCount;
+}
+
+

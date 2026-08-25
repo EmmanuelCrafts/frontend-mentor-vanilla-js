@@ -234,7 +234,7 @@ main {
 .turn-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--spacing-1);
     background-color: var(--slate-800);
     width: 96px;
     height: 100%;
