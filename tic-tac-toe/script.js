@@ -83,14 +83,19 @@ cells.forEach(cell => {
          }
            img.classList.add('show');
 
-      checkWinner();
-      if(checkDraw()) {
-        drawStates();
-      }
+        if (checkWinner()) {
+            return;
+        }
+
+        if (checkDraw()) {
+            drawStates();
+            return;
+        }
       // switch player
        currentPlayer = currentPlayer === "X" ? "O" : "X";
     });
 });
+
 function checkWinner () {
     const winConditions = [
         [0, 1, 2],
@@ -103,19 +108,21 @@ function checkWinner () {
         [2, 4, 6],
     ];
 
-   winConditions.forEach(win => {
+   for (const win of winConditions) {
      const [a, b ,c ] = win;
 
      if(board[a] && board[a] === board[b] && board[b] === board[c]) {
-        winCard.classList.remove('hidden');
-        
-        if (board[a] === "X") {
-            xWinStates();
-        } else {
-            oWinStates();
-        }
+            winCard.classList.remove('hidden');
+            if (board[a] === "X") {
+                xWinStates();
+            } else {
+                oWinStates();
+            }
+
+     return true;
      }
-   })
+   }
+   return false;
 }
 
 function checkDraw() {
@@ -138,6 +145,8 @@ function restoreBoardState () {
     currentPlayer = 'X';
     winCard.classList.add('hidden');
     title.classList.remove('hidden');
+    oIcon.classList.add('hidden');
+    xIcon.classList.remove('hidden')
     roundText.classList.remove('draws' ,'o-wins');
     cells.forEach(cell => {
         const img = cell.querySelector('img');
