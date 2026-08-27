@@ -1,102 +1,151 @@
-let menuScreen = document.querySelector('.menu-screen');
-let gameScreen = document.querySelector('.game-screen');
+     // DOM ELEMENTS
 
-let StartGame = document.querySelector('.vs-cpu');
-let StartGame2 = document.querySelector('.vs-player');
+const menuScreen = document.querySelector('.menu-screen');
+const gameScreen = document.querySelector('.game-screen');
 
-let player1 = document.querySelector('.player-1');
-let player2 = document.querySelector('.player-2');
+const startGameButton = document.querySelector('.vs-cpu');
+const startGameWithPlayerButton = document.querySelector('.vs-player');
 
-let playerX = document.querySelector('.player-X');
-let playerO = document.querySelector('.player-O');
+const player1 = document.querySelector('.player-1');
+const player2 = document.querySelector('.player-2');
 
-StartGame.addEventListener('click', startGame);
-StartGame2.addEventListener('click', startGameWithPlayerTitles);
+const playerX = document.querySelector('.player-X');
+const playerO = document.querySelector('.player-O');
+
+const cells = document.querySelectorAll('.cell');
+
+const winCard = document.querySelector('.win-container');
+const xWins = document.querySelector('.X-wins');
+const oWins = document.querySelector('.O-wins');
+const draws = document.querySelector('.draws');
+
+const title = document.querySelector('.win-title');
+const roundText = document.querySelector('.round-text');
+const winIcon = document.querySelector('.win-icon');
+
+const xIcon = document.querySelector('.icon-x');
+const oIcon = document.querySelector('.icon-o');
+
+const quit = document.querySelector('.quit');
+const nextRound = document.querySelector('.next-round');
+
+const restart = document.querySelector('.restart-icon');
+const restartContainer = document.querySelector('.restart-container');
+const restartButton = document.querySelector('.restart-btn');
+const cancelButton = document.querySelector('.cancel-btn');
+
+  // GAME STATE
+let currentPlayer = 'X';
+let board = ['', '', '', '', '', '', '', '', ''];
+
+let xWinCount = 0;
+let oWinCount = 0;
+let drawCount = 0;
+
+   // EVENT LISTENERS
+// Menu
+startGameButton.addEventListener('click', startGame);
+startGameWithPlayerButton.addEventListener('click', startGameWithPlayerTitles);
 
 playerX.addEventListener('click', pickPlayerX);
 playerO.addEventListener('click', pickPlayerO);
 
-function pickPlayerX () {
-   playerO.classList.remove('active');
-   playerX.classList.add('active');
+// Board
+cells.forEach(cell => {
+    cell.addEventListener('click', playMove);
+});
+
+// Game controls
+quit.addEventListener('click', quitGame);
+nextRound.addEventListener('click', restoreBoardState);
+
+// Restart controls
+restart.addEventListener('click', showRestartContainer);
+cancelButton.addEventListener('click', hideRestartContainer);
+restartButton.addEventListener('click', restartGame);
+
+  // MENU FUNCTIONS
+function pickPlayerX() {
+    playerO.classList.remove('active');
+    playerX.classList.add('active');
 }
 
-function pickPlayerO () {
-   playerX.classList.remove('active');
-   playerO.classList.add('active');
+function pickPlayerO() {
+    playerX.classList.remove('active');
+    playerO.classList.add('active');
 }
-
 
 function startGame() {
     menuScreen.classList.add('screen-hidden');
     gameScreen.classList.remove('screen-hidden');
 }
 
-function startGameWithPlayerTitles () {
+function startGameWithPlayerTitles() {
     startGame();
     changePlayerTitles();
 }
+
 function changePlayerTitles() {
-  player1.textContent = 'X (P2)';
-  player2.textContent = 'O (P1)';
+    player1.textContent = 'X (P2)';
+    player2.textContent = 'O (P1)';
 }
 
-// game logic
-let currentPlayer = 'X';
-let board = ['','','','','','','','',''];
 
-const cells = document.querySelectorAll('.cell');
+  // GAMEPLAY
+function playMove() {
+    const index = Number(this.dataset.cell);
 
-let winCard = document.querySelector('.win-container');
-let xWins = document.querySelector('.X-wins');
-let oWins = document.querySelector('.O-wins');
-let draws = document.querySelector('.draws');
-let title = document.querySelector('.win-title');
-let roundText = document.querySelector('.round-text');
-let winIcon = document.querySelector('.win-icon');
+    // Don't allow occupied cells
+    if (board[index] !== '') return;
 
-let xIcon = document.querySelector('.icon-x');
-let oIcon = document.querySelector('.icon-o');
-// scores count
-let xWinCount = 0;
-let oWinCount = 0;
-let drawCount = 0;
+    // Store move
+    board[index] = currentPlayer;
 
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        let index = Number(cell.dataset.cell);
-        if (board[index] !== '') return;
+    // Display move
+    displayMove(this);
 
-        board[index] = currentPlayer;
+    // Check for winner
+    if (checkWinner()) {
+        return;
+    }
 
-         const img = cell.querySelector('img');
-         if (currentPlayer === "X") {
-              img.src = "assets/icon-x.svg";    
-              img.alt = "X";
-              xIcon.classList.add('hidden');
-              oIcon.classList.remove('hidden');
-         } else {
-             img.src = "assets/icon-o.svg";
-             img.alt = "O";
-             xIcon.classList.remove('hidden');
-             oIcon.classList.add('hidden');
-         }
-           img.classList.add('show');
+    // Check for draw
+    if (checkDraw()) {
+        drawStates();
+        return;
+    }
 
-        if (checkWinner()) {
-            return;
-        }
+    // Switch player
+    switchPlayer();
+}
 
-        if (checkDraw()) {
-            drawStates();
-            return;
-        }
-      // switch player
-       currentPlayer = currentPlayer === "X" ? "O" : "X";
-    });
-});
+function displayMove(cell) {
+    const img = cell.querySelector('img');
 
-function checkWinner () {
+    if (currentPlayer === 'X') {
+        img.src = 'assets/icon-x.svg';
+        img.alt = 'X';
+
+        xIcon.classList.add('hidden');
+        oIcon.classList.remove('hidden');
+    } else {
+        img.src = 'assets/icon-o.svg';
+        img.alt = 'O';
+
+        xIcon.classList.remove('hidden');
+        oIcon.classList.add('hidden');
+    }
+
+    img.classList.add('show');
+}
+
+function switchPlayer() {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+}
+
+
+// GAME CHECKS
+function checkWinner() {
     const winConditions = [
         [0, 1, 2],
         [3, 4, 5],
@@ -108,85 +157,138 @@ function checkWinner () {
         [2, 4, 6],
     ];
 
-   for (const win of winConditions) {
-     const [a, b ,c ] = win;
+    for (const win of winConditions) {
+        const [a, b, c] = win;
 
-     if(board[a] && board[a] === board[b] && board[b] === board[c]) {
+        if (
+            board[a] &&
+            board[a] === board[b] &&
+            board[b] === board[c]
+        ) {
             winCard.classList.remove('hidden');
-            if (board[a] === "X") {
+
+            if (board[a] === 'X') {
                 xWinStates();
             } else {
                 oWinStates();
             }
 
-     return true;
-     }
-   }
-   return false;
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function checkDraw() {
-  return board.every(cell => cell !== '');
+    return board.every(cell => cell !== '');
 }
 
-// quit game logic
-const quit = document.querySelector('.quit');
-quit.addEventListener('click', () => {
-    restoreBoardState();
-    quitStates();
-})
 
-// next-round logic
-const nextRound = document.querySelector('.next-round');
-nextRound.addEventListener('click', restoreBoardState)
-
-function restoreBoardState () {
-    board = ['','','','','','','','',''];
-    currentPlayer = 'X';
-    winCard.classList.add('hidden');
-    title.classList.remove('hidden');
-    oIcon.classList.add('hidden');
-    xIcon.classList.remove('hidden')
-    roundText.classList.remove('draws' ,'o-wins');
-    cells.forEach(cell => {
-        const img = cell.querySelector('img');
-        img.classList.remove('show');
-        img.src = "";    
-        img.alt = "";
-     })
-}
-
+  // RESULT STATES
 function drawStates() {
     drawCount += 1;
+
     winCard.classList.remove('hidden');
     draws.textContent = drawCount;
-    roundText.textContent = `ROUND TIED`;
+
+    roundText.textContent = 'ROUND TIED';
     roundText.classList.add('draws');
+
     title.classList.add('hidden');
     winIcon.classList.add('hidden');
 }
 
-function quitStates() {
-    xWins.textContent = 0;
-    oWins.textContent = 0;
-    draws.textContent = 0;
-    menuScreen.classList.remove('screen-hidden');
-    gameScreen.classList.add('screen-hidden');
-}
-
 function xWinStates() {
-    title.textContent = "YOU WON!";
-    winIcon.src = "assets/icon-x.svg"
+    title.textContent = 'YOU WON!';
+    winIcon.src = 'assets/icon-x.svg';
+
     xWinCount += 1;
-    xWins.textContent = xWinCount;   
+    xWins.textContent = xWinCount;
 }
 
 function oWinStates() {
-    winIcon.src =  "assets/icon-o.svg"
-    title.textContent = "OH NO, YOU LOST...";
+    winIcon.src = 'assets/icon-o.svg';
+    title.textContent = 'OH NO, YOU LOST...';
+
     roundText.classList.add('o-wins');
+
     oWinCount += 1;
     oWins.textContent = oWinCount;
 }
 
 
+    // ROUND / GAME RESET
+function restoreBoardState() {
+    resetGameState();
+}
+
+function resetGameState() {
+    // Reset game data
+    board = ['', '', '', '', '', '', '', '', ''];
+    currentPlayer = 'X';
+
+    // Reset board
+    clearBoard();
+
+    // Reset result card
+    winCard.classList.add('hidden');
+    title.classList.remove('hidden');
+    roundText.classList.remove('draws', 'o-wins');
+    winIcon.classList.remove('hidden');
+
+    // X starts again
+    xIcon.classList.remove('hidden');
+    oIcon.classList.add('hidden');
+}
+
+function clearBoard() {
+    cells.forEach(cell => {
+        const img = cell.querySelector('img');
+
+        img.classList.remove('show');
+        img.src = '';
+        img.alt = '';
+    });
+}
+
+
+    // SCORE RESET
+function resetScores() {
+    // Reset counters
+    xWinCount = 0;
+    oWinCount = 0;
+    drawCount = 0;
+
+    // Reset displayed scores
+    xWins.textContent = 0;
+    oWins.textContent = 0;
+    draws.textContent = 0;
+}
+
+
+    // QUIT / RESTART
+function quitGame() {
+    resetGameState();
+    resetScores();
+
+    menuScreen.classList.remove('screen-hidden');
+    gameScreen.classList.add('screen-hidden');
+}
+
+function restartGame() {
+    resetGameState();
+    resetScores();
+
+    restartContainer.classList.add('hidden');
+}
+
+
+    // RESTART MODAL
+function showRestartContainer() {
+    restartContainer.classList.remove('hidden');
+}
+
+function hideRestartContainer() {
+    restartContainer.classList.add('hidden');
+}

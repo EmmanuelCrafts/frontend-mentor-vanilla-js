@@ -344,7 +344,8 @@ main {
 }
 
 /* win message */
-.win-container {
+.win-container,
+.restart-container {
     display: flex;
     padding: 44px 0;
     justify-content: center;
@@ -406,14 +407,17 @@ main {
     color: var(--slate-300);
 }
 
-.win-buttons {
+.win-buttons,
+.restart-buttons {
     margin-top: var(--spacing-5);
     display: flex;
     gap: var(--spacing-3);  
 }
 
 .quit,
-.next-round {
+.next-round,
+.cancel-btn,
+.restart-btn {
     font-size: 16px;
     font-weight: bold;
     line-height: 125%;
@@ -424,12 +428,28 @@ main {
     border-radius: var(--radius-6);
 }
 
-.quit {
+.quit,
+.cancel-btn {
     background-color: var(--slate-300);
     box-shadow:0 4px 0 0 #6B8997;
 }
 
-.next-round {
+.next-round,
+.restart-btn {
     background-color: var(--amber-400);
     box-shadow:0 4px 0 0 #CC8B13;
 }
+
+/* RESTART CONTAINER */
+.restart-container {
+    flex-direction: column;
+}
+
+.restart-title {
+    color: var(--slate-300);
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 125%;
+    letter-spacing: 2.5px;
+}
+
