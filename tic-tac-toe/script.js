@@ -306,14 +306,14 @@ function cpuWinState() {
 }
 
 function Player1WinStates() {
-    title.textContent = 'PLAYER 1 WINS!';
-
     if (playerChoice === 'X') {
+        title.textContent = 'PLAYER 1 WINS!';
         oWinCount += 1;
         oWins.textContent = oWinCount;
         winIcon.src = 'assets/icon-o.svg';
         roundText.classList.add('o-wins');
     } else {
+        title.textContent = 'PLAYER 2 WINS!';
         xWinCount += 1;
         xWins.textContent = xWinCount;
         winIcon.src = 'assets/icon-x.svg';
@@ -321,12 +321,13 @@ function Player1WinStates() {
 }
 
 function player2WinStates() {
-    title.textContent = 'PLAYER 2 WINS!';
     if (playerChoice === 'X') {
+        title.textContent = 'PLAYER 2 WINS!';
         xWinCount += 1;
         xWins.textContent = xWinCount;
         winIcon.src = 'assets/icon-x.svg';
     } else {
+        title.textContent = 'PLAYER 1 WINS!';
         oWinCount += 1;
         oWins.textContent = oWinCount;
         winIcon.src = 'assets/icon-o.svg';
