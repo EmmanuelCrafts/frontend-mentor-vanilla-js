@@ -42,10 +42,12 @@ let xWinCount = 0;
 let oWinCount = 0;
 let drawCount = 0;
 
+let playerChoice = '';
+let gameMode = '';
    // EVENT LISTENERS
 // Menu
-startGameButton.addEventListener('click', startGame);
-startGameWithPlayerButton.addEventListener('click', startGameWithPlayerTitles);
+startGameButton.addEventListener('click', startGameWithCpu);
+startGameWithPlayerButton.addEventListener('click', startGameWithPlayer);
 
 playerX.addEventListener('click', pickPlayerX);
 playerO.addEventListener('click', pickPlayerO);
@@ -68,33 +70,78 @@ restartButton.addEventListener('click', restartGame);
 function pickPlayerX() {
     playerO.classList.remove('active');
     playerX.classList.add('active');
+    playerChoice = 'X';
+    console.log(playerChoice)
 }
 
 function pickPlayerO() {
     playerX.classList.remove('active');
     playerO.classList.add('active');
+    playerChoice = 'O';
+    console.log(playerChoice)
 }
 
 function startGame() {
     menuScreen.classList.add('screen-hidden');
     gameScreen.classList.remove('screen-hidden');
 }
-
-function startGameWithPlayerTitles() {
-    startGame();
-    changePlayerTitles();
-}
-
 function changePlayerTitles() {
     player1.textContent = 'X (P2)';
     player2.textContent = 'O (P1)';
 }
 
+function  startGameWithCpu() {
+   gameMode = 'cpu';
+
+   startGame();
+   if (playerChoice === 'O') {
+        cpuPlayMove();
+     }
+}
+
+function startGameWithPlayer() {
+   gameMode = 'player';
+
+   startGame();
+   changePlayerTitles();
+}
 
   // GAMEPLAY
+  function cpuPlayMove() {
+    // Find empty cells
+    const emptyCells = [];
+    cells.forEach(cell => {
+        const index = Number(cell.dataset.cell)
+        if(board[index] == '') emptyCells.push(cell);
+    })
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length)
+    const cell = emptyCells[randomIndex]
+    const index =  Number(cell.dataset.cell)
+    // Store move
+    board[index] = currentPlayer;
+
+    // Display move
+    displayMove(cell);
+
+    // Check for winner
+    if (checkWinner()) {
+        return;
+    }
+
+    // Check for draw
+    if (checkDraw()) {
+        drawStates();
+        return;
+    }
+
+    // Switch player
+    switchPlayer();
+  }
 function playMove() {
     const index = Number(this.dataset.cell);
 
+    if(gameMode === 'cpu' && currentPlayer !== playerChoice) return;
     // Don't allow occupied cells
     if (board[index] !== '') return;
 
@@ -117,6 +164,8 @@ function playMove() {
 
     // Switch player
     switchPlayer();
+
+    if (gameMode === 'cpu') cpuPlayMove();
 }
 
 function displayMove(cell) {
