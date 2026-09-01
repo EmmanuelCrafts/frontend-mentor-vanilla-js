@@ -126,12 +126,29 @@ function startGameWithPlayer() {
     const emptyCells = [];
     cells.forEach(cell => {
         const index = Number(cell.dataset.cell)
-        if(board[index] == '') emptyCells.push(cell);
+        if(board[index] === '') {
+          emptyCells.push(cell);
+        }
     })
 
     const randomIndex = Math.floor(Math.random() * emptyCells.length)
     const cell = emptyCells[randomIndex]
-    const index =  Number(cell.dataset.cell)
+    makeMove(cell);
+  }
+function playMove() {
+    if(gameMode === 'cpu' && currentPlayer !== playerChoice) return;
+
+    if (board[Number(this.dataset.cell)] !== '') return;
+
+    makeMove(this);
+
+    if (gameMode === 'cpu') {
+        cpuPlayMove();
+    }
+}
+function makeMove(cell) {
+    const index = Number(cell.dataset.cell);
+
     // Store move
     board[index] = currentPlayer;
 
@@ -151,37 +168,7 @@ function startGameWithPlayer() {
 
     // Switch player
     switchPlayer();
-  }
-function playMove() {
-    const index = Number(this.dataset.cell);
-
-    if(gameMode === 'cpu' && currentPlayer !== playerChoice) return;
-    // Don't allow occupied cells
-    if (board[index] !== '') return;
-
-    // Store move
-    board[index] = currentPlayer;
-
-    // Display move
-    displayMove(this);
-
-    // Check for winner
-    if (checkWinner()) {
-        return;
-    }
-
-    // Check for draw
-    if (checkDraw()) {
-        drawStates();
-        return;
-    }
-
-    // Switch player
-    switchPlayer();
-
-    if (gameMode === 'cpu') cpuPlayMove();
 }
-
 function displayMove(cell) {
     const img = cell.querySelector('img');
 
