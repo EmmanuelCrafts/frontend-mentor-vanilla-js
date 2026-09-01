@@ -68,10 +68,9 @@ restartButton.addEventListener('click', restartGame);
 
   // MENU FUNCTIONS
 function pickPlayerX() {
+    playerChoice = 'X';
     playerO.classList.remove('active');
     playerX.classList.add('active');
-    playerChoice = 'X';
-    console.log(playerChoice)
 }
 
 function pickPlayerO() {
@@ -84,8 +83,21 @@ function pickPlayerO() {
 }
 
 function startGame() {
+    if (playerChoice === '') {
+        selectionError();
+        return;
+    }
     menuScreen.classList.add('screen-hidden');
     gameScreen.classList.remove('screen-hidden');
+}
+
+function selectionError() {
+    const errorMessage = document.querySelector('.selection-error');
+    errorMessage.classList.remove('hidden');
+
+    setTimeout(() => {
+        errorMessage.classList.add('hidden');
+    }, 2000);
 }
 function changePlayerTitles() {
     player1.textContent = 'X (P2)';
