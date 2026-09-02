@@ -94,7 +94,7 @@ main {
 
 .logo {
     width: fit-content;
-    margin: var(--spacing-7) auto;
+    margin: 0 auto var(--spacing-7) auto;
 }
 
 .pick-player {
@@ -130,7 +130,7 @@ main {
     background-color: var(--slate-900);
     border-radius: var(--radius-10);
     width: 90%;
-    padding: var(--spacing-2);
+    padding: var(--spacing-1);
     margin-bottom: var(--spacing-3);
 }
 
@@ -188,7 +188,7 @@ main {
     justify-content: center;
     align-items: center;
     color: var(--slate-900);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     line-height: 125%;
     letter-spacing: 1.25px;
@@ -242,6 +242,7 @@ main {
 
 .turn-container {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: var(--spacing-1);
     background-color: var(--slate-800);
@@ -252,7 +253,7 @@ main {
     font-weight: bold;
     line-height: 130%;
     letter-spacing: 0.9px;
-    padding: 11px 16px;
+    padding: 12px 16px;
     border-radius: var(--radius-6);
     box-shadow: 0 4px 0 0 rgba(16, 33, 42, 0.5);
 }
@@ -322,7 +323,7 @@ main {
     height: fit-content;
     padding: 12px 20px;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 125%;
     letter-spacing: 0.75px;
     color: var(--slate-900);
@@ -340,14 +341,12 @@ main {
     background-color: var(--slate-300);
 }
 
-.score {
-    font-size: 20px;
-    letter-spacing: 1.25px;
-}
+
 
 .X-wins,
 .O-wins,
 .draws {
+    font-weight: bold;
     font-size: 20px;
     letter-spacing: 1.25px;
 }
@@ -397,7 +396,7 @@ main {
     margin-top: var(--spacing-3);
 }
 
-.win-text img {
+.win-icon {
     width: 8%;
 }
 
@@ -462,3 +461,76 @@ main {
     letter-spacing: 2.5px;
 }
 
+/* tablet styles */
+@media (min-width: 768px) {
+    main {
+        width: 460px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .vs-cpu,
+    .vs-player {
+        font-size: 20px;
+    }
+
+    .game-screen {
+        margin: 0;
+        gap: 20px;
+    }
+    
+    .menu {
+        margin: 0;
+    }
+
+    .board {
+          height: 460px;
+    }
+     
+    .turn-container {
+        width: 140px;
+        font-size: 16px;
+        line-height: 125%;
+        letter-spacing: 1px;  
+    }
+
+
+    .player-turn svg {
+        width: 20px;
+        height: 20px;
+    }
+    .scores {
+        font-size: 14px;
+        line-height: 130%;
+        letter-spacing: 0.9px;
+    }  
+
+    .X-wins,
+    .O-wins,
+    .draws {
+        font-size: 24px;
+        letter-spacing: 1.5px;
+    }
+
+    .player-mark {
+        width: 64px;
+        height: 64px;
+    }
+
+    .win-title {
+        font-size: 16px;
+        line-height: 125%;
+        letter-spacing: 1px;
+    }
+
+    .win-icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .round-text,
+    .restart-title {
+        font-size: 40px;
+        letter-spacing: 2.5px;
+    }
+}
