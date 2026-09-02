@@ -168,6 +168,10 @@ main {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.player-X:hover {
+    background-color: var(--slate-850);
+}
+
 .player-X.active {
     background-color: var(--slate-300);
     color: var(--slate-900);
@@ -199,12 +203,34 @@ main {
 }
 .vs-cpu {
     background-color: var(--amber-400);
-    box-shadow: inset 0 -8px 0 0 #CC8B13
+    transition: background-color 0.3s ease , transform 0.1s ease-in-out, opacity 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    box-shadow: inset 0 -6px 0 0 #CC8B13;
+}
+
+.vs-cpu:hover {
+    background-color: var(--amber-300);
+}
+
+.vs-cpu:active {
+   transform: translateY(2px);
+   box-shadow: inset 0px -2px #CC8B13; 
+   opacity: 0.8;
 }
 
 .vs-player {
     background-color: var(--teal-400);
-    box-shadow: inset 0 -8px 0 0 #118C87
+    transition: background-color 0.3s ease ;
+    box-shadow: inset 0 -6px 0 0 #118C87
+}
+
+.vs-player:hover {
+    background-color: var(--teal-300);
+}
+
+.vs-player:active {
+   transform: translateY(2px);
+   box-shadow: inset 0px -2px #118C87; 
+   opacity: 0.8;
 }
 
 .selection-error {
@@ -270,6 +296,21 @@ main {
     border-radius: var(--radius-6);
     box-shadow:0 4px 0 0 #6B8997;
     height: 100%;
+    transition: background-color 0.3s ease , 
+                transform 0.1s ease-in-out, 
+                opacity 0.1s ease-in-out, 
+                box-shadow 0.1s ease-in-out;
+
+}
+
+.restart:hover {
+    background-color: var(--slate-100);
+}
+
+.restart:active {
+   transform: translateY(2px);
+   box-shadow: inset 0 0 #6B8997; 
+   opacity: 0.8;
 }
 
 .board {
@@ -434,6 +475,11 @@ main {
     cursor: pointer;
     padding: var(--spacing-3);
     border-radius: var(--radius-6);
+    transition: background-color 0.3s ease , 
+                transform 0.1s ease-in-out, 
+                opacity 0.1s ease-in-out, 
+                box-shadow 0.1s ease-in-out;
+
 }
 
 .quit,
@@ -442,11 +488,36 @@ main {
     box-shadow:0 4px 0 0 #6B8997;
 }
 
+.quit:hover,
+.cancel-btn:hover {
+    background-color: var(--slate-100);
+}
+
+.quit:active,
+.cancel-btn:active {
+   transform: translateY(2px);
+   box-shadow:  0 0 #6B8997; 
+   opacity: 0.8;
+}
+
 .next-round,
 .restart-btn {
     background-color: var(--amber-400);
     box-shadow:0 4px 0 0 #CC8B13;
 }
+
+.next-round:hover,
+.restart-btn:hover {
+    background-color: var(--amber-300);
+}
+
+.nexr-round:active,
+.restart-btn:active {
+   transform: translateY(2px);
+   box-shadow:  0 0 #CC8B13; 
+   opacity: 0.8;
+}
+
 
 /* RESTART CONTAINER */
 .restart-container {
