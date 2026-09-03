@@ -233,7 +233,7 @@ function checkWinner() {
                     player2WinStates();
 
                 } else {
-                    Player1WinStates();
+                    player1WinStates();
                 }
             }
             return true;
@@ -292,7 +292,7 @@ function cpuWinState() {
     }
 }
 
-function Player1WinStates() {
+function player1WinStates() {
     if (playerChoice === 'X') {
         title.textContent = 'PLAYER 1 WINS!';
         oWinCount += 1;
