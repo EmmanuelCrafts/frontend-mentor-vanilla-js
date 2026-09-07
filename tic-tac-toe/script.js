@@ -243,25 +243,7 @@ function checkWinner() {
         ) {
            const winner = board[a]
             winCard.classList.remove('hidden');
-
-            if (gameMode === 'cpu') {
-                
-              if (winner === playerChoice) {
-                    humanWinState();
-
-              } else {
-                    cpuWinState();
-              }
-            //   vs player
-            } else {
-
-                if (winner === playerChoice) {
-                    player2WinStates();
-
-                } else {
-                    player1WinStates();
-                }
-            }
+            gameWinState(winner);
             return true;
         }
     }
@@ -276,6 +258,28 @@ function checkDraw() {
 
 
   // RESULT STATES
+function gameWinState(winner) {
+               
+    if (gameMode === 'cpu') {
+                
+        if (winner === playerChoice) {
+              humanWinState();
+        } 
+        else {
+              cpuWinState();
+        }
+
+    //   vs player
+    } else {
+
+        if (winner === playerChoice) {
+             player2WinStates();
+        } 
+         else {
+           player1WinStates();
+        }
+     }
+}
 
 function drawStates() {
     addDraw();
