@@ -38,10 +38,6 @@ const cancelButton = document.querySelector('.cancel-btn');
 let currentPlayer = 'X';
 let board = ['', '', '', '', '', '', '', '', ''];
 
-let xWinCount = 0;
-let oWinCount = 0;
-let drawCount = 0;
-
 let playerChoice = '';
 let gameMode = '';
    // EVENT LISTENERS
@@ -193,6 +189,36 @@ function switchPlayer() {
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
 }
 
+function createScoreManager() {
+    let xWins = 0;
+    let oWins = 0;
+    let draws = 0;
+
+    return {
+        addXwin: () => {
+             xWins ++; 
+            },
+        addOwin: () => {
+             oWins ++; 
+            },
+        addDraw: () => {
+             draws ++; 
+            },
+        getScores: () => ({
+             xWins, 
+             oWins, 
+             draws 
+            }),
+        reset: () => {
+                xWins = 0;
+                oWins = 0;
+                draws = 0;
+        }
+    };
+}
+
+const score = createScoreManager();
+const { addXwin, addOwin, addDraw, getScores, reset } = score;
 
 // GAME CHECKS
 function checkWinner() {
@@ -250,11 +276,12 @@ function checkDraw() {
 
 
   // RESULT STATES
+
 function drawStates() {
-    drawCount += 1;
+    addDraw();
 
     winCard.classList.remove('hidden');
-    draws.textContent = drawCount;
+    draws.textContent = getScores().draws;
 
     roundText.textContent = 'ROUND TIED';
     roundText.classList.add('draws');
@@ -266,14 +293,14 @@ function humanWinState() {
     title.textContent = 'YOU WON!';
 
     if (playerChoice === 'X') {
-        xWinCount += 1;
+        addXwin();
         winIcon.src = 'assets/icon-x.svg';
-        xWins.textContent = xWinCount;
+        xWins.textContent = getScores().xWins;
     } else {
-        oWinCount += 1;
+        addOwin();
         winIcon.src = 'assets/icon-o.svg';
         roundText.classList.add('o-wins');
-        oWins.textContent = oWinCount;
+        oWins.textContent = getScores().oWins;
     }
 }
 
@@ -281,28 +308,28 @@ function cpuWinState() {
     title.textContent = 'OH NO, YOU LOST...';
 
     if (playerChoice === 'X') {
-        oWinCount += 1;
+        addOwin();
         winIcon.src = 'assets/icon-o.svg';
-        oWins.textContent = oWinCount;
+        oWins.textContent = getScores().oWins;
         roundText.classList.add('o-wins');
     } else {
-        xWinCount += 1;
+        addXwin();
         winIcon.src = 'assets/icon-x.svg';
-        xWins.textContent = xWinCount;
+        xWins.textContent = getScores().xWins;
     }
 }
 
 function player1WinStates() {
     if (playerChoice === 'X') {
         title.textContent = 'PLAYER 1 WINS!';
-        oWinCount += 1;
-        oWins.textContent = oWinCount;
+        addOwin();
+        oWins.textContent = getScores().oWins;
         winIcon.src = 'assets/icon-o.svg';
         roundText.classList.add('o-wins');
     } else {
         title.textContent = 'PLAYER 2 WINS!';
-        xWinCount += 1;
-        xWins.textContent = xWinCount;
+        addXwin();
+        xWins.textContent = getScores().xWins;
         winIcon.src = 'assets/icon-x.svg';
     }
 }
@@ -310,13 +337,13 @@ function player1WinStates() {
 function player2WinStates() {
     if (playerChoice === 'X') {
         title.textContent = 'PLAYER 2 WINS!';
-        xWinCount += 1;
-        xWins.textContent = xWinCount;
+        addXwin();
+        xWins.textContent = getScores().xWins;
         winIcon.src = 'assets/icon-x.svg';
     } else {
         title.textContent = 'PLAYER 1 WINS!';
-        oWinCount += 1;
-        oWins.textContent = oWinCount;
+        addOwin();
+        oWins.textContent = getScores().oWins;
         winIcon.src = 'assets/icon-o.svg';
         roundText.classList.add('o-wins');
     }
@@ -367,14 +394,12 @@ function clearBoard() {
     // SCORE RESET
 function resetScores() {
     // Reset counters
-    xWinCount = 0;
-    oWinCount = 0;
-    drawCount = 0;
+     reset();
 
     // Reset displayed scores
-    xWins.textContent = 0;
-    oWins.textContent = 0;
-    draws.textContent = 0;
+    xWins.textContent = getScores().xWins;
+    oWins.textContent = getScores().oWins;
+    draws.textContent = getScores().draws;
 }
 
 
