@@ -253,10 +253,11 @@ function createGame() {
                 board[a] === board[b] &&
                 board[b] === board[c]
             ) {
+                
             const winner = board[a]
-                winCard.classList.remove('hidden');
-                gameWinState(winner);
-                return true;
+            winCard.classList.remove('hidden');
+            gameWinState(winner);
+            return true;
             }
         }
 
@@ -275,25 +276,23 @@ function createGame() {
         if (gameMode === 'cpu') {
                     
             if (winner === playerChoice) {
-                humanWinState();
+                handleWinResult(winner, 'YOU WON!');
             } 
             else {
-                cpuWinState();
+                handleWinResult(winner, 'YOU LOST!');
             }
 
         //   vs player
         } else {
 
-            if (winner === playerChoice) {
-                player2WinStates();
+            if (winner === 'X') {
+                handleWinResult(winner, 'PLAYER 2 WINS!');
             } 
             else {
-               player1WinStates();
+                handleWinResult(winner, 'PLAYER 1 WINS!');
             }
         }
     }
-
-    
 
     //   GAME RESET
     function restoreBoardState() {
@@ -387,66 +386,20 @@ function drawStates() {
     title.classList.add('hidden');
     winIcon.classList.add('hidden');
 }
-function humanWinState() {
-    title.textContent = 'YOU WON!';
+function handleWinResult(winner, message) {
+    title.textContent = message;
 
-    if (getStates().playerChoice === 'X') {
-        addXwin();
-        winIcon.src = 'assets/icon-x.svg';
-        xWins.textContent = getScores().xWins;
-    } else {
-        addOwin();
-        winIcon.src = 'assets/icon-o.svg';
-        roundText.classList.add('o-wins');
-        oWins.textContent = getScores().oWins;
-    }
-}
-
-function cpuWinState() {
-    title.textContent = 'OH NO, YOU LOST...';
-
-    if (getStates().playerChoice === 'X') {
-        addOwin();
-        winIcon.src = 'assets/icon-o.svg';
-        oWins.textContent = getScores().oWins;
-        roundText.classList.add('o-wins');
-    } else {
-        addXwin();
-        winIcon.src = 'assets/icon-x.svg';
-        xWins.textContent = getScores().xWins;
-    }
-}
-
-function player1WinStates() {
-    if (getStates().playerChoice === 'X') {
-        title.textContent = 'PLAYER 1 WINS!';
-        addOwin();
-        oWins.textContent = getScores().oWins;
-        winIcon.src = 'assets/icon-o.svg';
-        roundText.classList.add('o-wins');
-    } else {
-        title.textContent = 'PLAYER 2 WINS!';
-        addXwin();
-        xWins.textContent = getScores().xWins;
-        winIcon.src = 'assets/icon-x.svg';
-    }
-}
-
-function player2WinStates() {
-    if (getStates().playerChoice === 'X') {
-        title.textContent = 'PLAYER 2 WINS!';
+    if (winner === 'X') {
         addXwin();
         xWins.textContent = getScores().xWins;
         winIcon.src = 'assets/icon-x.svg';
     } else {
-        title.textContent = 'PLAYER 1 WINS!';
         addOwin();
         oWins.textContent = getScores().oWins;
         winIcon.src = 'assets/icon-o.svg';
         roundText.classList.add('o-wins');
     }
 }
-
 
 function clearBoard() {
     cells.forEach(cell => {
@@ -491,3 +444,5 @@ function showRestartContainer() {
 function hideRestartContainer() {
     restartContainer.classList.add('hidden');
 }
+
+
