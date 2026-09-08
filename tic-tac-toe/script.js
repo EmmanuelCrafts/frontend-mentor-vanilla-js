@@ -140,6 +140,7 @@ function createGame() {
     let board = ['', '', '', '', '', '', '', '', ''];
     let playerChoice = '';
     let gameMode = '';
+    let roundOver = false;
     
     function setPlayerChoice(choice) {
         playerChoice = choice;
@@ -176,6 +177,7 @@ function createGame() {
     }
 
     function playMove() {
+        if(roundOver) return;
         if(gameMode === 'cpu' && currentPlayer !== playerChoice) return;
 
         if (board[Number(this.dataset.cell)] !== '') return;
@@ -198,12 +200,14 @@ function createGame() {
 
         // Check for winner
         if (checkWinner()) {
+            roundOver = true;
             return false;
         }
 
         // Check for draw
         if (checkDraw()) {
             drawStates();
+            roundOver = true;
             return false;
         }
 
@@ -306,7 +310,7 @@ function createGame() {
         // Reset game data
         board = ['', '', '', '', '', '', '', '', ''];
         currentPlayer = 'X';
-
+        roundOver = false;
         // Reset board
         clearBoard();
 
