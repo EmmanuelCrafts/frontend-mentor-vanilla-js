@@ -35,12 +35,8 @@ const restartButton = document.querySelector('.restart-btn');
 const cancelButton = document.querySelector('.cancel-btn');
 
   // GAME STATE
-// let currentPlayer = 'X';
-// let board = ['', '', '', '', '', '', '', '', ''];
-
-// let playerChoice = '';
-// let gameMode = '';
 const game = createGame();
+
 const {
         setPlayerChoice, 
         getStates, 
@@ -51,7 +47,9 @@ const {
         restoreBoardState, 
         restartGame 
     } = game;
+
 const score = createScoreManager();
+
 const { 
         addXwin, 
         addOwin, 
@@ -59,6 +57,7 @@ const {
         getScores, 
         reset 
     } = score;
+
    // EVENT LISTENERS
 // Menu
 startGameButton.addEventListener('click', startGameWithCpu);
@@ -82,6 +81,60 @@ cancelButton.addEventListener('click', hideRestartContainer);
 restartButton.addEventListener('click', restartGame);
 
 
+  // MENU FUNCTIONS
+function pickPlayerX() {
+    setPlayerChoice('X');
+    playerO.classList.remove('active');
+    playerX.classList.add('active');
+}
+
+function pickPlayerO() {
+    setPlayerChoice('O');
+    player2.textContent = 'O (YOU)';
+    player1.textContent = 'X (CPU)';
+    playerX.classList.remove('active');
+    playerO.classList.add('active');
+   
+}
+
+// game logics
+function startGame() {
+    if (getStates().playerChoice === '') {
+        selectionError();
+        return;
+    }
+    menuScreen.classList.add('screen-hidden');
+    gameScreen.classList.remove('screen-hidden');
+}
+
+function selectionError() {
+    const errorMessage = document.querySelector('.selection-error');
+    errorMessage.classList.remove('hidden');
+
+    setTimeout(() => {
+        errorMessage.classList.add('hidden');
+    }, 2000);
+}
+function changePlayerTitles() {
+    player1.textContent = 'X (P2)';
+    player2.textContent = 'O (P1)';
+}
+
+function  startGameWithCpu() {
+   setGameMode('cpu');
+   startGame();
+   if (getStates().playerChoice === 'O') {
+        cpuPlayMove();
+     }
+}
+
+function startGameWithPlayer() {
+   setGameMode('player');
+   startGame();
+   changePlayerTitles();
+}
+
+  // GAMEPLAY
 function createGame() {
     let currentPlayer = 'X';
     let board = ['', '', '', '', '', '', '', '', ''];
@@ -102,8 +155,6 @@ function createGame() {
 
     function getStates() {
         return {
-            currentPlayer,
-            board,
             playerChoice,
             gameMode
         }
@@ -260,18 +311,8 @@ function createGame() {
         // Reset board
         clearBoard();
 
-        // Reset result card
-        winCard.classList.add('hidden');
-        title.classList.remove('hidden');
-        title.textContent = '';
-        winIcon.src = '';
-        roundText.textContent = 'TAKES THE ROUND';
-        roundText.classList.remove('draws', 'o-wins');
-        winIcon.classList.remove('hidden');
-
-        // X starts again
-        xIcon.classList.remove('hidden');
-        oIcon.classList.add('hidden');
+        // Reset UI
+        resetUiState();
     }
 
         // QUIT / RESTART
@@ -291,7 +332,6 @@ function createGame() {
         resetScores();
         
         restartContainer.classList.add('hidden');
-
     }
 
     return {
@@ -305,136 +345,6 @@ function createGame() {
         restartGame,
     }
 }
-
-
-
-  // MENU FUNCTIONS
-function pickPlayerX() {
-    // playerChoice = 'X';
-    setPlayerChoice('X');
-    playerO.classList.remove('active');
-    playerX.classList.add('active');
-}
-
-function pickPlayerO() {
-    // playerChoice = 'O';
-    setPlayerChoice('O');
-    player2.textContent = 'O (YOU)';
-    player1.textContent = 'X (CPU)';
-    playerX.classList.remove('active');
-    playerO.classList.add('active');
-   
-}
-
-// game logics
-function startGame() {
-    if (getStates().playerChoice === '') {
-        selectionError();
-        return;
-    }
-    menuScreen.classList.add('screen-hidden');
-    gameScreen.classList.remove('screen-hidden');
-}
-
-function selectionError() {
-    const errorMessage = document.querySelector('.selection-error');
-    errorMessage.classList.remove('hidden');
-
-    setTimeout(() => {
-        errorMessage.classList.add('hidden');
-    }, 2000);
-}
-function changePlayerTitles() {
-    player1.textContent = 'X (P2)';
-    player2.textContent = 'O (P1)';
-}
-
-function  startGameWithCpu() {
-   setGameMode('cpu');
-   startGame();
-   if (getStates().playerChoice === 'O') {
-        cpuPlayMove();
-     }
-}
-
-function startGameWithPlayer() {
-   setGameMode('player');
-   startGame();
-   changePlayerTitles();
-}
-
-  // GAMEPLAY
-//   function cpuPlayMove() {
-//     // Find empty cells
-//     const emptyCells = [];
-//     cells.forEach(cell => {
-//         const index = Number(cell.dataset.cell)
-//         if(board[index] === '') {
-//           emptyCells.push(cell);
-//         }
-//     })
-
-//     const randomIndex = Math.floor(Math.random() * emptyCells.length)
-//     const cell = emptyCells[randomIndex]
-//     makeMove(cell);
-//   }
-// function playMove() {
-//     if(gameMode === 'cpu' && currentPlayer !== playerChoice) return;
-
-//     if (board[Number(this.dataset.cell)] !== '') return;
-
-//     makeMove(this);
-
-//     if (gameMode === 'cpu') {
-//         cpuPlayMove();
-//     }
-// }
-// function makeMove(cell) {
-//     const index = Number(cell.dataset.cell);
-
-//     // Store move
-//     board[index] = currentPlayer;
-
-//     // Display move
-//     displayMove(cell);
-
-//     // Check for winner
-//     if (checkWinner()) {
-//         return;
-//     }
-
-//     // Check for draw
-//     if (checkDraw()) {
-//         drawStates();
-//         return;
-//     }
-
-//     // Switch player
-//     switchPlayer();
-// }
-// function displayMove(cell) {
-//     const img = cell.querySelector('img');
-
-//     if (currentPlayer === 'X') {
-//         img.src = 'assets/icon-x.svg';
-//         img.alt = 'X';
-
-//         xIcon.classList.add('hidden');
-//         oIcon.classList.remove('hidden');
-//     } else {
-//         img.src = 'assets/icon-o.svg';
-//         img.alt = 'O';
-
-//         xIcon.classList.remove('hidden');
-//         oIcon.classList.add('hidden');
-//     }
-
-//     img.classList.add('show');
-// }
-
-// function switchPlayer() {
-//     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-// }
 
 function createScoreManager() {
     let xWins = 0;
@@ -463,69 +373,6 @@ function createScoreManager() {
         }
     };
 }
-
-
-
-// // GAME CHECKS
-// function checkWinner() {
-//     const winConditions = [
-//         [0, 1, 2],
-//         [3, 4, 5],
-//         [6, 7, 8],
-//         [0, 3, 6],
-//         [1, 4, 7],
-//         [2, 5, 8],
-//         [0, 4, 8],
-//         [2, 4, 6],
-//     ];
-
-//     for (const win of winConditions) {
-//         const [a, b, c] = win;
-
-//         if (
-//             board[a] &&
-//             board[a] === board[b] &&
-//             board[b] === board[c]
-//         ) {
-//            const winner = board[a]
-//             winCard.classList.remove('hidden');
-//             gameWinState(winner);
-//             return true;
-//         }
-//     }
-
-//     return false;
-// }
-
-
-// function checkDraw() {
-//     return board.every(cell => cell !== '');
-// }
-
-
-//   // RESULT STATES
-// function gameWinState(winner) {
-               
-//     if (gameMode === 'cpu') {
-                
-//         if (winner === playerChoice) {
-//               humanWinState();
-//         } 
-//         else {
-//               cpuWinState();
-//         }
-
-//     //   vs player
-//     } else {
-
-//         if (winner === playerChoice) {
-//              player2WinStates();
-//         } 
-//          else {
-//            player1WinStates();
-//         }
-//      }
-// }
 
 // RESULT STATES
 function drawStates() {
@@ -601,36 +448,6 @@ function player2WinStates() {
 }
 
 
-//     // ROUND / GAME RESET
-// function restoreBoardState() {
-//     resetGameState();
-//     if (gameMode === 'cpu' && playerChoice === 'O') {
-//         cpuPlayMove();
-//     }
-// }
-
-// function resetGameState() {
-//     // Reset game data
-//     board = ['', '', '', '', '', '', '', '', ''];
-//     currentPlayer = 'X';
-
-//     // Reset board
-//     clearBoard();
-
-//     // Reset result card
-//     winCard.classList.add('hidden');
-//     title.classList.remove('hidden');
-//     title.textContent = '';
-//     winIcon.src = '';
-//     roundText.textContent = 'TAKES THE ROUND';
-//     roundText.classList.remove('draws', 'o-wins');
-//     winIcon.classList.remove('hidden');
-
-//     // X starts again
-//     xIcon.classList.remove('hidden');
-//     oIcon.classList.add('hidden');
-// }
-
 function clearBoard() {
     cells.forEach(cell => {
         const img = cell.querySelector('img');
@@ -641,6 +458,20 @@ function clearBoard() {
     });
 }
 
+function resetUiState() {
+    // Reset result card
+        winCard.classList.add('hidden');
+        title.classList.remove('hidden');
+        title.textContent = '';
+        winIcon.src = '';
+        roundText.textContent = 'TAKES THE ROUND';
+        roundText.classList.remove('draws', 'o-wins');
+        winIcon.classList.remove('hidden');
+
+        // X starts again
+        xIcon.classList.remove('hidden');
+        oIcon.classList.add('hidden');
+}
 
     // SCORE RESET
 function resetScores() {
@@ -652,29 +483,6 @@ function resetScores() {
     oWins.textContent = getScores().oWins;
     draws.textContent = getScores().draws;
 }
-
-
-    // QUIT / RESTART
-// function quitGame() {
-//     resetGameState();
-//     resetScores();
-
-//     playerChoice = '';  
-//     gameMode = ''; 
-
-//     menuScreen.classList.remove('screen-hidden');
-//     gameScreen.classList.add('screen-hidden');
-// }
-
-// function restartGame() {
-//     resetGameState();
-//     resetScores();
-     
-//     restartContainer.classList.add('hidden');
-
-// }
-
-
     // RESTART MODAL
 function showRestartContainer() {
     restartContainer.classList.remove('hidden');
