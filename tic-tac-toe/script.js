@@ -416,6 +416,9 @@ function handleWinResult(winner, message) {
 function clearBoard() {
     cells.forEach(cell => {
         cell.classList.remove('x', 'o');
+        const position = cellPositions[cell.dataset.cell];
+        const label = `${position}, empty`;
+        cell.setAttribute('aria-label', label);
     });
     winIcon.classList.remove('x', 'o');
 }
