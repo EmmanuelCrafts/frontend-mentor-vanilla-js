@@ -58,6 +58,17 @@ const {
         reset 
     } = score;
 
+const cellPositions = {
+    0: 'Top left',
+    1: 'Top middle',
+    2: 'Top right',
+    3: 'Middle left',
+    4: 'Center',
+    5: 'Middle right',
+    6: 'Bottom left',
+    7: 'Bottom middle',
+    8: 'Bottom right'
+};
    // EVENT LISTENERS
 // Menu
 startGameButton.addEventListener('click', startGameWithCpu);
@@ -217,23 +228,20 @@ function createGame() {
     }
 
     function displayMove(cell) {
-        const img = cell.querySelector('img');
+         const position = cellPositions[cell.dataset.cell];
+         const label = `${position}, ${currentPlayer}`;
+         cell.setAttribute('aria-label', label);
 
         if (currentPlayer === 'X') {
-            img.src = 'assets/icon-x.svg';
-            img.alt = 'X';
-
+            cell.classList.add('x');
             xIcon.classList.add('hidden');
             oIcon.classList.remove('hidden');
+            
         } else {
-            img.src = 'assets/icon-o.svg';
-            img.alt = 'O';
-
-            xIcon.classList.remove('hidden');
+            cell.classList.add('o');
             oIcon.classList.add('hidden');
+            xIcon.classList.remove('hidden');
         }
-
-        img.classList.add('show');
     }
 
     // GAME CHECKS
@@ -396,23 +404,20 @@ function handleWinResult(winner, message) {
     if (winner === 'X') {
         addXwin();
         xWins.textContent = getScores().xWins;
-        winIcon.src = 'assets/icon-x.svg';
+        winIcon.classList.add('x');
     } else {
         addOwin();
         oWins.textContent = getScores().oWins;
-        winIcon.src = 'assets/icon-o.svg';
+        winIcon.classList.add('o');
         roundText.classList.add('o-wins');
     }
 }
 
 function clearBoard() {
     cells.forEach(cell => {
-        const img = cell.querySelector('img');
-
-        img.classList.remove('show');
-        img.src = '';
-        img.alt = '';
+        cell.classList.remove('x', 'o');
     });
+    winIcon.classList.remove('x', 'o');
 }
 
 function resetUiState() {

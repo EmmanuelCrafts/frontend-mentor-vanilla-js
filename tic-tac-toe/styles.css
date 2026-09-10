@@ -69,6 +69,7 @@ select {
 
 button {
   cursor: pointer;
+  border: none;
 }
 
 a {
@@ -327,6 +328,9 @@ main {
 
 .cell {
     background-color: var(--slate-800);
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    background-position: center;
     box-shadow: 0 8px 0 0 #10212A;
     border-radius: var(--spacing-1);
     display: flex;
@@ -335,11 +339,14 @@ main {
     cursor: pointer;
 }
 
-.player-mark {
-    width: 40px;
-    height: 40px;
-    display: none;
+.cell.x {
+    background-image: url('assets/icon-x.svg');
 }
+
+.cell.o {
+    background-image: url('assets/icon-o.svg');
+}
+
 
 .show {
     display: block;
@@ -439,9 +446,24 @@ main {
     margin-top: var(--spacing-3);
 }
 
+
 .win-icon {
-    width: 8%;
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
+
+.win-icon.x {
+    background-image: url('assets/icon-x.svg');
+}
+
+.win-icon.o {
+    background-image: url('assets/icon-o.svg');
+}
+
+
 
 .round-text {
     font-size: 24px;
@@ -586,9 +608,10 @@ main {
         letter-spacing: 1.5px;
     }
 
-    .player-mark {
-        width: 64px;
-        height: 64px;
+
+    .cell.x,
+    .cell.o {
+        background-size: 64px 64px;
     }
 
     .win-title {
