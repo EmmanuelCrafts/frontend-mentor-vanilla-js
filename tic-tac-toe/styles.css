@@ -78,6 +78,7 @@ a {
 
 body {
     background-color: var(--slate-900);
+    font-family: 'Outfit', sans-serif;
 }
 
 main {
@@ -111,7 +112,7 @@ main {
 
 .pick {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 125%;
     letter-spacing: 1px;
     margin-bottom: var(--spacing-5);
@@ -119,7 +120,7 @@ main {
 
 .turn {
     font-size: 14px;
-    font-weight: medium;
+    font-weight: 500;
     line-height: 130%;
     letter-spacing: 0.9px;
 }
@@ -193,7 +194,7 @@ main {
     align-items: center;
     color: var(--slate-900);
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 125%;
     letter-spacing: 1.25px;
     width: 100%;
@@ -236,7 +237,7 @@ main {
 .selection-error {
     color: var(--amber-400);
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 130%;
     letter-spacing: 0.9px;
     margin-top: var(--spacing-2);
@@ -276,7 +277,7 @@ main {
     height: 100%;
     color: var(--slate-300);
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 130%;
     letter-spacing: 0.9px;
     padding: 12px 16px;
@@ -365,6 +366,7 @@ main {
     padding: 12px 20px;
     font-size: 12px;
     font-weight: 500;
+    font-family: 'League Spartan', sans-serif;
     line-height: 125%;
     letter-spacing: 0.75px;
     color: var(--slate-900);
@@ -387,7 +389,7 @@ main {
 .X-wins,
 .O-wins,
 .draws {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 20px;
     letter-spacing: 1.25px;
 }
@@ -423,7 +425,7 @@ main {
 
 .win-title {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 130%;
     letter-spacing: 0.9px;
     color: var(--slate-300);
@@ -443,7 +445,7 @@ main {
 
 .round-text {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 125%;
     letter-spacing: 1.5px;
     color: var(--teal-400);
@@ -468,7 +470,7 @@ main {
 .cancel-btn,
 .restart-btn {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 125%;
     letter-spacing: 1px;
     color: var(--slate-900);
@@ -526,8 +528,9 @@ main {
 
 .restart-title {
     color: var(--slate-300);
+    font-family: 'League Spartan', sans-serif;
     font-size: 40px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 125%;
     letter-spacing: 2.5px;
 }
