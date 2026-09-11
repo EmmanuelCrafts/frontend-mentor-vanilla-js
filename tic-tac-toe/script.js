@@ -105,11 +105,20 @@ function pickPlayerX() {
 
 function pickPlayerO() {
     setPlayerChoice('O');
-    player2.textContent = 'O (YOU)';
-    player1.textContent = 'X (CPU)';
     playerX.classList.remove('active');
     playerO.classList.add('active');
-   
+}
+
+function renderPlayerLabels() {
+    const { playerChoice, gameMode} = getStates();
+    if(gameMode === 'player') {
+        player1.textContent = 'X (P2)';
+        player2.textContent = 'O (P1)';
+        return
+    }
+
+    player1.textContent = playerChoice === 'X' ? 'X (YOU)' : 'X (CPU)';
+    player2.textContent = playerChoice === 'O' ? 'O (YOU)' : 'O (CPU)';
 }
 
 // game logics
@@ -118,6 +127,7 @@ function startGame() {
         selectionError();
         return;
     }
+    renderPlayerLabels();
     menuScreen.classList.add('screen-hidden');
     gameScreen.classList.remove('screen-hidden');
 }
@@ -129,10 +139,6 @@ function selectionError() {
     setTimeout(() => {
         errorMessage.classList.add('hidden');
     }, 2000);
-}
-function changePlayerTitles() {
-    player1.textContent = 'X (P2)';
-    player2.textContent = 'O (P1)';
 }
 
 function  startGameWithCpu() {
@@ -146,7 +152,6 @@ function  startGameWithCpu() {
 function startGameWithPlayer() {
    setGameMode('player');
    startGame();
-   changePlayerTitles();
 }
 
   // GAMEPLAY
