@@ -337,6 +337,7 @@ main {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: background-image 0.3s ease;
 }
 
 .cell.x {
@@ -346,6 +347,15 @@ main {
 .cell.o {
     background-image: url('assets/icon-o.svg');
 }
+
+.cell.X-hover {
+    background-image: url('assets/icon-x-outline.svg');
+}
+
+.cell.O-hover {
+    background-image: url('assets/icon-o-outline.svg');
+}
+
 
 
 .show {
@@ -609,8 +619,7 @@ main {
     }
 
 
-    .cell.x,
-    .cell.o {
+    .cell {
         background-size: 64px 64px;
     }
 

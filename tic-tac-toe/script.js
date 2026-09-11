@@ -45,7 +45,9 @@ const {
         cpuPlayMove, 
         quitGame, 
         restoreBoardState, 
-        restartGame 
+        restartGame ,
+        hoverPreview,
+        removeHoverPreview
     } = game;
 
 const score = createScoreManager();
@@ -80,6 +82,8 @@ playerO.addEventListener('click', pickPlayerO);
 // Board
 cells.forEach(cell => {
     cell.addEventListener('click', playMove);
+    cell.addEventListener('mouseenter', hoverPreview)
+    cell.addEventListener('mouseleave', () => removeHoverPreview(cell))
 });
 
 // Game controls
@@ -172,6 +176,22 @@ function createGame() {
         }
     }
 
+    function canMakeMove(cell) {
+        if (roundOver) return false;
+        if (gameMode === 'cpu' && currentPlayer !== playerChoice) return false;
+        if (board[Number(cell.dataset.cell)] !== '') return false;
+
+        return true;
+    }
+
+    function hoverPreview() {
+         if(!canMakeMove(this)) return;
+        this.classList.add(`${currentPlayer}-hover`);
+    }
+
+    function removeHoverPreview(cell) {
+        cell.classList.remove('X-hover', 'O-hover');
+    }
     function cpuPlayMove() {
         // Find empty cells
         const emptyCells = [];
@@ -184,25 +204,22 @@ function createGame() {
 
         const randomIndex = Math.floor(Math.random() * emptyCells.length)
         const cell = emptyCells[randomIndex]
-        makeMove(cell);
+        setTimeout(() => makeMove(cell), 500)
     }
 
     function playMove() {
-        if(roundOver) return;
-        if(gameMode === 'cpu' && currentPlayer !== playerChoice) return;
-
-        if (board[Number(this.dataset.cell)] !== '') return;
+        if(!canMakeMove(this)) return;
 
         const gameContinue = makeMove(this);
 
-        if (gameMode === 'cpu' && gameContinue) {
+         if (gameMode === 'cpu' && gameContinue) {
             cpuPlayMove();
         }
     }
 
     function makeMove(cell) {
         const index = Number(cell.dataset.cell);
-
+        removeHoverPreview(cell)
         // Store move
         board[index] = currentPlayer;
 
@@ -354,6 +371,8 @@ function createGame() {
         restoreBoardState,
         quitGame,
         restartGame,
+        hoverPreview,
+        removeHoverPreview
     }
 }
 
