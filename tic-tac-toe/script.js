@@ -364,7 +364,7 @@ function createGame() {
         resetGameState();
         resetScores();
         
-        restartContainer.classList.add('hidden');
+        restartContainer.close();
     }
 
     return {
@@ -474,11 +474,12 @@ function resetScores() {
 }
     // RESTART MODAL
 function showRestartContainer() {
-    restartContainer.classList.remove('hidden');
+    // restartContainer.classList.remove('hidden');
+    restartContainer.showModal();
 }
 
 function hideRestartContainer() {
-    restartContainer.classList.add('hidden');
+    restartContainer.close();
 }
 
 

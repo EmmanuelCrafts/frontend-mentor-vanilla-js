@@ -414,7 +414,6 @@ main {
 /* win message */
 .win-container,
 .restart-container {
-    display: flex;
     padding: 44px 0;
     justify-content: center;
     align-items: center;
@@ -424,8 +423,17 @@ main {
     transform: translateY(-50%);
     height: fit-content;
     width: 100%;
+    max-width: 100%;
+    border: none;
     background-color: var(--slate-800);
-    z-index: 1;
+}
+
+.win-container {
+    display: flex;
+}
+
+.restart-container[open] {
+    display: flex;
 }
 
 .hidden {
