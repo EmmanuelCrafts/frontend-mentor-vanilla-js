@@ -12,7 +12,7 @@
   --blue-500: #5B8AFF;
 
   /* Indigo */
-  --indigo-600: #2463FF;
+  --indigo-600: #261676;
   --indigo-400: #887DC0;
 
   /* Gradients */
@@ -149,12 +149,17 @@ a {
 
 main {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
 }
 
-.game-container {
-  width: 90%;
+
+
+.start-game-screen {
+  margin: auto;
+  width: 100%;
   height: fit-content;
   display: flex;
   align-items: center;
@@ -169,8 +174,6 @@ main {
   padding-top: 138px;
 
 }
-
-
 .hangman-logo {
   width: 80%;
   position: absolute;
@@ -208,3 +211,79 @@ main {
     inset 0 1px 0px 6px #3C74FF;
 
 }
+.hidden {
+  display: none;
+}
+/* steps screen */
+.steps-screen {
+  padding-top: 32px;
+  padding-bottom: 60px;
+}
+.steps-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-container {
+  width: 40px;
+  height: 40px;
+  background-image: var(--gradient-3);
+  display: flex;
+  justify-content: center;
+  border-radius: var(--radius-full);
+}
+
+.back-icon {
+  width: 50%;
+}
+
+.how-to-play-title {
+  font-size: var(--text-preset-6-font-size); 
+  line-height: 1.4;
+  letter-spacing: var(--text-preset-6-letter-spacing);
+  background: var(--gradient-2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 3px var(--slate-600); 
+  background-clip: text;
+  color: transparent;
+}
+
+.how-to-play {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 80px;
+}
+
+.step-card {
+  background-color: var(--neutral-0);
+  padding: 32px;
+  border-radius: var(--radius-20);
+}
+
+.step-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: var(--text-preset-10-font-size);
+  letter-spacing: var(--text-preset-10-letter-spacing);
+}
+
+.step-number {
+  color: var(--blue-600);
+}
+
+.step-title {
+   color: var(--indigo-600);
+}
+
+.step-description {
+  color: var(--indigo-400);
+  font-size: var(--text-preset-12-font-size);
+  letter-spacing: var(--text-preset-12-letter-spacing);
+}
+
+
+
