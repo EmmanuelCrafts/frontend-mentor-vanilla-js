@@ -52,7 +52,7 @@
   --radius-full: 999px;
 
   /* Typography */
-  --font-family-base: 'House Memoirs', sans-serif;
+  --font-family-base: 'Mouse Memoirs', sans-serif;
   --line-height-base: 120%;
  
   /* Text Preset 1 */
@@ -111,6 +111,8 @@
   box-sizing: border-box;
 }
 
+
+
 html {
   font-size: 100%;
 }
@@ -119,6 +121,8 @@ body {
   min-height: 100vh;
   line-height: var(--line-height-base);
   font-family: var(--font-family-base);
+  background-image: url('assets/background-mobile.svg');
+  background-size: cover;
 }
 
 img {
@@ -141,4 +145,66 @@ button {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.game-container {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  background-image: var(--gradient-1);
+  box-shadow: 
+    inset 0 -8px 0px 4px #140E66,
+    inset 0 6px 0px 8px #2463FF;
+  border-radius: var(--radius-48);
+  padding-bottom: 64px;
+  padding-top: 138px;
+
+}
+
+
+.hangman-logo {
+  width: 80%;
+  position: absolute;
+  top: 0;
+   transform: translate(-50%,-40%); 
+}
+.play {
+  width: 160px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-3);
+  box-shadow: 
+    inset 0 -4px 0px 5px #243041,
+    inset 0 -12px 0px 11px #9D2DF5;
+}
+
+.play-icon {
+  width: 40%;
+}
+
+.play-info {
+  width: 80%;
+  margin-top: 57px;
+  background-color: var(--blue-600);
+  color: var(--neutral-0);
+  padding: 12px 64px;
+  border-radius: var(--radius-40);
+  font-size: var(--text-preset-8-font-size);
+  letter-spacing: var(--text-preset-8-letter-spacing);
+  box-shadow: 
+    inset 0 -2px 0px 3px #140E66,
+    inset 0 1px 0px 6px #3C74FF;
+
 }
