@@ -227,7 +227,8 @@ main {
   align-items: center;
 }
 
-.back-container {
+.back-container,
+.menu {
   width: 40px;
   height: 40px;
   background-image: var(--gradient-3);
@@ -237,7 +238,8 @@ main {
   box-shadow: inset 0 -5px 0 -1px rgba(157, 45, 245, 0.25);
 }
 
-.back-icon {
+.back-icon,
+.menu-icon {
   width: 50%;
 }
 
@@ -312,5 +314,49 @@ main {
     inset 0 1px 0px 6px #3C74FF;
 }
 
+/* game screen */
+.game-screen {
+  padding-top: 46px;
+}
+
+.game-nav {
+  display: flex;
+  justify-content:  space-between;
+}
+
+.game-header,
+.health-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.category {
+  color: var(--neutral-0);
+  font-size: var(--text-preset-7-font-size);
+  letter-spacing: var(--text-preset-7-letter-spacing);
+}
+
+.health-bar {
+  width: 57px;
+  background-color: var(--neutral-0);
+  border-radius: var(--radius-96);
+  padding: 4px;
+}
+
+.health-line {
+  background-color: var(--indigo-600);
+  border-radius: var(--radius-96);
+  width: 100%;
+  height: 8px;
+}
+
+.heart-icon {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+}
+
+.word-
 
 
