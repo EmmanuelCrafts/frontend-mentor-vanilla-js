@@ -16,7 +16,7 @@ startGameBtn.addEventListener("click", showCategoryScreen);
 backBtn.forEach(button => button.addEventListener("click", showStartGameScreen));
 category.forEach(category => category.addEventListener("click", function(){
     let name = category.textContent.toLowerCase();
-  
+    displayCategoryItems(name);
 }));
 
 
@@ -56,4 +56,28 @@ async function loadCategories() {
 
 loadCategories();
 
+function displayCategoryItems(name) {
+    if(!allCategories) {
+        console.log("Still loading, please wait");
+        return;
+    };
+   
+    // find real key that matches name, igonoring case
+    const matchedKey = Object.keys(allCategories).find(key => key.toLowerCase() === name);
+    const items = allCategories[matchedKey];
+    randomCategoryItem(items);
+}
 
+
+function randomCategoryItem(arr) {
+ const index = Math.floor(Math.random() * arr.length)
+ const selectedItem = arr[index].name;
+ console.log(selectedItem);
+
+ displayItem(selectedItem);
+}
+
+function displayItem(item) {
+  const wordArr = item.toUpperCase().replaceAll(" ", "").split('');
+  console.log(wordArr);
+}
