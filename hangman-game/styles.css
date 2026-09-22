@@ -357,6 +357,26 @@ main {
   flex-shrink: 0;
 }
 
-.word-
+.word-display {
+  margin-top: 78px;
+  margin-bottom: 118px;
+}
+
+.keyboard-container {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(3,1fr);
+  row-gap: 24px;
+  column-gap: 8px;
+}
+
+.key {
+  background-color: var(--neutral-0);
+  border-radius: 8px;
+  padding: 12px 10px;
+  color: var(--indigo-600);
+  font-size: var(--text-preset-10-font-size);
+  letter-spacing: var(--text-preset-10-letter-spacing);
+}
 
 
