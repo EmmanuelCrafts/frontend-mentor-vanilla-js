@@ -56,7 +56,6 @@ async function getCategories() {
 
 async function loadCategories() {
     allCategories = await getCategories();
-    console.log(allCategories);
 }
 
 loadCategories();
@@ -77,24 +76,23 @@ function displayCategoryItems(name) {
 function randomCategoryItem(arr) {
  const index = Math.floor(Math.random() * arr.length)
  const selectedItem = arr[index].name;
- console.log(selectedItem);
 
  displayItem(selectedItem);
 }
 
 function displayItem(item) {
   const wordArr = item.toUpperCase().split('');
-  console.log(wordArr);
   wordArr.forEach(letter => {
-      const div = document.createElement('div');
-      div.textContent = letter;
+      const btn = document.createElement('button');
+      btn.textContent = letter;
 
       if (letter === " ") {
-        div.classList.add('space');
+        btn.classList.add('space');
       }
 
-      div.classList.add('letter')
-      wordDisplay.appendChild(div);
+      btn.classList.add('slot')
+      wordDisplay.appendChild(btn);
   })
 
 }
+

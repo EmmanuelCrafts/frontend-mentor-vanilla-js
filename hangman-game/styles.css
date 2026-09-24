@@ -366,7 +366,7 @@ main {
   justify-content: center;
 }
 
-.letter {
+.slot {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -384,6 +384,11 @@ main {
 
 .space {
   visibility: hidden;
+}
+
+.slot-empty{
+  background-color: var(--blue-600);
+  opacity: 25%;
 }
 .keyboard-container {
   display: grid;
