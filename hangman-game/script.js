@@ -11,6 +11,9 @@ const wordDisplay = document.querySelector('.word-display');
 
 // game variables
 let allCategories = null;
+// const maxGuesses = 8;
+let guessedLetters = [];
+let wordLetters = [];
 
 // Event Listeners
 playInfoBtn.addEventListener("click", showStepsScreen);
@@ -45,9 +48,12 @@ function showGameScreen () {
 
 async function getCategories() {
     try {
-        const response = await fetch('/data.json')
+        const response = await fetch('/data.json');
+        console.log(response);
         const data = await response.json();
+        console.log(data);
         return data.categories;
+
 
     } catch (error) {
         console.log(error)
@@ -76,9 +82,31 @@ function displayCategoryItems(name) {
 function randomCategoryItem(arr) {
  const index = Math.floor(Math.random() * arr.length)
  const selectedItem = arr[index].name;
-
+ console.log(selectedItem);
+ extractLettersFromWord(selectedItem);
  displayItem(selectedItem);
 }
+
+function extractLettersFromWord(word) {
+    const wordArr = word.split('');
+    const lettersOnly = wordArr.filter(letter => letter !== ' ');
+    const count = Math.max(1, Math.floor(lettersOnly.length * 0.25));
+    const randomIndexes = [];
+
+    for(let i = 0; i < count; i++)  {
+        const randomIndex = Math.floor(Math.random() * lettersOnly.length);
+        if(randomIndexes.includes(randomIndex)) {
+            i--;
+        } else {
+            randomIndexes.push(randomIndex);
+        }
+    }  
+    
+    randomIndexes.forEach(index => {
+        wordLetters.push(lettersOnly[index]);
+    });
+}
+
 
 function displayItem(item) {
   const wordArr = item.toUpperCase().split('');
