@@ -8,12 +8,13 @@ const playInfoBtn = document.querySelector('.play-info');
 const backBtn = document.querySelectorAll('.back-container');
 const category = document.querySelectorAll('.category-btn');
 const wordDisplay = document.querySelector('.word-display');
-
 // game variables
 let allCategories = null;
 // const maxGuesses = 8;
 let guessedLetters = [];
 let wordLetters = [];
+const randomIndexes = [];
+
 
 // Event Listeners
 playInfoBtn.addEventListener("click", showStepsScreen);
@@ -49,13 +50,10 @@ function showGameScreen () {
 async function getCategories() {
     try {
         const response = await fetch('/data.json');
-        console.log(response);
         const data = await response.json();
-        console.log(data);
         return data.categories;
-
-
-    } catch (error) {
+     }   
+    catch (error) {
         console.log(error)
     }
 }
@@ -88,10 +86,9 @@ function randomCategoryItem(arr) {
 }
 
 function extractLettersFromWord(word) {
-    const wordArr = word.split('');
+    const wordArr = word.toUpperCase().split('');
     const lettersOnly = wordArr.filter(letter => letter !== ' ');
     const count = Math.max(1, Math.floor(lettersOnly.length * 0.25));
-    const randomIndexes = [];
 
     for(let i = 0; i < count; i++)  {
         const randomIndex = Math.floor(Math.random() * lettersOnly.length);
@@ -105,6 +102,8 @@ function extractLettersFromWord(word) {
     randomIndexes.forEach(index => {
         wordLetters.push(lettersOnly[index]);
     });
+    console.log(randomIndexes);
+    console.log(wordLetters);
 }
 
 
@@ -113,14 +112,20 @@ function displayItem(item) {
   wordArr.forEach(letter => {
       const btn = document.createElement('button');
       btn.textContent = letter;
-
-      if (letter === " ") {
-        btn.classList.add('space');
-      }
-
-      btn.classList.add('slot')
+      letter === ' ' ? btn.classList.add('space') : btn.classList.add('slot');
       wordDisplay.appendChild(btn);
   })
 
+  hideExtractedLetters();
 }
 
+function hideExtractedLetters() {
+ const slots = document.querySelectorAll('.slot');
+
+ slots.forEach((slot, index) => {
+     if (randomIndexes.includes(index)){
+        slot.textContent = "";
+        slot.style.opacity = 0.25;
+     }
+ })
+}

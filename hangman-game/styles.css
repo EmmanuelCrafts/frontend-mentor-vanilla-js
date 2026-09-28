@@ -384,12 +384,15 @@ main {
 
 .space {
   visibility: hidden;
+  width: 44px;
+  height: 66px;
 }
 
-.slot-empty{
+/* .slot-empty {
   background-color: var(--blue-600);
   opacity: 25%;
-}
+} */
+
 .keyboard-container {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
