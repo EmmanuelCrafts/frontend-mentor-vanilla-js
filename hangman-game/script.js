@@ -8,12 +8,14 @@ const playInfoBtn = document.querySelector('.play-info');
 const backBtn = document.querySelectorAll('.back-container');
 const category = document.querySelectorAll('.category-btn');
 const wordDisplay = document.querySelector('.word-display');
+const keys = document.querySelectorAll('.key');
 // game variables
 let allCategories = null;
 // const maxGuesses = 8;
 let guessedLetters = [];
 let wordLetters = [];
-const randomIndexes = [];
+const indexes = [];
+const revealedLetters = [];
 
 
 // Event Listeners
@@ -80,7 +82,6 @@ function displayCategoryItems(name) {
 function randomCategoryItem(arr) {
  const index = Math.floor(Math.random() * arr.length)
  const selectedItem = arr[index].name;
- console.log(selectedItem);
  extractLettersFromWord(selectedItem);
  displayItem(selectedItem);
 }
@@ -89,6 +90,7 @@ function extractLettersFromWord(word) {
     const wordArr = word.toUpperCase().split('');
     const lettersOnly = wordArr.filter(letter => letter !== ' ');
     const count = Math.max(1, Math.floor(lettersOnly.length * 0.25));
+    const randomIndexes = [];
 
     for(let i = 0; i < count; i++)  {
         const randomIndex = Math.floor(Math.random() * lettersOnly.length);
@@ -99,10 +101,15 @@ function extractLettersFromWord(word) {
         }
     }  
     
-    randomIndexes.forEach(index => {
+    randomIndexes.sort((a, b) => a - b);
+    indexes.push(...randomIndexes);
+    
+    indexes.forEach(index => {
         wordLetters.push(lettersOnly[index]);
     });
-    console.log(randomIndexes);
+
+    
+    console.log(indexes);
     console.log(wordLetters);
 }
 
@@ -117,15 +124,26 @@ function displayItem(item) {
   })
 
   hideExtractedLetters();
+  disableRevealedKeys();
 }
 
 function hideExtractedLetters() {
  const slots = document.querySelectorAll('.slot');
 
  slots.forEach((slot, index) => {
-     if (randomIndexes.includes(index)){
+     if (indexes.includes(index)){
         slot.textContent = "";
         slot.style.opacity = 0.25;
-     }
+     } else {
+        revealedLetters.push(slot.textContent);
+      }
+ })
+}
+
+function disableRevealedKeys() {
+ keys.forEach(key => {
+    if(revealedLetters.includes(key.textContent) && !wordLetters.includes(key.textContent)) {
+        key.disabled = true;
+    }
  })
 }
