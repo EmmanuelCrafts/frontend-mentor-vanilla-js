@@ -14,6 +14,7 @@ let allCategories = null;
 // const maxGuesses = 8;
 let guessedLetters = [];
 let wordLetters = [];
+let pickedletter = undefined;
 const indexes = [];
 const revealedLetters = [];
 
@@ -27,6 +28,11 @@ category.forEach(category => category.addEventListener("click", function(){
     let name = category.textContent.toLowerCase();
     displayCategoryItems(name);
 }));
+keys.forEach(key => key.addEventListener('click', ()=> {
+        pickedletter = key.dataset.letter.toUpperCase();
+        console.log(pickedletter)
+        displayGuessedLetter();
+    }));
 
 
 function showStepsScreen () {
@@ -131,6 +137,7 @@ function hideExtractedLetters() {
  const slots = document.querySelectorAll('.slot');
 
  slots.forEach((slot, index) => {
+    slot.dataset.slot = index;
      if (indexes.includes(index)){
         slot.textContent = "";
         slot.style.opacity = 0.25;
@@ -146,4 +153,17 @@ function disableRevealedKeys() {
         key.disabled = true;
     }
  })
+}
+function displayGuessedLetter () {
+    const slots = document.querySelectorAll('.slot')
+    slots.forEach(slot => {
+       let index = Number(slot.dataset.slot);
+       let position = indexes.indexOf(index);
+       let correctLetter = wordLetters[position];
+
+       if(indexes.includes(index) && correctLetter === pickedletter) {
+            slot.textContent = pickedletter;
+            slot.style.opacity = 1;
+       }
+    })
 }
