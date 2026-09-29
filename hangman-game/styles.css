@@ -203,8 +203,10 @@ main {
 .play-icon {
   width: 40%;
 }
-
-.play-info {
+/* buttons */
+.play-info,
+.primary-action,
+.newCategory {
   width: 80%;
   margin-top: 57px;
   background-color: var(--blue-600);
@@ -339,7 +341,7 @@ main {
   gap: 16px;
 }
 
-.category {
+.category-name {
   color: var(--neutral-0);
   font-size: var(--text-preset-7-font-size);
   letter-spacing: var(--text-preset-7-letter-spacing);
@@ -416,6 +418,7 @@ main {
   color: var(--indigo-600);
   font-size: var(--text-preset-10-font-size);
   letter-spacing: var(--text-preset-10-letter-spacing);
+  transition: background-color 3ms ease;
 }
 
 .key:disabled {

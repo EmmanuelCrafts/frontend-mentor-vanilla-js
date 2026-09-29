@@ -7,8 +7,17 @@ const startGameBtn = document.querySelector('.play');
 const playInfoBtn = document.querySelector('.play-info');
 const backBtn = document.querySelectorAll('.back-container');
 const category = document.querySelectorAll('.category-btn');
+const categoryName = document.querySelector('.category-name');
 const wordDisplay = document.querySelector('.word-display');
 const keys = document.querySelectorAll('.key');
+
+const dialogBox = document.querySelector(".menu-dialog");
+const primaryActionBtn = document.querySelector(".primary-action");
+const newCategoryBtn = document.querySelector(".new-category");
+const quitGameBtn = document.querySelector(".quit-game");
+const menuBtn = document.querySelector(".menu")
+
+
 // game variables
 let allCategories = null;
 // const maxGuesses = 8;
@@ -26,6 +35,7 @@ backBtn.forEach(button => button.addEventListener("click", showStartGameScreen))
 category.forEach(category => category.addEventListener("click", function(){
     showGameScreen();
     let name = category.textContent.toLowerCase();
+    categoryName.textContent = name.toUpperCase();
     displayCategoryItems(name);
 }));
 keys.forEach(key => key.addEventListener('click', ()=> {
@@ -81,6 +91,7 @@ function displayCategoryItems(name) {
     // find real key that matches name, igonoring case
     const matchedKey = Object.keys(allCategories).find(key => key.toLowerCase() === name);
     const items = allCategories[matchedKey];
+    console.log(items);
     randomCategoryItem(items);
 }
 
@@ -149,10 +160,18 @@ function hideExtractedLetters() {
 
 function disableRevealedKeys() {
  keys.forEach(key => {
-    if(revealedLetters.includes(key.textContent) && !wordLetters.includes(key.textContent)) {
+    if(revealedLetters.includes(key.textContent) && !wordLetters.includes(key.textContent) ) {
         key.disabled = true;
     }
  })
+}
+
+function disabledPickedKey() {
+    keys.forEach(key => {
+        if(key.textContent === pickedletter) {
+            key.disabled = true;
+        }
+    })
 }
 function displayGuessedLetter () {
     const slots = document.querySelectorAll('.slot')
@@ -164,6 +183,8 @@ function displayGuessedLetter () {
        if(indexes.includes(index) && correctLetter === pickedletter) {
             slot.textContent = pickedletter;
             slot.style.opacity = 1;
+            disabledPickedKey();
        }
     })
 }
+
