@@ -17,6 +17,7 @@ const newCategoryBtn = document.querySelector(".new-category");
 const quitGameBtn = document.querySelector(".quit-game");
 const menuBtn = document.querySelector(".menu")
 
+const screens = [startGameScreen, stepsScreen, categoryScreen, gameScreen];
 
 // game variables
 let allCategories = null;
@@ -29,41 +30,43 @@ const revealedLetters = [];
 
 
 // Event Listeners
-playInfoBtn.addEventListener("click", showStepsScreen);
-startGameBtn.addEventListener("click", showCategoryScreen);
-backBtn.forEach(button => button.addEventListener("click", showStartGameScreen));
+playInfoBtn.addEventListener("click", () => showScreen(stepsScreen));
+startGameBtn.addEventListener("click", () => showScreen(categoryScreen));
+backBtn.forEach(button => button.addEventListener("click", () => showScreen(startGameScreen)));
 category.forEach(category => category.addEventListener("click", function(){
-    showGameScreen();
+    showScreen(gameScreen);
     let name = category.textContent.toLowerCase();
     categoryName.textContent = name.toUpperCase();
     displayCategoryItems(name);
 }));
+
 keys.forEach(key => key.addEventListener('click', ()=> {
         pickedletter = key.dataset.letter.toUpperCase();
         console.log(pickedletter)
         displayGuessedLetter();
     }));
 
+menuBtn.addEventListener('click', showDialogBox);
+newCategoryBtn.addEventListener('click', () => {
+    hideDialogBox();
+//    resetGame();
+   showScreen(categoryScreen);
+});
 
-function showStepsScreen () {
-   startGameScreen.classList.add('hidden');
-   stepsScreen.classList.remove('hidden')
+primaryActionBtn.addEventListener('click', hideDialogBox);
+
+quitGameBtn.addEventListener('click', () => {
+  hideDialogBox();
+//   resetGame();
+  showScreen(startGameScreen);
+});
+
+
+function showScreen(target) {
+    screens.forEach(screen => screen.classList.add('hidden'));
+    target.classList.remove('hidden');
 }
 
-function showStartGameScreen() {
-  startGameScreen.classList.remove('hidden');
-  stepsScreen.classList.add('hidden')
-  categoryScreen.classList.add('hidden')
-}
-function showCategoryScreen () {
-   startGameScreen.classList.add('hidden');
-   categoryScreen.classList.remove('hidden')
-}
-
-function showGameScreen () {
-   categoryScreen.classList.add('hidden');
-   gameScreen.classList.remove('hidden')
-}
 
 async function getCategories() {
     try {
@@ -188,3 +191,10 @@ function displayGuessedLetter () {
     })
 }
 
+function showDialogBox() {
+    dialogBox.showModal();
+}
+
+function hideDialogBox() {
+    dialogBox.close();
+}
