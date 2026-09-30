@@ -10,6 +10,7 @@ const category = document.querySelectorAll('.category-btn');
 const categoryName = document.querySelector('.category-name');
 const wordDisplay = document.querySelector('.word-display');
 const keys = document.querySelectorAll('.key');
+const dialogText = document.querySelector('.dialog-text')
 
 const dialogBox = document.querySelector(".menu-dialog");
 const primaryActionBtn = document.querySelector(".primary-action");
@@ -21,12 +22,12 @@ const screens = [startGameScreen, stepsScreen, categoryScreen, gameScreen];
 
 // game variables
 let allCategories = null;
-// const maxGuesses = 8;
+let guessCount = 0;
 let guessedLetters = [];
 let wordLetters = [];
 let pickedletter = undefined;
-const indexes = [];
-const revealedLetters = [];
+let indexes = [];
+let revealedLetters = [];
 
 
 // Event Listeners
@@ -34,6 +35,7 @@ playInfoBtn.addEventListener("click", () => showScreen(stepsScreen));
 startGameBtn.addEventListener("click", () => showScreen(categoryScreen));
 backBtn.forEach(button => button.addEventListener("click", () => showScreen(startGameScreen)));
 category.forEach(category => category.addEventListener("click", function(){
+    resetGame();
     showScreen(gameScreen);
     let name = category.textContent.toLowerCase();
     categoryName.textContent = name.toUpperCase();
@@ -42,14 +44,12 @@ category.forEach(category => category.addEventListener("click", function(){
 
 keys.forEach(key => key.addEventListener('click', ()=> {
         pickedletter = key.dataset.letter.toUpperCase();
-        console.log(pickedletter)
         displayGuessedLetter();
     }));
 
 menuBtn.addEventListener('click', showDialogBox);
 newCategoryBtn.addEventListener('click', () => {
     hideDialogBox();
-//    resetGame();
    showScreen(categoryScreen);
 });
 
@@ -57,7 +57,6 @@ primaryActionBtn.addEventListener('click', hideDialogBox);
 
 quitGameBtn.addEventListener('click', () => {
   hideDialogBox();
-//   resetGame();
   showScreen(startGameScreen);
 });
 
@@ -94,16 +93,15 @@ function displayCategoryItems(name) {
     // find real key that matches name, igonoring case
     const matchedKey = Object.keys(allCategories).find(key => key.toLowerCase() === name);
     const items = allCategories[matchedKey];
-    console.log(items);
     randomCategoryItem(items);
 }
 
 
 function randomCategoryItem(arr) {
- const index = Math.floor(Math.random() * arr.length)
- const selectedItem = arr[index].name;
- extractLettersFromWord(selectedItem);
- displayItem(selectedItem);
+    const index = Math.floor(Math.random() * arr.length)
+    const selectedItem = arr[index].name;
+    extractLettersFromWord(selectedItem);
+    displayItem(selectedItem);
 }
 
 function extractLettersFromWord(word) {
@@ -128,7 +126,7 @@ function extractLettersFromWord(word) {
         wordLetters.push(lettersOnly[index]);
     });
 
-    
+    console.log(randomIndexes);
     console.log(indexes);
     console.log(wordLetters);
 }
@@ -187,14 +185,51 @@ function displayGuessedLetter () {
             slot.textContent = pickedletter;
             slot.style.opacity = 1;
             disabledPickedKey();
-       }
+            guessedLetters.push(pickedletter);
+            console.log(guessedLetters);
+       }   
     })
+
+    // if(arraysEqual() === true) {
+    //     showWinDialog();
+    // }
 }
 
+function arraysEqual() {
+  const result = wordLetters.every((letter, index) => letter === guessedLetters[index]);
+
+   if (wordLetters.length === guessedLetters.length &&  result === true){
+    return true;
+   }
+
+   return false;
+}
+
+
+// function showWinDialog() {
+//     dialogText.textContent = 'YOU WIN'
+//     showDialogBox()
+
+// }
 function showDialogBox() {
     dialogBox.showModal();
 }
 
 function hideDialogBox() {
     dialogBox.close();
+}
+
+function resetGame() {
+    // reset variables
+     guessCount = 0;
+     guessedLetters = [];
+     wordLetters = [];
+     pickedletter = undefined;
+     indexes = [];
+     revealedLetters = [];
+
+    //  reset UI
+    wordDisplay.innerHTML = '';
+    keys.forEach(key => key.disabled = false);
+
 }

@@ -57,7 +57,7 @@
 
   /* Typography */
   --font-family-base: 'Mouse Memoirs', sans-serif;
-  --line-height-base: 120%;
+  --line-height-base: 1.2;
  
   /* Text Preset 1 */
   --text-preset-1-font-size: 136px;
@@ -167,7 +167,7 @@ main {
 
 .start-game-screen {
   margin: auto;
-  width: 100%;
+  width: min(100%, 592px);
   height: fit-content;
   display: flex;
   align-items: center;
@@ -186,7 +186,7 @@ main {
   width: 80%;
   position: absolute;
   top: 0;
-   transform: translate(-50%,-40%); 
+   transform: translate(-50%,-50%); 
 }
 .play {
   width: 160px;
@@ -202,15 +202,15 @@ main {
 }
 
 .play-icon {
-  width: 40%;
+  width: 35%;
 }
 /* buttons */
 .play-info {
-  width: 80%;
+  width: fit-content;
   margin-top: 57px;
   background-color: var(--blue-600);
   color: var(--neutral-0);
-  padding: 12px 64px;
+  padding: 24px 64px;
   border-radius: var(--radius-40);
   font-size: var(--text-preset-8-font-size);
   letter-spacing: var(--text-preset-8-letter-spacing);
@@ -301,7 +301,6 @@ main {
 
 /* category section */
 .category-list {
-  max-width: 400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -498,3 +497,42 @@ main {
     inset 0 1px 0px 6px #C642FB;
 }
 
+/* tablet styles */
+/* @media (min-width: 768px) {
+   body {
+    background-image: 
+      var(--gradient-5), 
+      url('assets/background-tablet.svg');
+   }
+   
+   /* main {
+    width: 80%;
+   } */
+
+   /* .hangman-logo {
+    width: 60%;
+   }
+   .play {
+    width: 200px;
+    height: 200px;
+   } */
+
+   /* category screen */
+   /* .category-screen {
+    padding-top: 62px;
+   }
+   .category-list {
+    display: grid;
+    grid-template-columns: repeat(2, 324px);
+    grid-template-rows: repeat(3, 183px);
+    gap: 32px;
+    place-items: center;
+   }
+
+   .category-btn {
+    padding: 63px 105px;
+    border-radius: var(--radius-40);
+    font-size: var(--text-preset-6-font-size);
+    letter-spacing: var(--text-preset-6-letter-spacing);
+   } */
+/* }  */
