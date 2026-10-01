@@ -11,6 +11,8 @@ const categoryName = document.querySelector('.category-name');
 const wordDisplay = document.querySelector('.word-display');
 const keys = document.querySelectorAll('.key');
 const dialogText = document.querySelector('.dialog-text')
+const healthLine = document.querySelector('.health-line');
+
 
 const dialogBox = document.querySelector(".menu-dialog");
 const primaryActionBtn = document.querySelector(".primary-action");
@@ -23,6 +25,7 @@ const screens = [startGameScreen, stepsScreen, categoryScreen, gameScreen];
 // game variables
 let allCategories = null;
 let guessCount = 0;
+const maxGuesses = 8;
 let guessedLetters = [];
 let wordLetters = [];
 let pickedletter = undefined;
@@ -179,7 +182,7 @@ function disabledPickedKey() {
 }
 function displayGuessedLetter () {
     const slots = document.querySelectorAll('.slot');
-    
+    let found = false;
     slots.forEach(slot => {
        let index = Number(slot.dataset.slot);
        let position = indexes.indexOf(index);
@@ -189,14 +192,24 @@ function displayGuessedLetter () {
             slot.textContent = pickedletter;
             slot.style.opacity = 1;
             guessedLetters.push(pickedletter);
-       }   
+            found = true;
+       } 
     })
 
     disabledPickedKey();
 
-    if(isWordComplete() === true) {
-       showWinDialog();
-     }
+    if(isWordComplete()) {
+        showEndDialog('YOU WIN');
+    }
+
+    if(found === false) {
+        guessCount++;
+        healthLine.style.width = `${(1 - guessCount / maxGuesses) * 100}%`;
+
+        if(guessCount >= maxGuesses) {
+            showEndDialog('YOU LOSE');
+        }
+    }
 }
 
 
@@ -204,8 +217,9 @@ function isWordComplete() {
     return [...document.querySelectorAll('.slot')].every(slot => slot.textContent !== '');
 }
 
-function showWinDialog() {
-    dialogText.textContent = 'YOU WIN'
+
+function showEndDialog(message) {
+    dialogText.textContent = message;
     primaryActionBtn.textContent = 'PLAY AGAIN';
     showDialogBox()
 }
@@ -236,4 +250,5 @@ function resetGame() {
     keys.forEach(key => key.disabled = false);
     primaryActionBtn.textContent = 'CONTINUE';
     dialogText.textContent = 'PAUSED';
+    healthLine.style.width = '100%';
 }
