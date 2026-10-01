@@ -28,7 +28,7 @@ let wordLetters = [];
 let pickedletter = undefined;
 let indexes = [];
 let revealedLetters = [];
-
+let selectedCategory = undefined;
 
 // Event Listeners
 playInfoBtn.addEventListener("click", () => showScreen(stepsScreen));
@@ -37,12 +37,12 @@ backBtn.forEach(button => button.addEventListener("click", () => showScreen(star
 category.forEach(category => category.addEventListener("click", function(){
     resetGame();
     showScreen(gameScreen);
-    let name = category.textContent.toLowerCase();
-    categoryName.textContent = name.toUpperCase();
-    displayCategoryItems(name);
+    selectedCategory = category.textContent.toLowerCase();
+    categoryName.textContent = selectedCategory.toUpperCase();
+    displayCategoryItems(selectedCategory);
 }));
 
-keys.forEach(key => key.addEventListener('click', ()=> {
+keys.forEach(key => key.addEventListener('click', () => {
         pickedletter = key.dataset.letter.toUpperCase();
         displayGuessedLetter();
     }));
@@ -50,10 +50,13 @@ keys.forEach(key => key.addEventListener('click', ()=> {
 menuBtn.addEventListener('click', showDialogBox);
 newCategoryBtn.addEventListener('click', () => {
     hideDialogBox();
-   showScreen(categoryScreen);
+    showScreen(categoryScreen);
 });
 
-primaryActionBtn.addEventListener('click', hideDialogBox);
+primaryActionBtn.addEventListener('click', function () {
+    let action = this.textContent;
+    action === "CONTINUE" ? hideDialogBox() : restartGame();
+});
 
 quitGameBtn.addEventListener('click', () => {
   hideDialogBox();
@@ -92,6 +95,7 @@ function displayCategoryItems(name) {
    
     // find real key that matches name, igonoring case
     const matchedKey = Object.keys(allCategories).find(key => key.toLowerCase() === name);
+    console.log(matchedKey)
     const items = allCategories[matchedKey];
     randomCategoryItem(items);
 }
@@ -127,7 +131,6 @@ function extractLettersFromWord(word) {
     });
 
     console.log(randomIndexes);
-    console.log(indexes);
     console.log(wordLetters);
 }
 
@@ -175,7 +178,8 @@ function disabledPickedKey() {
     })
 }
 function displayGuessedLetter () {
-    const slots = document.querySelectorAll('.slot')
+    const slots = document.querySelectorAll('.slot');
+    
     slots.forEach(slot => {
        let index = Number(slot.dataset.slot);
        let position = indexes.indexOf(index);
@@ -184,37 +188,36 @@ function displayGuessedLetter () {
        if(indexes.includes(index) && correctLetter === pickedletter) {
             slot.textContent = pickedletter;
             slot.style.opacity = 1;
-            disabledPickedKey();
             guessedLetters.push(pickedletter);
-            console.log(guessedLetters);
        }   
     })
 
-    // if(arraysEqual() === true) {
-    //     showWinDialog();
-    // }
-}
+    disabledPickedKey();
 
-function arraysEqual() {
-  const result = wordLetters.every((letter, index) => letter === guessedLetters[index]);
-
-   if (wordLetters.length === guessedLetters.length &&  result === true){
-    return true;
-   }
-
-   return false;
+    if(isWordComplete() === true) {
+       showWinDialog();
+     }
 }
 
 
-// function showWinDialog() {
-//     dialogText.textContent = 'YOU WIN'
-//     showDialogBox()
+function isWordComplete() {
+    return [...document.querySelectorAll('.slot')].every(slot => slot.textContent !== '');
+}
 
-// }
+function showWinDialog() {
+    dialogText.textContent = 'YOU WIN'
+    primaryActionBtn.textContent = 'PLAY AGAIN';
+    showDialogBox()
+}
 function showDialogBox() {
     dialogBox.showModal();
 }
 
+function restartGame() {
+    resetGame();
+    hideDialogBox();
+    displayCategoryItems(selectedCategory);
+}
 function hideDialogBox() {
     dialogBox.close();
 }
@@ -231,5 +234,6 @@ function resetGame() {
     //  reset UI
     wordDisplay.innerHTML = '';
     keys.forEach(key => key.disabled = false);
-
+    primaryActionBtn.textContent = 'CONTINUE';
+    dialogText.textContent = 'PAUSED';
 }
