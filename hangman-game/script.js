@@ -20,6 +20,11 @@ const newCategoryBtn = document.querySelector(".new-category");
 const quitGameBtn = document.querySelector(".quit-game");
 const menuBtn = document.querySelector(".menu")
 
+const exhaustedDialog = document.querySelector('.exhausted-dialog');
+const exhaustedMessage = document.querySelector('.exhausted-message');
+const exhaustedNewCategoryBtn = document.querySelector('.exhausted-new-category');
+const exhaustedQuitBtn = document.querySelector('.exhausted-quit');
+
 const screens = [startGameScreen, stepsScreen, categoryScreen, gameScreen];
 
 // game variables
@@ -66,6 +71,15 @@ quitGameBtn.addEventListener('click', () => {
   showScreen(startGameScreen);
 });
 
+exhaustedNewCategoryBtn.addEventListener('click', () => {
+    exhaustedDialog.close();
+    showScreen(categoryScreen);
+});
+
+exhaustedQuitBtn.addEventListener('click', () => {
+    exhaustedDialog.close();
+    showScreen(startGameScreen);
+});
 
 function showScreen(target) {
     screens.forEach(screen => screen.classList.add('hidden'));
@@ -92,25 +106,29 @@ loadCategories();
 
 function displayCategoryItems(name) {
     if(!allCategories) {
-        console.log("Still loading, please wait");
         return;
     };
    
-    // find real key that matches name, igonoring case
+    // find real key that matches name, ignoring case
     const matchedKey = Object.keys(allCategories).find(key => key.toLowerCase() === name);
-    console.log(matchedKey)
     const items = allCategories[matchedKey];
     randomCategoryItem(items);
 }
 
-
 function randomCategoryItem(arr) {
-    const index = Math.floor(Math.random() * arr.length)
-    const selectedItem = arr[index].name;
+    const available = arr.filter(item => !item.selected);
+
+    if (available.length === 0) {
+      showExhaustedCategory();
+      return;
+    }
+    const index = Math.floor(Math.random() * available.length);
+    const selectedItem = available[index].name;
+    available[index].selected = true;
+
     extractLettersFromWord(selectedItem);
     displayItem(selectedItem);
 }
-
 function extractLettersFromWord(word) {
     const wordArr = word.toUpperCase().split('');
     const lettersOnly = wordArr.filter(letter => letter !== ' ');
@@ -132,9 +150,6 @@ function extractLettersFromWord(word) {
     indexes.forEach(index => {
         wordLetters.push(lettersOnly[index]);
     });
-
-    console.log(randomIndexes);
-    console.log(wordLetters);
 }
 
 
@@ -212,7 +227,11 @@ function displayGuessedLetter () {
     }
 }
 
-
+function showExhaustedCategory() {
+    showScreen(categoryScreen);
+    exhaustedMessage.textContent = `You've played every word in ${selectedCategory.toUpperCase()}.`;
+    exhaustedDialog.showModal();
+}
 function isWordComplete() {
     return [...document.querySelectorAll('.slot')].every(slot => slot.textContent !== '');
 }

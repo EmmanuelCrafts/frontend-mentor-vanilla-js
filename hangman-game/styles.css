@@ -423,12 +423,14 @@ main {
     background-color: rgb(255 255 255 / 25%);
     cursor: not-allowed;
 }
+
 /* dialog box */
-.menu-dialog {
+.menu-dialog,
+.exhausted-dialog {
   width: min(90%, 592px);
-  margin: auto;              
+  margin: auto;
   padding: 0;
-  overflow: visible;         
+  overflow: visible;
   border: none;
   border-radius: var(--radius-48);
   background: var(--gradient-1);
@@ -437,15 +439,17 @@ main {
     inset 0 6px 0px 8px #2463FF;
 }
 
-.menu-dialog::backdrop {
-  background: var(--gradient-5);   /* the dimmed overlay behind the dialog */
+.menu-dialog::backdrop,
+.exhausted-dialog::backdrop {
+  background: var(--gradient-5);
 }
 
-.text-container {
+.text-container,
+.exhausted-text-container {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);   
+  transform: translate(-50%, -50%);
   width: max-content;
 }
 
@@ -462,8 +466,9 @@ main {
   color: transparent;
 }
 
-.menu-options {
-  padding: 96px 0 64px;   
+.menu-options,
+.exhausted-options {
+  padding: 96px 0 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -472,7 +477,9 @@ main {
 
 .primary-action,
 .new-category,
-.quit-game {
+.quit-game,
+.exhausted-new-category,
+.exhausted-quit {
   cursor: pointer;
   width: fit-content;
   color: var(--neutral-0);
@@ -483,20 +490,43 @@ main {
 }
 
 .primary-action,
-.new-category {
+.new-category,
+.exhausted-new-category {
   background-color: var(--blue-600);
-  box-shadow: 
+  box-shadow:
     inset 0 -2px 0px 3px #140E66,
     inset 0 1px 0px 6px #3C74FF;
 }
 
-.quit-game {
+.quit-game,
+.exhausted-quit {
   background-image: var(--gradient-3);
-  box-shadow: 
+  box-shadow:
     inset 0 -2px 0px 3px #140E66,
     inset 0 1px 0px 6px #C642FB;
 }
 
+.exhausted-title {
+  text-align: center;
+  font-size: var(--text-preset-5-font-size); 
+  line-height: 1.2;
+  letter-spacing: var(--text-preset-5-letter-spacing);
+  background: var(--gradient-2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 5px var(--slate-600);
+  color: transparent;
+}
+
+.exhausted-message {
+  color: var(--neutral-0);
+  text-align: center;
+  padding: 0 32px;
+  margin-bottom: 8px;
+  font-size: var(--text-preset-9-font-size);
+  letter-spacing: var(--text-preset-9-letter-spacing);
+}
 /* tablet styles */
 /* @media (min-width: 768px) {
    body {
