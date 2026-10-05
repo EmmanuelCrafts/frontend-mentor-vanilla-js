@@ -132,7 +132,7 @@ function randomCategoryItem(arr) {
 function extractLettersFromWord(word) {
     const wordArr = word.toUpperCase().split('');
     const lettersOnly = wordArr.filter(letter => letter !== ' ');
-    const count = Math.max(1, Math.floor(lettersOnly.length * 0.25));
+    const count = Math.max(1, Math.floor(lettersOnly.length * 0.5));
     const randomIndexes = [];
 
     for(let i = 0; i < count; i++)  {
