@@ -198,9 +198,16 @@ main {
   align-items: center;
   border-radius: var(--radius-full);
   background-image: var(--gradient-3);
+  transition: background-image 3ms ease;
   box-shadow: 
     inset 0 -4px 0px 5px #243041,
     inset 0 -12px 0px 11px #9D2DF5;
+}
+
+.play:hover,
+.back-container:hover,
+.menu:hover {
+  background-image: var(--gradient-4);
 }
 
 .play-icon {
@@ -216,10 +223,15 @@ main {
   border-radius: var(--radius-40);
   font-size: var(--text-preset-8-font-size);
   letter-spacing: var(--text-preset-8-letter-spacing);
+  transition: background-color 3ms ease;
   box-shadow: 
     inset 0 -2px 0px 3px #140E66,
     inset 0 1px 0px 6px #3C74FF;
+}
 
+.play-info:hover,
+.category-btn:hover {
+  background-color: var(--blue-500);
 }
 .hidden {
   display: none;
@@ -241,6 +253,7 @@ main {
   width: 40px;
   height: 40px;
   background-image: var(--gradient-3);
+  transition: background-image 3ms ease;
   display: flex;
   justify-content: center;
   border-radius: var(--radius-full);
@@ -323,6 +336,7 @@ main {
   font-size: var(--text-preset-10-font-size);
   letter-spacing: var(--text-preset-10-letter-spacing);
   border-radius: var(--radius-20);
+  transition: background-color 3ms ease;
   box-shadow: 
     inset 0 -2px 0px 3px #140E66,
     inset 0 1px 0px 6px #3C74FF;
@@ -423,12 +437,18 @@ main {
   color: var(--indigo-600);
   font-size: var(--text-preset-10-font-size);
   letter-spacing: var(--text-preset-10-letter-spacing);
-  transition: background-color 3ms ease;
+  transition: background-color 3ms ease,
+              color 3ms ease;
 }
 
 .key:disabled {
     background-color: rgb(255 255 255 / 25%);
     cursor: not-allowed;
+}
+
+.key:hover {
+  background-color: var(--blue-600);
+  color: var(--neutral-0);
 }
 
 /* dialog box */
@@ -500,10 +520,18 @@ main {
 .new-category,
 .exhausted-new-category {
   background-color: var(--blue-600);
+  transition: background-color 3ms ease;
   box-shadow:
     inset 0 -2px 0px 3px #140E66,
     inset 0 1px 0px 6px #3C74FF;
 }
+
+.primary-action:hover,
+.new-category:hover,
+.exhausted-new-category:hover {
+  background-color: var(--blue-500);
+}
+
 
 .quit-game,
 .exhausted-quit {
@@ -511,6 +539,11 @@ main {
   box-shadow:
     inset 0 -2px 0px 3px #140E66,
     inset 0 1px 0px 6px #C642FB;
+}
+
+.quit-game:hover,
+.exhausted-quit:hover {
+  background-image: var(--gradient-4);
 }
 
 .exhausted-title {
