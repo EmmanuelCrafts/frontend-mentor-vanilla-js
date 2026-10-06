@@ -544,6 +544,7 @@ main {
    
    .start-game-screen {
     padding-top: 128px;
+    border-radius: var(--radius-72);
    }
 
    .hangman-logo {
@@ -659,6 +660,17 @@ main {
     border-radius: var(--radius-24);
     font-size: var(--text-preset-6-font-size);
     letter-spacing: var(--text-preset-6-letter-spacing);
+  }
+
+  /* dialog screen */
+  .menu-dialog,
+  .exhausted-dialog {
+    border-radius: var(--radius-72);
+  }
+  .dialog-text,
+  .exhausted-text {
+    font-size: var(--text-preset-1-font-size);
+    letter-spacing: var(--text-preset-1-letter-spacing);
   }
 } 
 
