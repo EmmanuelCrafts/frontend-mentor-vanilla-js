@@ -158,7 +158,7 @@ main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: min(90%, 1216px);
   margin: 0 auto;
   position: relative;
 }
@@ -182,12 +182,14 @@ main {
   padding-top: 138px;
 
 }
+
 .hangman-logo {
   width: 80%;
   position: absolute;
   top: 0;
    transform: translate(-50%,-50%); 
 }
+
 .play {
   width: 160px;
   height: 160px;
@@ -210,7 +212,7 @@ main {
   margin-top: 57px;
   background-color: var(--blue-600);
   color: var(--neutral-0);
-  padding: 24px 64px;
+  padding: 12px 64px;
   border-radius: var(--radius-40);
   font-size: var(--text-preset-8-font-size);
   letter-spacing: var(--text-preset-8-letter-spacing);
@@ -231,7 +233,6 @@ main {
 .steps-nav,
 .category-nav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -308,10 +309,15 @@ main {
   margin-top: 100px;
 }
 
+.category-title {
+  margin-left: auto;
+}
+
 .category-btn {
   width: 100%;
-  padding: 24px 64px;
   background-color: var(--blue-600);
+  padding: 0 16px;
+  height: 64px;
   color: var(--neutral-0);
   font-size: var(--text-preset-10-font-size);
   letter-spacing: var(--text-preset-10-letter-spacing);
@@ -528,41 +534,91 @@ main {
   letter-spacing: var(--text-preset-9-letter-spacing);
 }
 /* tablet styles */
-/* @media (min-width: 768px) {
+@media (min-width: 768px) {
    body {
     background-image: 
       var(--gradient-5), 
       url('assets/background-tablet.svg');
    }
    
-   /* main {
-    width: 80%;
-   } */
+   .start-game-screen {
+    padding-top: 128px;
+   }
 
-   /* .hangman-logo {
+   .hangman-logo {
     width: 60%;
    }
+
    .play {
     width: 200px;
     height: 200px;
-   } */
+   }
+
+     /* steps screen */
+  .back-container ,
+  .menu {
+    width: 64px;
+    height: 64px;
+  }
+
+  .steps-nav,
+  .category-nav {
+    gap: 32px;
+  }
 
    /* category screen */
-   /* .category-screen {
-    padding-top: 62px;
+   .category-title {
+    font-size: var(--text-preset-2-font-size);
+    letter-spacing: var(--text-preset-2-letter-spacing);
+    margin: 0;
    }
-   .category-list {
-    display: grid;
-    grid-template-columns: repeat(2, 324px);
-    grid-template-rows: repeat(3, 183px);
-    gap: 32px;
-    place-items: center;
-   }
+    .category-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 32px;
+  }
 
-   .category-btn {
-    padding: 63px 105px;
+  .category-btn {
+    height: 176px;
     border-radius: var(--radius-40);
     font-size: var(--text-preset-6-font-size);
     letter-spacing: var(--text-preset-6-letter-spacing);
-   } */
-/* }  */
+  }
+} 
+
+/* desktop styles */
+@media (min-width: 1024px) {
+  body {
+    background-image: 
+      var(--gradient-5), 
+      url('assets/background-desktop.svg');
+  }
+
+  .hangman-logo {
+    min-width: 356px;
+  }
+
+  .steps-nav,
+  .category-nav {
+    gap: 232px;
+  }
+
+
+  /* category screen */
+  .category-title {
+    font-size: var(--text-preset-1-font-size);
+    letter-spacing: var(--text-preset-1-letter-spacing);
+   }
+
+    .category-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1216px;
+    margin-inline: auto;
+  }
+
+  .category-btn {
+    height: 200px;           
+  }
+}
