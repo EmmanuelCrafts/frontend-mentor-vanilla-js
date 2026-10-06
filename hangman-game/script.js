@@ -26,6 +26,8 @@ const exhaustedNewCategoryBtn = document.querySelector('.exhausted-new-category'
 const exhaustedQuitBtn = document.querySelector('.exhausted-quit');
 
 const screens = [startGameScreen, stepsScreen, categoryScreen, gameScreen];
+
+// Game State
 let selectedCategory = undefined;
 const gameState = createGameState();
 const { displayCategoryItems, resetGame, displayGuessedLetter } = gameState;
@@ -201,16 +203,17 @@ function createGameState() {
     function displayGuessedLetter (letter) {
         const slots = document.querySelectorAll('.slot');
         let correctguess = false;
-        slots.forEach(slot => {
-        let index = Number(slot.dataset.slot);
-        let position = hiddenIndexes.indexOf(index);
-        let correctLetter = hiddenLetters[position];
 
-        if(hiddenIndexes.includes(index) && correctLetter === letter) {
-                slot.textContent = letter;
-                slot.style.opacity = 1;
-                correctguess = true;
-        } 
+        slots.forEach(slot => {
+            let index = Number(slot.dataset.slot);
+            let position = hiddenIndexes.indexOf(index);
+            let correctLetter = hiddenLetters[position];
+
+            if(hiddenIndexes.includes(index) && correctLetter === letter) {
+                    slot.textContent = letter;
+                    slot.style.opacity = 1;
+                    correctguess = true;
+            } 
         })
 
         disabledPickedKey(letter);
@@ -222,7 +225,7 @@ function createGameState() {
 
         if(correctguess === false) {
             guessCount++;
-            healthLine.style.width = `${(1 - guessCount / maxGuesses) * 100}%`;
+            drawHealthLine();
 
             if(guessCount >= maxGuesses) {
                 showEndDialog('YOU LOSE');
@@ -230,19 +233,31 @@ function createGameState() {
         }
     }
 
-    function resetGame() {
-        // reset variables
+    function drawHealthLine() {
+        healthLine.style.width = `${healthPercentage()}%`;
+    }
+    function healthPercentage() {
+        return (1 - guessCount / maxGuesses) * 100;
+    }
+    
+    function resetState() {
         guessCount = 0;
         hiddenLetters = [];
         revealedLetters = [];
         hiddenIndexes = [];
+    }
 
-        //  reset UI
+    function resetUI() {
         wordDisplay.innerHTML = '';
         keys.forEach(key => key.disabled = false);
         primaryActionBtn.textContent = 'CONTINUE';
         dialogText.textContent = 'PAUSED';
         healthLine.style.width = '100%';
+    }
+
+    function resetGame() {
+        resetState();
+        resetUI();
     }
 
     return {
