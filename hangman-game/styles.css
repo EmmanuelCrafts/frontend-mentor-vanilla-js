@@ -381,6 +381,12 @@ main {
   justify-content: center;
 }
 
+.slot,
+.space {
+  width: 44px;
+  height: 66px;
+}
+
 .slot {
   display: flex;
   align-items: center;
@@ -399,14 +405,8 @@ main {
 
 .space {
   visibility: hidden;
-  width: 44px;
-  height: 66px;
 }
 
-/* .slot-empty {
-  background-color: var(--blue-600);
-  opacity: 25%;
-} */
 
 .keyboard-container {
   display: grid;
@@ -612,6 +612,54 @@ main {
     font-size: var(--text-preset-6-font-size);
     letter-spacing: var(--text-preset-6-letter-spacing);
   }
+
+  /* game screen */
+  .game-header,
+  .health-container {
+    gap: 32px;
+  }
+
+  .category-name {
+    font-size: var(--text-preset-6-font-size);
+    letter-spacing: var(--text-preset-6-letter-spacing);
+  }
+
+  .health-bar {
+    width: 160px;
+    padding: 9px;
+  }
+
+   .health-line {
+    height: 12px;
+  }
+
+  .heart-icon {
+    width: 54px;
+    height: 48px;
+  }
+
+  .word-display {
+    margin-top: 112px;
+    margin-bottom: 134px;
+  }
+
+  .slot,
+  .space {
+    width: 88px;
+    height: 112px;
+  }
+
+  .slot {
+    font-size: var(--text-preset-5-font-size);
+    letter-spacing: var(--text-preset-5-letter-spacing);
+    border-radius: var(--radius-32);
+  }
+
+  .key {
+    border-radius: var(--radius-24);
+    font-size: var(--text-preset-6-font-size);
+    letter-spacing: var(--text-preset-6-letter-spacing);
+  }
 } 
 
 /* desktop styles */
@@ -679,5 +727,40 @@ main {
 
   .category-btn {
     height: 200px;           
+  }
+
+    /* game screen */
+  .game-header {
+    gap: 56px;
+  }
+
+  .health-container {
+    gap: 40px;
+  }
+
+  .category-name {
+    font-size: var(--text-preset-4-font-size);
+    letter-spacing: var(--text-preset-4-letter-spacing);
+  }
+
+  .health-bar {
+    width: 240px;
+  }
+
+  .word-display {
+    margin-top: 88px;
+    margin-bottom: 120px;
+  }
+
+  .slot,
+  .space {
+    width: 112px;
+    height: 128px;
+  }
+
+  .slot {
+    font-size: var(--text-preset-4-font-size);
+    letter-spacing: var(--text-preset-4-letter-spacing);
+    border-radius: var(--radius-40);
   }
 }
