@@ -280,6 +280,7 @@ main {
 
 .step-header {
   display: flex;
+  align-items: center;
   gap: 16px;
   margin-bottom: 16px;
   font-size: var(--text-preset-10-font-size);
@@ -555,6 +556,30 @@ main {
    }
 
      /* steps screen */
+  .step-card {
+    position: relative;
+    padding-left: 140px;
+  }
+
+  .step-number {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--text-preset-4-font-size);
+    letter-spacing: var(--text-preset-4-letter-spacing);
+  }
+
+  .step-title {
+   font-size: var(--text-preset-7-font-size);
+   letter-spacing: var(--text-preset-7-letter-spacing);
+  }
+
+  .step-description {
+    font-size: var(--text-preset-11-font-size);
+    letter-spacing: var(--text-preset-11-letter-spacing);
+  }
+
   .back-container ,
   .menu {
     width: 64px;
@@ -563,15 +588,17 @@ main {
 
   .steps-nav,
   .category-nav {
-    gap: 32px;
+    gap: 10%;
   }
 
    /* category screen */
-   .category-title {
+   .category-title,
+   .how-to-play-title {
+    margin: 0;
     font-size: var(--text-preset-2-font-size);
     letter-spacing: var(--text-preset-2-letter-spacing);
-    margin: 0;
    }
+
     .category-list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -599,14 +626,46 @@ main {
     min-width: 356px;
   }
 
+     /* steps screen */
+  .how-to-play {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .step-card {
+    padding: 200px 32px 60px 32px;
+  }
+
+  .step-number {
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+  }
+
+  .step-header {
+    margin-bottom: 40px;
+  }
+
+  .step-title {
+   margin: 0 auto;
+   font-size: var(--text-preset-6-font-size);
+   letter-spacing: var(--text-preset-6-letter-spacing);
+  }
+
+  .step-description {
+    text-align: center;
+    font-size: var(--text-preset-9-font-size);
+    letter-spacing: var(--text-preset-9-letter-spacing);
+  }
+
   .steps-nav,
   .category-nav {
-    gap: 232px;
+    gap: 20%;
   }
 
 
   /* category screen */
-  .category-title {
+  .category-title,
+  .how-to-play-title {
     font-size: var(--text-preset-1-font-size);
     letter-spacing: var(--text-preset-1-letter-spacing);
    }
