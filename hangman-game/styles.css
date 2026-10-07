@@ -158,7 +158,7 @@ main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  width: min(90%, 1216px);
+  width: 90%;
   margin: 0 auto;
   position: relative;
 }
@@ -268,7 +268,6 @@ main {
 .how-to-play-title,
 .category-title {
   font-size: var(--text-preset-6-font-size); 
-  line-height: 1.4;
   letter-spacing: var(--text-preset-6-letter-spacing);
   background: var(--gradient-2);
   -webkit-background-clip: text;
@@ -387,8 +386,8 @@ main {
 }
 
 .word-display {
-  margin-top: 78px;
-  margin-bottom: 118px;
+  margin-top: 64px;
+  margin-bottom: 72px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -405,8 +404,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 66px;
   border-radius: var(--radius-12);
   background-color: var(--blue-600);
   color: var(--neutral-0);
@@ -483,7 +480,6 @@ main {
 .dialog-text {
   text-align: center;
   font-size: var(--text-preset-3-font-size);
-  line-height: 1.2;
   letter-spacing: var(--text-preset-3-letter-spacing);
   background: var(--gradient-2);
   -webkit-background-clip: text;
@@ -549,7 +545,6 @@ main {
 .exhausted-title {
   text-align: center;
   font-size: var(--text-preset-5-font-size); 
-  line-height: 1.2;
   letter-spacing: var(--text-preset-5-letter-spacing);
   background: var(--gradient-2);
   -webkit-background-clip: text;
@@ -593,6 +588,7 @@ main {
   .step-card {
     position: relative;
     padding-left: 140px;
+    border-radius: var(--radius-40);
   }
 
   .step-number {
@@ -629,8 +625,8 @@ main {
    .category-title,
    .how-to-play-title {
     margin: 0;
-    font-size: var(--text-preset-2-font-size);
-    letter-spacing: var(--text-preset-2-letter-spacing);
+    font-size: var(--text-preset-3-font-size);
+    letter-spacing: var(--text-preset-3-letter-spacing);
    }
 
     .category-list {
@@ -660,7 +656,7 @@ main {
 
   .health-bar {
     width: 160px;
-    padding: 9px;
+    padding: 8px;
   }
 
    .health-line {
@@ -674,7 +670,8 @@ main {
 
   .word-display {
     margin-top: 112px;
-    margin-bottom: 134px;
+    margin-bottom: 130px;
+    gap: 12px;
   }
 
   .slot,
@@ -689,6 +686,12 @@ main {
     border-radius: var(--radius-32);
   }
 
+  .keyboard-container {
+    max-width: 1173px;
+    max-height: 300px;
+    column-gap: 16px;
+  }
+
   .key {
     border-radius: var(--radius-24);
     font-size: var(--text-preset-6-font-size);
@@ -700,6 +703,7 @@ main {
   .exhausted-dialog {
     border-radius: var(--radius-72);
   }
+
   .dialog-text,
   .exhausted-text {
     font-size: var(--text-preset-1-font-size);
@@ -715,8 +719,12 @@ main {
       url('assets/background-desktop.svg');
   }
 
+ main {
+  max-width: 1216px;
+ }
+
   .hangman-logo {
-    min-width: 356px;
+    max-width: 356px;
   }
 
      /* steps screen */
@@ -725,17 +733,17 @@ main {
     grid-template-columns: repeat(3, 1fr);
   }
   .step-card {
-    padding: 200px 32px 60px 32px;
+    padding: 150px 32px 48px 32px;
   }
 
   .step-number {
     left: 50%;
-    top: 25%;
+    top: 20%;
     transform: translate(-50%, -50%);
   }
 
   .step-header {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
 
   .step-title {
@@ -759,19 +767,17 @@ main {
   /* category screen */
   .category-title,
   .how-to-play-title {
-    font-size: var(--text-preset-1-font-size);
-    letter-spacing: var(--text-preset-1-letter-spacing);
+    font-size: var(--text-preset-2-font-size);
+    letter-spacing: var(--text-preset-2-letter-spacing);
    }
 
     .category-list {
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    max-width: 1216px;
-    margin-inline: auto;
+    max-height: 550px;
   }
 
   .category-btn {
-    height: 200px;           
+    height: 200px;
   }
 
     /* game screen */
@@ -784,8 +790,8 @@ main {
   }
 
   .category-name {
-    font-size: var(--text-preset-4-font-size);
-    letter-spacing: var(--text-preset-4-letter-spacing);
+    font-size: var(--text-preset-5-font-size);
+    letter-spacing: var(--text-preset-5-letter-spacing);
   }
 
   .health-bar {
@@ -793,19 +799,20 @@ main {
   }
 
   .word-display {
-    margin-top: 88px;
-    margin-bottom: 120px;
+    gap: 16px;
+    margin-top: 64px;      
+    margin-bottom: 100px;    
   }
 
   .slot,
   .space {
-    width: 112px;
-    height: 128px;
+    width: 88px;
+    height: 96px;
   }
 
-  .slot {
-    font-size: var(--text-preset-4-font-size);
-    letter-spacing: var(--text-preset-4-letter-spacing);
-    border-radius: var(--radius-40);
+  .keyboard-container {
+    column-gap: 24px;
+    row-gap: 16px;
   }
 }
+
