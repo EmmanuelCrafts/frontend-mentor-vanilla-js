@@ -6,12 +6,11 @@ const gameScreen = document.querySelector('.game-screen');
 const startGameBtn = document.querySelector('.play');
 const playInfoBtn = document.querySelector('.play-info');
 const backBtn = document.querySelectorAll('.back-container');
-// const category = document.querySelectorAll('.category-btn');
-// console.log(category);
 const categories = document.querySelector('.category-list');
 const categoryName = document.querySelector('.category-name');
 const wordDisplay = document.querySelector('.word-display');
-const keys = document.querySelectorAll('.key');
+ const keys = document.querySelectorAll('.key');
+const keysContainer = document.querySelector('.keyboard-container')
 const dialogText = document.querySelector('.dialog-text')
 const healthLine = document.querySelector('.health-line');
 
@@ -38,13 +37,8 @@ const { displayCategoryItems, resetGame, displayGuessedLetter } = gameState;
 playInfoBtn.addEventListener("click", () => showScreen(stepsScreen));
 startGameBtn.addEventListener("click", () => showScreen(categoryScreen));
 backBtn.forEach(button => button.addEventListener("click", () => showScreen(startGameScreen)));
-
 categories.addEventListener('click', handleCategoryClick)
-
-keys.forEach(key => key.addEventListener('click', () => {
-        displayGuessedLetter(key.dataset.letter.toUpperCase());
-    }));
-
+keysContainer.addEventListener('click', handleKeyClick);
 menuBtn.addEventListener('click', showDialogBox);
 newCategoryBtn.addEventListener('click', () => {
     hideDialogBox();
@@ -276,6 +270,12 @@ function handleCategoryClick(e) {
     displayCategoryItems(selectedCategory);
 }
 
+function handleKeyClick(e) {
+  const key = e.target.closest('.key');
+  if (!key || key.disabled) return;
+
+  displayGuessedLetter(key.textContent)
+}
 function showExhaustedCategory() {
     showScreen(categoryScreen);
     exhaustedMessage.textContent = `You've played every word in ${selectedCategory.toUpperCase()}.`;
