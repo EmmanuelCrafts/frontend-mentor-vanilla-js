@@ -6,7 +6,9 @@ const gameScreen = document.querySelector('.game-screen');
 const startGameBtn = document.querySelector('.play');
 const playInfoBtn = document.querySelector('.play-info');
 const backBtn = document.querySelectorAll('.back-container');
-const category = document.querySelectorAll('.category-btn');
+// const category = document.querySelectorAll('.category-btn');
+// console.log(category);
+const categories = document.querySelector('.category-list');
 const categoryName = document.querySelector('.category-name');
 const wordDisplay = document.querySelector('.word-display');
 const keys = document.querySelectorAll('.key');
@@ -36,13 +38,8 @@ const { displayCategoryItems, resetGame, displayGuessedLetter } = gameState;
 playInfoBtn.addEventListener("click", () => showScreen(stepsScreen));
 startGameBtn.addEventListener("click", () => showScreen(categoryScreen));
 backBtn.forEach(button => button.addEventListener("click", () => showScreen(startGameScreen)));
-category.forEach(category => category.addEventListener("click", function(){
-    resetGame();
-    showScreen(gameScreen);
-    selectedCategory = category.textContent.toLowerCase();
-    categoryName.textContent = selectedCategory.toUpperCase();
-    displayCategoryItems(selectedCategory);
-}));
+
+categories.addEventListener('click', handleCategoryClick)
 
 keys.forEach(key => key.addEventListener('click', () => {
         displayGuessedLetter(key.dataset.letter.toUpperCase());
@@ -267,6 +264,18 @@ function createGameState() {
     }
 
 }
+
+function handleCategoryClick(e) {
+     const btn = e.target.closest(".category-btn");
+    if(!btn) return;
+
+    resetGame();
+    showScreen(gameScreen);
+    selectedCategory = btn.dataset.category;
+    categoryName.textContent = selectedCategory.toUpperCase();
+    displayCategoryItems(selectedCategory);
+}
+
 function showExhaustedCategory() {
     showScreen(categoryScreen);
     exhaustedMessage.textContent = `You've played every word in ${selectedCategory.toUpperCase()}.`;
