@@ -1,49 +1,53 @@
-const one = document.querySelector('.one');
-const two = document.querySelector('.two');
-const three = document.querySelector('.three');
-const four = document.querySelector('.four');
-const five = document.querySelector('.five');
-const six = document.querySelector('.six');
-const seven = document.querySelector('.seven');
-const eight = document.querySelector('.eight');
-const nine = document.querySelector('.nine');
-const zero = document.querySelector('.zero');
-const dot = document.querySelector('.dot');
-const plus = document.querySelector('.plus');
-const minus = document.querySelector('.minus');
-const multiply = document.querySelector('.multiply');
-const divide = document.querySelector('.divide');
-const equal = document.querySelector('.equal');
-const reset = document.querySelector('.reset');
-const del = document.querySelector('.DEL');
-const display = document.querySelector('.display-value');
+const buttons = document.querySelector('.buttons');
+const actionValues = {
+    add : "+",
+    subtract : "-",
+    multiply : "*",
+    divide : "/",
+    decimal : "."
+}
 
+const display = document.querySelector('.display-value');
 const themeSpans = document.querySelectorAll('.number-toggles span');
 const toggleCircle = document.querySelector('.toggle-circle');
 // number buttons
-one.addEventListener('click', () => appendToDisplay("1"));
-two.addEventListener('click', () => appendToDisplay("2"));
-three.addEventListener('click', () => appendToDisplay("3"));
-four.addEventListener('click', () => appendToDisplay("4"));
-five.addEventListener('click', () => appendToDisplay("5"));
-six.addEventListener('click', () => appendToDisplay ("6"));
-seven.addEventListener('click', () => appendToDisplay ("7"));
-eight.addEventListener('click', () => appendToDisplay ("8"));
-nine.addEventListener('click', () => appendToDisplay ("9"));
-zero.addEventListener('click', () => appendToDisplay ("0"));
-dot.addEventListener('click', () => appendToDisplay ("."));
+buttons.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+
+    const {number, action} = btn.dataset
+
+    if(number !== undefined) {
+        appendToDisplay(number);
+        return
+    }
+
+    if(action in actionValues) {
+        appendToDisplay(actionValues[action]);
+        return
+    }
+
+    if (action === "delete") display.textContent = display.textContent.slice(0, -1);
+    if (action === "reset") display.textContent = "";
+    if (action === "equals") handleEquals();
+});
 
 
-// operator buttons
-plus.addEventListener('click', () => appendToDisplay ("+"));
-minus.addEventListener('click', () => appendToDisplay ("-"));
-multiply.addEventListener('click', () => appendToDisplay ("*"));
-divide.addEventListener('click', () => appendToDisplay ("/"));
-reset.addEventListener('click', () => display.textContent = "");
-del.addEventListener('click', () => display.textContent = display.textContent.slice(0, -1));
 
+// theme logic toggle between themes
+themeSpans.forEach(span => {
+    span.addEventListener('click', () => {
+        const theme = span.dataset.theme;
 
-equal.addEventListener('click', () => {
+        document.body.setAttribute('data-theme', theme);
+        toggleCircle.className = `toggle-circle pos-${theme}`;
+
+        themeSpans.forEach(s => s.classList.remove('active'));
+        span.classList.add('active');
+    });
+});
+
+function handleEquals() {
     const operators = "+-*/";
     const hasOperators = /[+\-*/]/.test(display.textContent);
     const lastchar = display.textContent[display.textContent.length - 1]
@@ -67,21 +71,7 @@ equal.addEventListener('click', () => {
     }
 
     display.textContent = formattedResult;
-});
-
-// theme logic toggle between themes
-themeSpans.forEach(span => {
-    span.addEventListener('click', () => {
-        const theme = span.dataset.theme;
-
-        document.body.setAttribute('data-theme', theme);
-        toggleCircle.className = `toggle-circle pos-${theme}`;
-
-        themeSpans.forEach(s => s.classList.remove('active'));
-        span.classList.add('active');
-    });
-});
-
+}
 function appendToDisplay(value) {
     if(display.textContent.length < 15) {
         const operators = "+-*/";
