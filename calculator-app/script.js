@@ -110,7 +110,6 @@ Calculator.prototype.handleEquals = function () {
 }
 
 Calculator.prototype.handleKeyPress = function(e) {
-    console.log(this);
     const btn = e.target.closest('button');
     if(!btn) return;
 
