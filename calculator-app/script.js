@@ -9,43 +9,12 @@ const actionValues = {
 
 const display = document.querySelector('.display-value');
 const themeSpans = document.querySelectorAll('.number-toggles span');
+const themeToggle = document.querySelector('.number-toggles');
 const toggleCircle = document.querySelector('.toggle-circle');
-// number buttons
-buttons.addEventListener('click', (e) => {
-    const btn = e.target.closest('button');
-    if(!btn) return;
 
-    const {number, action} = btn.dataset
-
-    if(number !== undefined) {
-        appendToDisplay(number);
-        return
-    }
-
-    if(action in actionValues) {
-        appendToDisplay(actionValues[action]);
-        return
-    }
-
-    if (action === "delete") display.textContent = display.textContent.slice(0, -1);
-    if (action === "reset") display.textContent = "";
-    if (action === "equals") handleEquals();
-});
-
-
-
-// theme logic toggle between themes
-themeSpans.forEach(span => {
-    span.addEventListener('click', () => {
-        const theme = span.dataset.theme;
-
-        document.body.setAttribute('data-theme', theme);
-        toggleCircle.className = `toggle-circle pos-${theme}`;
-
-        themeSpans.forEach(s => s.classList.remove('active'));
-        span.classList.add('active');
-    });
-});
+// event listeners
+buttons.addEventListener('click', handleKeyPress);
+themeToggle.addEventListener('click', handleThemeChange);
 
 function handleEquals() {
     const operators = "+-*/";
@@ -71,6 +40,41 @@ function handleEquals() {
     }
 
     display.textContent = formattedResult;
+}
+
+function handleKeyPress(e) {
+    const btn = e.target.closest('button');
+    if(!btn) return;
+
+    const {number, action} = btn.dataset
+
+    if(number !== undefined) {
+        appendToDisplay(number);
+        return
+    }
+
+    if(action in actionValues) {
+        appendToDisplay(actionValues[action]);
+        return
+    }
+
+    if (action === "delete") display.textContent = display.textContent.slice(0, -1);
+    if (action === "reset") display.textContent = "";
+    if (action === "equals") handleEquals();
+}
+
+
+function handleThemeChange(e) {
+    const activeSpan = e.target.closest('span');
+    if(!activeSpan) return;
+
+   const theme = activeSpan.dataset.theme;
+
+   document.body.setAttribute('data-theme', theme);
+   toggleCircle.className = `toggle-circle pos-${theme}`;
+
+    themeSpans.forEach(s => s.classList.remove('active'));
+    activeSpan.classList.add('active');
 }
 function appendToDisplay(value) {
     if(display.textContent.length < 15) {
