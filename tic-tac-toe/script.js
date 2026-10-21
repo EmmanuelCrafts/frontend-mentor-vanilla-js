@@ -13,6 +13,7 @@ const playerX = document.querySelector('.player-X');
 const playerO = document.querySelector('.player-O');
 
 const cells = document.querySelectorAll('.cell');
+const board = document.querySelector('.board');
 
 const winCard = document.querySelector('.win-container');
 const xWins = document.querySelector('.X-wins');
@@ -79,11 +80,22 @@ startGameWithPlayerButton.addEventListener('click', startGameWithPlayer);
 playerX.addEventListener('click', pickPlayerX);
 playerO.addEventListener('click', pickPlayerO);
 
-// Board
-cells.forEach(cell => {
-    cell.addEventListener('click', playMove);
-    cell.addEventListener('mouseenter', hoverPreview)
-    cell.addEventListener('mouseleave', () => removeHoverPreview(cell))
+
+board.addEventListener('click', (e) => {
+    const cell = e.target.closest('.cell');
+    if (!cell) return;
+
+    playMove(cell);
+});
+
+board.addEventListener('mouseover', (e) => {
+    const cell = e.target.closest('.cell');
+    if (cell) hoverPreview(cell);
+});
+
+board.addEventListener('mouseout', (e) => {
+    const cell = e.target.closest('.cell');
+    if (cell) removeHoverPreview(cell);
 });
 
 // Game controls
@@ -110,7 +122,9 @@ function pickPlayerO() {
 }
 
 function renderPlayerLabels() {
+
     const { playerChoice, gameMode} = getStates();
+
     if(gameMode === 'player') {
         player1.textContent = 'X (P2)';
         player2.textContent = 'O (P1)';
@@ -144,6 +158,7 @@ function selectionError() {
 function  startGameWithCpu() {
    setGameMode('cpu');
    startGame();
+
    if (getStates().playerChoice === 'O') {
         cpuPlayMove();
      }
@@ -189,9 +204,9 @@ function createGame() {
         return true;
     }
 
-    function hoverPreview() {
-         if(!canMakeMove(this)) return;
-        this.classList.add(`${currentPlayer}-hover`);
+    function hoverPreview(cell) {
+         if(!canMakeMove(cell)) return;
+        cell.classList.add(`${currentPlayer}-hover`);
     }
 
     function removeHoverPreview(cell) {
@@ -212,10 +227,10 @@ function createGame() {
         setTimeout(() => makeMove(cell), 500)
     }
 
-    function playMove() {
-        if(!canMakeMove(this)) return;
+    function playMove(cell) {
+        if(!canMakeMove(cell)) return;
 
-        const gameContinue = makeMove(this);
+        const gameContinue = makeMove(cell);
 
          if (gameMode === 'cpu' && gameContinue) {
             cpuPlayMove();
