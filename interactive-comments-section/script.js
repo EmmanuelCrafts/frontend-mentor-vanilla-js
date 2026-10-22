@@ -1,19 +1,21 @@
 const main = document.querySelector("main");
 let  commentsData = null;
-
 async function fetchComments() {
     const response = await fetch('/data.json');
     console.log(response);
     const data =  await response.json();
     commentsData = data;
     console.log(commentsData)
+
+    commentsData.comments.forEach(comment => {
+        renderComment(comment);
+    });
 }
 
 fetchComments();
 
-const {currentUser, comments} = commentsData;
 
-function renderComments() {
+function renderComment(comment) {
   const article = document.createElement('article');
   article.classList.add('comment');
 
@@ -22,25 +24,27 @@ function renderComments() {
 
   const userImage = document.createElement('img');
   userImage.classList.add('comment-avatar');
-  userImage.src = currentUser.image.png;
-  userImage.alt = currentUser.username;
+  userImage.src = comment.user.image.png;
+  userImage.alt = comment.user.username;
 
   const username = document.createElement('span');
   username.classList.add('comment-username');
-  username.textContent = currentUser.username;
+  username.textContent = comment.user.username;
 
   const createdAt = document.createElement('span');
   createdAt.classList.add('comment-date');
-  createdAt.textContent = comments[0].createdAt;
+  createdAt.textContent = comment.createdAt;
 
   commentHeader.appendChild(userImage);
   commentHeader.appendChild(username);
   commentHeader.appendChild(createdAt);
 
+//   content
   const commentContent = document.createElement('p');
   commentContent.classList.add('comment-content');
-  commentContent.textContent = comments[0].content;
+  commentContent.textContent = comment.content;
 
+// footer
   const commentFooter = document.createElement('div');
   commentFooter.classList.add('comment-footer');
 
@@ -54,7 +58,7 @@ function renderComments() {
 
   const commentScoreCount = document.createElement('span');
   commentScoreCount.classList.add('score-count');
-  commentScoreCount.textContent = 12 ;
+  commentScoreCount.textContent = comment.score;
 
   const scoreMinusBtn = document.createElement('button')
   scoreMinusBtn.classList.add('comment-score-btn')
