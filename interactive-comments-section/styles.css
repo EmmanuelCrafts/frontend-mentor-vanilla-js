@@ -232,6 +232,53 @@ main {
   color: var(--color-purple-600);
   font-weight: var(--font-weight-medium);
 }
+
+.comment-you-badge {
+  background-color: var(--color-purple-600);
+  color: var(--color-white);
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-150);
+  padding: 0 var(--spacing-100);
+  border-radius: 2px;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+}
+
+.comment-delete-btn,
+.comment-edit-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-100);
+  font-weight: var(--font-weight-medium);
+  transition: color 0.2s ease;
+}
+
+.comment-delete-btn {
+  color: var(--color-pink-400);
+}
+
+.comment-delete-btn:hover {
+  color: var(--color-pink-200);
+}
+
+.comment-edit-btn {
+  color: var(--color-purple-600);
+}
+
+.comment-edit-btn:hover {
+  color: var(--color-purple-200);
+}
+
+.comment-delete-btn:focus-visible,
+.comment-edit-btn:focus-visible {
+  outline: 2px solid var(--color-purple-600);
+  outline-offset: 2px;
+}
  
 /* ---------- Focus styles (keyboard users) ---------- */
 .comment-score-btn:focus-visible,

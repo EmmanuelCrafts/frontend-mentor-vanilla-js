@@ -16,6 +16,8 @@ fetchComments();
 
 
 function renderComment(comment, container = main) {
+  const isCurrentUser = comment.user.username === commentsData.currentUser.username;
+
   const article = document.createElement('article');
   article.classList.add('comment');
 
@@ -37,6 +39,14 @@ function renderComment(comment, container = main) {
 
   commentHeader.appendChild(userImage);
   commentHeader.appendChild(username);
+
+  if(isCurrentUser) {
+    const youBadge = document.createElement('span');
+    youBadge.classList.add('comment-you-badge');
+    youBadge.textContent = 'you';
+    commentHeader.appendChild(youBadge);
+  }
+
   commentHeader.appendChild(createdAt);
 
 //   content
@@ -44,11 +54,11 @@ function renderComment(comment, container = main) {
   commentContent.classList.add('comment-content');
 
   if (comment.replyingTo) {
-  const replyingTo = document.createElement('span');
-  replyingTo.classList.add('replying-to');
-  replyingTo.textContent = `@${comment.replyingTo}`;
-  
-  commentContent.append(replyingTo, ' ');
+    const replyingTo = document.createElement('span');
+    replyingTo.classList.add('replying-to');
+    replyingTo.textContent = `@${comment.replyingTo}`;
+    
+    commentContent.append(replyingTo, ' ');
 }
 
   commentContent.append(comment.content);
@@ -103,7 +113,46 @@ function renderComment(comment, container = main) {
   replyBtn.append(replyIcon, replyText);
 
   commentFooter.appendChild(commentScore);
-  commentFooter.appendChild(replyBtn);
+
+  if (isCurrentUser) {
+    const actions = document.createElement('div');
+    actions.classList.add('comment-actions');
+
+    // delete
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('comment-delete-btn');
+    deleteBtn.dataset.action = 'delete';
+
+    const deleteIcon = document.createElement('img');
+    deleteIcon.src = './images/icon-delete.svg';
+    deleteIcon.alt = '';
+
+    const deleteText = document.createElement('span');
+    deleteText.textContent = 'Delete';
+
+    deleteBtn.append(deleteIcon, deleteText);
+
+    // edit
+    const editBtn = document.createElement('button');
+    editBtn.classList.add('comment-edit-btn');
+    editBtn.dataset.action = 'edit';
+
+    const editIcon = document.createElement('img');
+    editIcon.src = './images/icon-edit.svg';
+    editIcon.alt = '';
+
+    const editText = document.createElement('span');
+    editText.textContent = 'Edit';
+
+    editBtn.append(editIcon, editText);
+
+    actions.append(deleteBtn, editBtn);
+    commentFooter.appendChild(actions);
+
+  } else {
+    commentFooter.appendChild(replyBtn);
+  }
+
 
   article.appendChild(commentHeader);
   article.appendChild(commentContent);
