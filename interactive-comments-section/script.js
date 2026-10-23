@@ -1,11 +1,11 @@
 const main = document.querySelector("main");
 let  commentsData = null;
+
+
 async function fetchComments() {
     const response = await fetch('/data.json');
-    console.log(response);
     const data =  await response.json();
     commentsData = data;
-    console.log(commentsData)
 
     commentsData.comments.forEach(comment => {
         renderComment(comment);
@@ -103,13 +103,13 @@ function renderComment(comment, container = main) {
   container.appendChild(article);
 
   if(comment.replies && comment.replies.length > 0){
-    const repliesContainer = document.createElement('div');
-    repliesContainer.classList.add('replies-container');
+    const replies = document.createElement('div');
+    replies.classList.add('replies');
 
     comment.replies.forEach(reply => {
-        renderComment(reply, repliesContainer);
+        renderComment(reply, replies);
     });
     
-    container.appendChild(repliesContainer);
+    container.appendChild(replies);
   }
 }
