@@ -107,3 +107,168 @@ h6 {
   overflow-wrap: break-word;
 }
 
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-regular);
+  background-color: var(--color-grey-50);
+  color: var(--color-grey-500);
+}
+ 
+main {
+  width: 90%;
+  margin-inline: auto;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+ 
+/* ---------- Card ---------- */
+.comment {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  padding: var(--spacing-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+ 
+/* ---------- Header ---------- */
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  line-height: var(--line-height-150);
+  letter-spacing: var(--letter-spacing-0);
+}
+ 
+.comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+ 
+.comment-username {
+  color: var(--color-grey-800);
+  font-weight: var(--font-weight-medium);
+}
+ 
+.comment-date {
+  color: var(--color-grey-500);
+}
+ 
+/* ---------- Content ---------- */
+.comment-content {
+  line-height: var(--line-height-150);
+  color: var(--color-grey-500);
+}
+ 
+/* ---------- Footer ---------- */
+.comment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+ 
+/* Score pill */
+.comment-score {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  background-color: var(--color-grey-50);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+ 
+.comment-score-btn {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-purple-200);
+  border-radius: 8px;
+  transition: color 0.2s ease;
+}
+ 
+.comment-score-btn:hover {
+  color: var(--color-purple-600);
+}
+ 
+.score-count {
+  min-width: 24px;
+  text-align: center;
+  color: var(--color-purple-600);
+  line-height: var(--line-height-150);
+  font-weight: var(--font-weight-medium);
+}
+ 
+/* Reply button */
+.comment-reply-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-100);
+  color: var(--color-purple-600);
+  font-weight: var(--font-weight-medium);
+  transition: color 0.2s ease;
+}
+ 
+.comment-reply-btn:hover {
+  color: var(--color-purple-200);
+}
+ 
+.reply-icon {
+  width: 14px;
+  height: auto;
+}
+ 
+/* ---------- Focus styles (keyboard users) ---------- */
+.comment-score-btn:focus-visible,
+.comment-reply-btn:focus-visible {
+  outline: 2px solid var(--color-purple-600);
+  outline-offset: 2px;
+}
+ 
+/* ---------- Desktop ---------- */
+@media (min-width: 768px) {
+  main {
+    padding: var(--spacing-500) var(--spacing-200);
+    gap: var(--spacing-300);
+  }
+ 
+  .comment {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "score header reply"
+      "score content content";
+    column-gap: var(--spacing-300);
+    row-gap: var(--spacing-200);
+    padding: var(--spacing-300);
+  }
+ 
+  /* Lets score and reply become direct grid items of .comment */
+  .comment-footer {
+    display: contents;
+  }
+ 
+  .comment-score {
+    grid-area: score;
+    flex-direction: column;
+    align-self: start;
+    padding: 6px 4px;
+  }
+ 
+  .comment-header {
+    grid-area: header;
+  }
+ 
+  .comment-reply-btn {
+    grid-area: reply;
+    justify-self: end;
+  }
+ 
+  .comment-content {
+    grid-area: content;
+  }
+}
+ 
+

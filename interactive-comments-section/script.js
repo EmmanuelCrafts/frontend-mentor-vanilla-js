@@ -54,7 +54,12 @@ function renderComment(comment) {
 
   const scorePlusBtn = document.createElement('button');
   scorePlusBtn.classList.add('comment-score-btn');
-  scorePlusBtn.textContent = '+';
+  const plusIcon = document.createElement('img');
+
+  plusIcon.classList.add('plus-icon')
+  plusIcon.src = "./images/icon-plus.svg";
+  plusIcon.alt = "plus icon";
+  scorePlusBtn.appendChild(plusIcon);
 
   const commentScoreCount = document.createElement('span');
   commentScoreCount.classList.add('score-count');
@@ -62,7 +67,12 @@ function renderComment(comment) {
 
   const scoreMinusBtn = document.createElement('button')
   scoreMinusBtn.classList.add('comment-score-btn')
-  scoreMinusBtn.textContent = '-';
+
+  const minusIcon = document.createElement('img');
+  minusIcon.classList.add('minus-icon')
+  minusIcon.src = "./images/icon-minus.svg";
+  minusIcon.alt = "minus icon";
+  scoreMinusBtn.appendChild(minusIcon);
 
   commentScore.appendChild(scorePlusBtn);
   commentScore.appendChild(commentScoreCount);
