@@ -219,6 +219,15 @@ main {
   width: 14px;
   height: auto;
 }
+
+.replies {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+  padding-left: var(--spacing-200);
+  border-left: 2px solid var(--color-grey-100);
+  margin-left: var(--spacing-200);
+}
  
 /* ---------- Focus styles (keyboard users) ---------- */
 .comment-score-btn:focus-visible,

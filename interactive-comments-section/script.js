@@ -15,7 +15,7 @@ async function fetchComments() {
 fetchComments();
 
 
-function renderComment(comment) {
+function renderComment(comment, container = main) {
   const article = document.createElement('article');
   article.classList.add('comment');
 
@@ -100,5 +100,16 @@ function renderComment(comment) {
   article.appendChild(commentContent);
   article.appendChild(commentFooter);
 
-  main.appendChild(article);
+  container.appendChild(article);
+
+  if(comment.replies && comment.replies.length > 0){
+    const repliesContainer = document.createElement('div');
+    repliesContainer.classList.add('replies-container');
+
+    comment.replies.forEach(reply => {
+        renderComment(reply, repliesContainer);
+    });
+    
+    container.appendChild(repliesContainer);
+  }
 }
