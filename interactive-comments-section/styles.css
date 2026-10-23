@@ -227,6 +227,11 @@ main {
   padding-left: var(--spacing-200);
   border-left: 2px solid var(--color-grey-100);
 }
+
+.replying-to {
+  color: var(--color-purple-600);
+  font-weight: var(--font-weight-medium);
+}
  
 /* ---------- Focus styles (keyboard users) ---------- */
 .comment-score-btn:focus-visible,

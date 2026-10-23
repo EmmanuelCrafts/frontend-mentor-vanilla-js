@@ -42,7 +42,16 @@ function renderComment(comment, container = main) {
 //   content
   const commentContent = document.createElement('p');
   commentContent.classList.add('comment-content');
-  commentContent.textContent = comment.content;
+
+  if (comment.replyingTo) {
+  const replyingTo = document.createElement('span');
+  replyingTo.classList.add('replying-to');
+  replyingTo.textContent = `@${comment.replyingTo}`;
+  
+  commentContent.append(replyingTo, ' ');
+}
+
+  commentContent.append(comment.content);
 
 // footer
   const commentFooter = document.createElement('div');
