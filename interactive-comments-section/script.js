@@ -16,6 +16,7 @@ async function fetchComments() {
 
 fetchComments();
 
+main.addEventListener('click' , handleClick)
 
 function renderComment(comment, container = main) {
   const isCurrentUser = comment.user.username === commentsData.currentUser.username;
@@ -76,10 +77,10 @@ function renderComment(comment, container = main) {
 
   const scorePlusBtn = document.createElement('button');
   scorePlusBtn.classList.add('comment-score-btn');
+  scorePlusBtn.dataset.action = 'upvote';
 
   const plusIcon = document.createElement('img');
   plusIcon.classList.add('plus-icon')
-  plusIcon.dataset.action = 'upvote';
   plusIcon.src = "./images/icon-plus.svg";
   plusIcon.alt = "plus icon";
   scorePlusBtn.appendChild(plusIcon);
@@ -90,10 +91,10 @@ function renderComment(comment, container = main) {
 
   const scoreMinusBtn = document.createElement('button')
   scoreMinusBtn.classList.add('comment-score-btn')
+  scoreMinusBtn.dataset.action = 'downvote';
 
   const minusIcon = document.createElement('img');
   minusIcon.classList.add('minus-icon')
-  minusIcon.dataset.action = 'downvote';
   minusIcon.src = "./images/icon-minus.svg";
   minusIcon.alt = "minus icon";
   scoreMinusBtn.appendChild(minusIcon);
@@ -207,4 +208,29 @@ function renderReplyBox() {
   replyBox.append(input, boxFooter);
 
   main.appendChild(replyBox);
+}
+
+function handleClick (e) {
+  const btn = e.target.closest('[data-action]');
+  if(!btn) return;
+
+  const article = btn.closest('.comment')
+  const id = article.dataset.id;
+
+   console.log(btn.dataset.action, id);
+   const result = findCommentById(id)
+   console.log(result)
+}
+
+function findCommentById(id) {
+  const result = commentsData.comments.find((comment) => comment.id === Number(id));
+  if (result) return result;
+
+  for(const comment of commentsData.comments) {
+    const reply = comment.replies.find(reply => reply.id === Number(id));
+
+    if (reply) return reply;
+  }
+
+  return undefined;
 }
