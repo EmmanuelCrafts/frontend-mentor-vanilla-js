@@ -3,13 +3,15 @@ let  commentsData = null;
 
 
 async function fetchComments() {
-    const response = await fetch('/data.json');
+    const response = await fetch('./data.json');
     const data =  await response.json();
     commentsData = data;
 
     commentsData.comments.forEach(comment => {
         renderComment(comment);
     });
+
+    renderReplyBox();
 }
 
 fetchComments();
@@ -19,6 +21,7 @@ function renderComment(comment, container = main) {
   const isCurrentUser = comment.user.username === commentsData.currentUser.username;
 
   const article = document.createElement('article');
+  article.dataset.id = comment.id;
   article.classList.add('comment');
 
   const commentHeader = document.createElement('div');
@@ -73,9 +76,10 @@ function renderComment(comment, container = main) {
 
   const scorePlusBtn = document.createElement('button');
   scorePlusBtn.classList.add('comment-score-btn');
-  const plusIcon = document.createElement('img');
 
+  const plusIcon = document.createElement('img');
   plusIcon.classList.add('plus-icon')
+  plusIcon.dataset.action = 'upvote';
   plusIcon.src = "./images/icon-plus.svg";
   plusIcon.alt = "plus icon";
   scorePlusBtn.appendChild(plusIcon);
@@ -89,6 +93,7 @@ function renderComment(comment, container = main) {
 
   const minusIcon = document.createElement('img');
   minusIcon.classList.add('minus-icon')
+  minusIcon.dataset.action = 'downvote';
   minusIcon.src = "./images/icon-minus.svg";
   minusIcon.alt = "minus icon";
   scoreMinusBtn.appendChild(minusIcon);
@@ -108,7 +113,9 @@ function renderComment(comment, container = main) {
 
   const replyText = document.createElement("span");
   replyText.classList.add('reply-text');
+  replyText.dataset.action = "reply";
   replyText.textContent = "Reply";
+
 
   replyBtn.append(replyIcon, replyText);
 
@@ -170,4 +177,34 @@ function renderComment(comment, container = main) {
     
     container.appendChild(replies);
   }
+}
+
+
+function renderReplyBox() {
+  const replyBox = document.createElement('div');
+  replyBox.classList.add('reply-box');
+
+  const input = document.createElement('textarea');
+  input.classList.add('reply-input');
+  input.placeholder = 'Add a comment...';
+  input.rows = 3;
+  input.setAttribute('aria-label', 'Add a comment')
+
+  const boxFooter = document.createElement('div');
+  boxFooter.classList.add('box-footer');
+
+  const avatar = document.createElement('img');
+  avatar.classList.add('comment-avatar');
+  avatar.src = commentsData.currentUser.image.png;
+  avatar.alt = '';
+
+  const sendBtn = document.createElement('button');
+  sendBtn.classList.add('send-btn');
+  sendBtn.textContent = 'Send';
+
+  boxFooter.append(avatar, sendBtn);
+
+  replyBox.append(input, boxFooter);
+
+  main.appendChild(replyBox);
 }
