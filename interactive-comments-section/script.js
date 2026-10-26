@@ -106,6 +106,7 @@ function renderComment(comment, container = main) {
 //   reply container
   const replyBtn = document.createElement("button");
   replyBtn.classList.add("comment-reply-btn");
+  replyBtn.dataset.action = "reply";
 
   const replyIcon = document.createElement("img");
   replyIcon.classList.add('reply-icon')
@@ -114,7 +115,6 @@ function renderComment(comment, container = main) {
 
   const replyText = document.createElement("span");
   replyText.classList.add('reply-text');
-  replyText.dataset.action = "reply";
   replyText.textContent = "Reply";
 
 
@@ -216,18 +216,13 @@ function handleClick (e) {
 
   const article = btn.closest('.comment')
   const id = article.dataset.id;
-
-  console.log(btn.dataset.action, id);
-  const result = findCommentById(id)
-   
   const action = btn.dataset.action;
 
   if (action === 'upvote') {
     upvoteComment(id, article);
-
-  } else {
-    downvoteComment(id, article);
-  } 
+  } else if (action === 'downvote') {
+      downvoteComment(id, article);
+  }
 }
 
 function findCommentById(id) {
