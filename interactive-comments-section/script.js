@@ -217,9 +217,17 @@ function handleClick (e) {
   const article = btn.closest('.comment')
   const id = article.dataset.id;
 
-   console.log(btn.dataset.action, id);
-   const result = findCommentById(id)
-   console.log(result)
+  console.log(btn.dataset.action, id);
+  const result = findCommentById(id)
+   
+  const action = btn.dataset.action;
+
+  if (action === 'upvote') {
+    upvoteComment(id, article);
+
+  } else {
+    downvoteComment(id, article);
+  } 
 }
 
 function findCommentById(id) {
@@ -233,4 +241,20 @@ function findCommentById(id) {
   }
 
   return undefined;
+}
+
+function upvoteComment(id, article) {
+  const commentScoreCount = article.querySelector('.score-count');
+  const comment = findCommentById(id);
+  comment.score += 1;
+
+  commentScoreCount.textContent = comment.score;
+}
+
+function downvoteComment(id, article) {
+  const commentScoreCount = article.querySelector('.score-count');
+  const comment = findCommentById(id);
+  comment.score -= 1; 
+
+  commentScoreCount.textContent = comment.score;
 }
