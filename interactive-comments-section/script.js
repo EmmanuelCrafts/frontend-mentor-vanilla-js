@@ -1,6 +1,6 @@
 const main = document.querySelector("main");
 let  commentsData = null;
-
+let clickCount = 0;
 
 async function fetchComments() {
     const response = await fetch('./data.json');
@@ -16,7 +16,7 @@ async function fetchComments() {
 
 fetchComments();
 
-main.addEventListener('click' , handleClick)
+main.addEventListener('click' , handleClick);
 
 function renderComment(comment, container = main) {
   const isCurrentUser = comment.user.username === commentsData.currentUser.username;
@@ -216,12 +216,13 @@ function handleClick (e) {
 
   const article = btn.closest('.comment')
   const id = article.dataset.id;
+  const comment = findCommentById(id);
   const action = btn.dataset.action;
 
   if (action === 'upvote') {
-    upvoteComment(id, article);
+    upvoteComment(comment, article);
   } else if (action === 'downvote') {
-      downvoteComment(id, article);
+      downvoteComment(comment, article);
   }
 }
 
@@ -238,18 +239,24 @@ function findCommentById(id) {
   return undefined;
 }
 
-function upvoteComment(id, article) {
-  const commentScoreCount = article.querySelector('.score-count');
-  const comment = findCommentById(id);
-  comment.score += 1;
+function setVote(comment,article,newVote) {
+  const oldVote = (comment.userVote || 0)
 
-  commentScoreCount.textContent = comment.score;
+  if(oldVote === newVote) return;
+
+  comment.score += newVote - oldVote;
+  comment.userVote = newVote;
+
+  article.querySelector('.score-count').textContent = comment.score;
 }
 
-function downvoteComment(id, article) {
-  const commentScoreCount = article.querySelector('.score-count');
-  const comment = findCommentById(id);
-  comment.score -= 1; 
-
-  commentScoreCount.textContent = comment.score;
+function upvoteComment(comment, article) {
+  setVote(comment, article, 1)
 }
+
+function downvoteComment(comment, article) {
+  setVote(comment, article, -1)
+}
+
+
+
