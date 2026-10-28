@@ -11,7 +11,7 @@ async function fetchComments() {
         renderComment(comment);
     });
 
-    renderReplyBox();
+    main.appendChild(createReplyBox('Send', 'Add a comment...'));
 }
 
 fetchComments();
@@ -181,13 +181,14 @@ function renderComment(comment, container = main) {
 }
 
 
-function renderReplyBox() {
+function createReplyBox(action, placeholder, initialText = '') {
   const replyBox = document.createElement('div');
   replyBox.classList.add('reply-box');
 
   const input = document.createElement('textarea');
   input.classList.add('reply-input');
-  input.placeholder = 'Add a comment...';
+  input.placeholder = placeholder;
+  input.value = initialText;
   input.rows = 3;
   input.setAttribute('aria-label', 'Add a comment')
 
@@ -199,15 +200,16 @@ function renderReplyBox() {
   avatar.src = commentsData.currentUser.image.png;
   avatar.alt = '';
 
-  const sendBtn = document.createElement('button');
-  sendBtn.classList.add('send-btn');
-  sendBtn.textContent = 'Send';
+  const actionBtn = document.createElement('button');
+  actionBtn.classList.add(`${action}-btn`);
+  actionBtn.dataset.action = action;
+  actionBtn.textContent = action;
 
-  boxFooter.append(avatar, sendBtn);
+  boxFooter.append(avatar, actionBtn);
 
   replyBox.append(input, boxFooter);
-
-  main.appendChild(replyBox);
+  replyBox.dataset.type = action;
+  return replyBox;
 }
 
 function handleClick (e) {
@@ -223,6 +225,8 @@ function handleClick (e) {
     upvoteComment(comment, article);
   } else if (action === 'downvote') {
       downvoteComment(comment, article);
+  } else if(action === 'reply') {
+      handleReply(comment, article);
   }
 }
 
@@ -259,4 +263,17 @@ function downvoteComment(comment, article) {
 }
 
 
+function handleReply(comment, article) {
+  const next = article.nextElementSibling;
+
+  if (next && next.dataset.type === 'reply') {
+      next.remove();
+  } else {
+    const box = createReplyBox('reply', 'Add a reply...', `@${comment.user.username} `);
+    article.after(box);
+  
+    const textArea = box.querySelector('.reply-input');
+    textArea.focus();
+  }
+}
 
