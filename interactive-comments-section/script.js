@@ -11,7 +11,7 @@ async function fetchComments() {
         renderComment(comment);
     });
 
-    main.appendChild(createReplyBox('Send', 'Add a comment...'));
+    main.appendChild(createReplyBox('send','Send', 'Add a comment...'));
 }
 
 fetchComments();
@@ -181,7 +181,7 @@ function renderComment(comment, container = main) {
 }
 
 
-function createReplyBox(action, placeholder, initialText = '') {
+function createReplyBox(action, label, placeholder, initialText = '') {
   const replyBox = document.createElement('div');
   replyBox.classList.add('reply-box');
 
@@ -201,9 +201,9 @@ function createReplyBox(action, placeholder, initialText = '') {
   avatar.alt = '';
 
   const actionBtn = document.createElement('button');
-  actionBtn.classList.add(`${action}-btn`);
+  actionBtn.classList.add('box-btn');
   actionBtn.dataset.action = action;
-  actionBtn.textContent = action;
+  actionBtn.textContent = label;
 
   boxFooter.append(avatar, actionBtn);
 
@@ -216,10 +216,16 @@ function handleClick (e) {
   const btn = e.target.closest('[data-action]');
   if(!btn) return;
 
+  const action = btn.dataset.action;
+
+  if(action === 'send') {
+    handleSend();
+    return;
+  }
+
   const article = btn.closest('.comment')
   const id = article.dataset.id;
   const comment = findCommentById(id);
-  const action = btn.dataset.action;
 
   if (action === 'upvote') {
     upvoteComment(comment, article);
@@ -266,10 +272,10 @@ function downvoteComment(comment, article) {
 function handleReply(comment, article) {
   const next = article.nextElementSibling;
 
-  if (next && next.dataset.type === 'reply') {
+  if (next && next.dataset.type === 'submit-reply') {
       next.remove();
   } else {
-    const box = createReplyBox('reply', 'Add a reply...', `@${comment.user.username} `);
+    const box = createReplyBox('submit-reply', 'reply', 'Add a reply...', `@${comment.user.username} `);
     article.after(box);
   
     const textArea = box.querySelector('.reply-input');

@@ -323,8 +323,7 @@ main {
   align-items: center;
 }
 
-.send-btn,
-.reply-btn {
+.box-btn {
   background-color: var(--color-purple-600);
   color: var(--color-white);
   font-weight: var(--font-weight-medium);
@@ -334,8 +333,7 @@ main {
   transition: background-color 0.2s ease;
 }
 
-.send-btn:hover,
-.reply-btn:hover {
+.box-btn:hover {
   background-color: var(--color-purple-200);
 }
 
