@@ -218,8 +218,8 @@ function handleClick (e) {
 
   const action = btn.dataset.action;
 
-  if(action === 'send') {
-    handleSend();
+  if(action === 'submit-reply') {
+     extractUsername(btn);
     return;
   }
 
@@ -283,3 +283,43 @@ function handleReply(comment, article) {
   }
 }
 
+function submitReply() {
+  
+}
+
+function extractUsername(btn) {
+  const div = btn.closest('.reply-box')
+  if(!div) return;
+
+  console.log(div);
+  const previous = div.previousElementSibling;
+  const id = previous.dataset.id;
+  const comment = findCommentById(id);
+  console.log(comment);
+
+  console.log(extractContent(div));
+  const newID = createId();
+  console.log(newID);
+}
+
+function extractContent(div) {
+  const textArea = div.querySelector('.reply-input');
+  const content = textArea.value.trim();
+
+  const wordArr = content.split(' ');
+  const symbol = wordArr[0].slice(0,1);
+
+  if(symbol === '@') {
+    return wordArr.slice(1).join(' ');
+  }
+
+  return content;
+}
+
+function createId() {
+  const ids = commentsData.comments.flatMap(comment => [
+    comment.id, ...comment.replies.map(replies => replies.id)
+  ])
+  
+  return Math.max(...ids) + 1;
+}
