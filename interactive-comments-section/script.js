@@ -39,8 +39,10 @@ function renderComment(comment, container = main) {
 
   const createdAt = document.createElement('span');
   createdAt.classList.add('comment-date');
-  createdAt.textContent = comment.createdAt;
-
+  createdAt.textContent = typeof comment.createdAt === 'number'
+  ? timeAgo(comment.createdAt)
+  : comment.createdAt;
+  
   commentHeader.appendChild(userImage);
   commentHeader.appendChild(username);
 
@@ -322,4 +324,42 @@ function createId() {
   ])
   
   return Math.max(...ids) + 1;
+}
+
+
+function timeAgo(timestamp) {
+  const seconds = Math.floor((Date.now() - timestamp)/1000);
+  const minutes = Math.floor(seconds/60);
+  const hours = Math.floor(minutes/60);
+  const days = Math.floor(hours/24);
+  const months = Math.floor(days/30);
+  const years = Math.floor(months/12);
+
+  if(seconds < 60) {
+    return 'Just now'
+  }
+
+  if(minutes < 60) {
+    return pluralize(minutes, 'minute')
+  }
+
+  if (hours < 24) {
+    return pluralize(hours, 'hour')
+  }
+
+  if(days < 30) {
+    return pluralize(days, 'day')
+  }
+
+  if(months < 12) {
+    return pluralize(months, 'month')
+  }
+
+  return pluralize(years, 'year')
+}
+
+
+function pluralize(count, unit) {
+  const word = count === 1 ? unit : unit + 's';
+  return `${count} ${word} ago`;
 }
