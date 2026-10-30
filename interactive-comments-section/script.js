@@ -221,7 +221,7 @@ function handleClick (e) {
   const action = btn.dataset.action;
 
   if(action === 'submit-reply') {
-     extractUsername(btn);
+     submitReply(btn);
     return;
   }
 
@@ -285,24 +285,35 @@ function handleReply(comment, article) {
   }
 }
 
-function submitReply() {
-  
-}
-
-function extractUsername(btn) {
+function submitReply(btn) {
   const div = btn.closest('.reply-box')
   if(!div) return;
 
-  console.log(div);
   const previous = div.previousElementSibling;
   const id = previous.dataset.id;
   const comment = findCommentById(id);
-  console.log(comment);
 
-  console.log(extractContent(div));
-  const newID = createId();
-  console.log(newID);
+  const reply = {
+    id: createId(),
+    content: extractContent(div),
+    createdAt: Date.now(),
+    score: 0,
+    replyingTo: comment.user.username,
+    user: {
+      image: {
+        png: commentsData.currentUser.image.png,
+        webp: commentsData.currentUser.image.webp
+      },
+      username: commentsData.currentUser.username
+    },
+  } 
+ 
+  const parent = findParentComment(id)
+  parent.replies.push(reply);
+  renderComment(reply, previous);
+  div.remove();
 }
+
 
 function extractContent(div) {
   const textArea = div.querySelector('.reply-input');
@@ -336,7 +347,7 @@ function timeAgo(timestamp) {
   const years = Math.floor(months/12);
 
   if(seconds < 60) {
-    return 'Just now'
+    return 'Now'
   }
 
   if(minutes < 60) {
@@ -362,4 +373,13 @@ function timeAgo(timestamp) {
 function pluralize(count, unit) {
   const word = count === 1 ? unit : unit + 's';
   return `${count} ${word} ago`;
+}
+
+function findParentComment(id) {
+  for(const comment of commentsData.comments) {
+    if(comment.id === Number(id)) return comment;
+   
+    const child = comment.replies.find(reply => reply.id === Number(id));
+    if(child) return comment;
+  }
 }
