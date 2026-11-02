@@ -296,38 +296,20 @@ function submitReply(btn) {
 
   const previous = div.previousElementSibling;
   const id = previous.dataset.id;
-
+  const content = getValidContent(div);
   const parent = findParentComment(id)
-  const element = div.nextElementSibling;
-  const parentDiv = previous.parentElement;
   const comment = findCommentById(id);
-  const content = extractContent(div);
-  const newId = createId();
 
-  const textArea = div.querySelector('.reply-input');
-
-  if(!content) {
-    textArea.classList.add('input-error');
-    textArea.focus();
-    return;
-  }
-
-  const reply = {
-    id: newId,
-    content: content,
-    createdAt: Date.now(),
-    score: 0,
-    replyingTo: comment.user.username,
-    user: {
-      image: {
-        png: commentsData.currentUser.image.png,
-        webp: commentsData.currentUser.image.webp
-      },
-      username: commentsData.currentUser.username
-    },
-  } 
-
+  const reply = {...createComment(content), replyingTo: comment.user.username} 
   parent.replies.push(reply);
+
+  placeReply(reply, previous, div);
+  div.remove();
+}
+
+function placeReply(reply, previous, replyBox) {
+  const parentDiv = previous.parentElement;
+  const element = replyBox.nextElementSibling;
 
   if (parentDiv === main) {
     if (element && element.classList.contains('replies')) {
@@ -341,7 +323,19 @@ function submitReply(btn) {
   } else {
     renderComment(reply, parentDiv);
   }
-  div.remove();
+}
+
+function getValidContent(replyBox) {
+    const textArea = replyBox.querySelector('.reply-input');
+    const content = extractContent(replyBox)
+
+    if(!content) {
+      textArea.classList.add('input-error');
+      textArea.focus();
+      return null;
+  }
+
+  return content;
 }
 
 
@@ -359,12 +353,29 @@ function extractContent(div) {
   return content;
 }
 
+
 function createId() {
   const ids = commentsData.comments.flatMap(comment => [
     comment.id, ...comment.replies.map(replies => replies.id)
   ])
   
   return Math.max(...ids) + 1;
+}
+
+function createComment(content) {
+   return {
+    id: createId(),
+    content: content,
+    createdAt: Date.now(),
+    score: 0,
+    user: {
+      image: {
+        png: commentsData.currentUser.image.png,
+        webp: commentsData.currentUser.image.webp
+      },
+      username: commentsData.currentUser.username
+    },
+  }
 }
 
 
