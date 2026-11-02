@@ -23,7 +23,7 @@ main.addEventListener('input', (e) => {
   textArea.classList.remove('input-error')
 })
 
-function renderComment(comment, container = main) {
+function renderComment(comment, container = main, referenceNode = null) {
   const isCurrentUser = comment.user.username === commentsData.currentUser.username;
 
   const article = document.createElement('article');
@@ -173,7 +173,7 @@ function renderComment(comment, container = main) {
   article.appendChild(commentContent);
   article.appendChild(commentFooter);
 
-  container.appendChild(article);
+  container.insertBefore(article, referenceNode);
 
   if(comment.replies && comment.replies.length > 0){
     const replies = document.createElement('div');
@@ -227,6 +227,11 @@ function handleClick (e) {
 
   if(action === 'submit-reply') {
      submitReply(btn);
+    return;
+  }
+
+  if(action === 'send') {
+    submitComment(btn);
     return;
   }
 
@@ -307,6 +312,21 @@ function submitReply(btn) {
   div.remove();
 }
 
+function submitComment(btn) {
+ const div = btn.closest('.reply-box');
+ if (!div) return;
+
+ const content = getValidContent(div);
+ const comment = {...createComment(content), replies: []};
+
+ commentsData.comments.push(comment);
+ renderComment(comment, main, div);
+
+ clearInput(div);
+}
+
+
+
 function placeReply(reply, previous, replyBox) {
   const parentDiv = previous.parentElement;
   const element = replyBox.nextElementSibling;
@@ -378,6 +398,10 @@ function createComment(content) {
   }
 }
 
+function clearInput(replyBox) {
+  const textArea = replyBox.querySelector('.reply-input')
+  textArea.value = '';
+}
 
 function timeAgo(timestamp) {
   const seconds = Math.floor((Date.now() - timestamp)/1000);
