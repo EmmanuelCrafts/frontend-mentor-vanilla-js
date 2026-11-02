@@ -308,6 +308,8 @@ main {
   line-height: var(--line-height-150);
 }
 
+
+
 .reply-input::placeholder {
   color: var(--color-grey-500);
 }
@@ -315,6 +317,11 @@ main {
 .reply-input:focus {
   outline: none;
   border-color: var(--color-purple-600);
+}
+
+.reply-input.input-error,
+.reply-input.input-error:focus {
+  border-color: var(--color-pink-400);
 }
 
 .box-footer {

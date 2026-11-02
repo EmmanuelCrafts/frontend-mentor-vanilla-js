@@ -17,6 +17,11 @@ async function fetchComments() {
 fetchComments();
 
 main.addEventListener('click' , handleClick);
+main.addEventListener('input', (e) => {
+  const textArea = e.target.closest('.reply-input');
+  if(!textArea) return;
+  textArea.classList.remove('input-error')
+})
 
 function renderComment(comment, container = main) {
   const isCurrentUser = comment.user.username === commentsData.currentUser.username;
@@ -291,11 +296,25 @@ function submitReply(btn) {
 
   const previous = div.previousElementSibling;
   const id = previous.dataset.id;
+
+  const parent = findParentComment(id)
+  const element = div.nextElementSibling;
+  const parentDiv = previous.parentElement;
   const comment = findCommentById(id);
+  const content = extractContent(div);
+  const newId = createId();
+
+  const textArea = div.querySelector('.reply-input');
+
+  if(!content) {
+    textArea.classList.add('input-error');
+    textArea.focus();
+    return;
+  }
 
   const reply = {
-    id: createId(),
-    content: extractContent(div),
+    id: newId,
+    content: content,
     createdAt: Date.now(),
     score: 0,
     replyingTo: comment.user.username,
@@ -307,10 +326,21 @@ function submitReply(btn) {
       username: commentsData.currentUser.username
     },
   } 
- 
-  const parent = findParentComment(id)
+
   parent.replies.push(reply);
-  renderComment(reply, previous);
+
+  if (parentDiv === main) {
+    if (element && element.classList.contains('replies')) {
+      renderComment(reply, element);
+    } else {
+      const repliesDiv = document.createElement('div');
+      repliesDiv.classList.add('replies');
+      renderComment(reply, repliesDiv);
+      previous.after(repliesDiv);
+    }
+  } else {
+    renderComment(reply, parentDiv);
+  }
   div.remove();
 }
 
