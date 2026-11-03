@@ -262,14 +262,16 @@ function findCommentById(id) {
 }
 
 function setVote(comment,article,newVote) {
+  const score = article.querySelector('.score-count');
   const oldVote = (comment.userVote || 0)
 
   if(oldVote === newVote) return;
+  if(comment.score === 0 && newVote === -1) return;
 
   comment.score += newVote - oldVote;
   comment.userVote = newVote;
 
-  article.querySelector('.score-count').textContent = comment.score;
+  score.textContent = comment.score;
 }
 
 function upvoteComment(comment, article) {
@@ -302,6 +304,8 @@ function submitReply(btn) {
   const previous = div.previousElementSibling;
   const id = previous.dataset.id;
   const content = getValidContent(div);
+  if(!content) return;
+  
   const parent = findParentComment(id)
   const comment = findCommentById(id);
 
@@ -317,6 +321,7 @@ function submitComment(btn) {
  if (!div) return;
 
  const content = getValidContent(div);
+ if(!content) return;
  const comment = {...createComment(content), replies: []};
 
  commentsData.comments.push(comment);
@@ -347,7 +352,7 @@ function placeReply(reply, previous, replyBox) {
 
 function getValidContent(replyBox) {
     const textArea = replyBox.querySelector('.reply-input');
-    const content = extractContent(replyBox)
+    const content = extractContent(replyBox);
 
     if(!content) {
       textArea.classList.add('input-error');
