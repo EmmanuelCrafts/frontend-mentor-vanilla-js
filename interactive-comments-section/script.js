@@ -17,7 +17,9 @@ async function fetchComments() {
 
 fetchComments();
 
+// event delegation for all click events
 main.addEventListener('click' , handleClick);
+
 main.addEventListener('input', (e) => {
   const textArea = e.target.closest('.reply-input');
   if(!textArea) return;
@@ -28,7 +30,11 @@ modal.addEventListener('click', (e) => {
   handleModalClick(e);
 })
 
+modal.addEventListener('close', () => { articleToDelete = null; })
 
+
+
+// functions
 
 function renderComment(comment, container = main, referenceNode = null) {
   const isCurrentUser = comment.user.username === commentsData.currentUser.username;
@@ -255,8 +261,8 @@ function handleClick (e) {
   } else if(action === 'reply') {
       handleReply(comment, article);
   } else if(action === 'delete') {
-    modal.showModal();
     articleToDelete = article;
+    modal.showModal();
   }
 }
 
@@ -469,10 +475,6 @@ function findParentComment(id) {
 }
 
 function deleteComment(article) {
-  // const article = btn.closest('.comment');
-  // if(!article) return;
-
-  
   const id = article.dataset.id;
   const parent = findParentComment(id);
   
