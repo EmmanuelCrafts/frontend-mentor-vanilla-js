@@ -1,9 +1,7 @@
 const main = document.querySelector("main");
 const modal = document.querySelector('.delete-dialog');
-const modalCancelBtn = modal.querySelector('.dialog-btn-cancel');
-const modalConfirmBtn = modal.querySelector('.dialog-btn-delete');
 let  commentsData = null;
-let clickCount = 0;
+let articleToDelete = null;
 
 async function fetchComments() {
     const response = await fetch('./data.json');
@@ -25,6 +23,12 @@ main.addEventListener('input', (e) => {
   if(!textArea) return;
   textArea.classList.remove('input-error')
 })
+
+modal.addEventListener('click', (e) => {
+  handleModalClick(e);
+})
+
+
 
 function renderComment(comment, container = main, referenceNode = null) {
   const isCurrentUser = comment.user.username === commentsData.currentUser.username;
@@ -238,10 +242,7 @@ function handleClick (e) {
     return;
   }
 
-  if (action === "delete") {
-     modal.showModal();
-    return;
-  }
+
 
   const article = btn.closest('.comment')
   const id = article.dataset.id;
@@ -253,6 +254,9 @@ function handleClick (e) {
       downvoteComment(comment, article);
   } else if(action === 'reply') {
       handleReply(comment, article);
+  } else if(action === 'delete') {
+    modal.showModal();
+    articleToDelete = article;
   }
 }
 
@@ -464,10 +468,11 @@ function findParentComment(id) {
   }
 }
 
-function deleteComment(btn) {
-  const article = btn.closest('.comment');
-  if(!article) return;
+function deleteComment(article) {
+  // const article = btn.closest('.comment');
+  // if(!article) return;
 
+  
   const id = article.dataset.id;
   const parent = findParentComment(id);
   
@@ -480,4 +485,21 @@ function deleteComment(btn) {
     parent.replies = parent.replies.filter(reply => reply.id !== Number(id));
   }
   article.remove();
+}
+
+function handleModalClick(e) {
+ const button = e.target.closest('[data-action]');
+  if(!button) return;
+
+  const action = button.dataset.action;
+
+  if(action === 'cancel') {
+    modal.close();
+    return;
+  }
+
+  if(action === 'delete') {
+    deleteComment(articleToDelete);
+    modal.close();
+  }
 }
