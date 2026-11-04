@@ -1,4 +1,7 @@
 const main = document.querySelector("main");
+const modal = document.querySelector('.delete-dialog');
+const modalCancelBtn = modal.querySelector('.dialog-btn-cancel');
+const modalConfirmBtn = modal.querySelector('.dialog-btn-delete');
 let  commentsData = null;
 let clickCount = 0;
 
@@ -235,6 +238,11 @@ function handleClick (e) {
     return;
   }
 
+  if (action === "delete") {
+     modal.showModal();
+    return;
+  }
+
   const article = btn.closest('.comment')
   const id = article.dataset.id;
   const comment = findCommentById(id);
@@ -266,7 +274,9 @@ function setVote(comment,article,newVote) {
   const oldVote = (comment.userVote || 0)
 
   if(oldVote === newVote) return;
-  if(comment.score === 0 && newVote === -1) return;
+
+  const newScore = comment.score + newVote - oldVote;
+  if (newScore < 0) return;
 
   comment.score += newVote - oldVote;
   comment.userVote = newVote;
@@ -452,4 +462,22 @@ function findParentComment(id) {
     const child = comment.replies.find(reply => reply.id === Number(id));
     if(child) return comment;
   }
+}
+
+function deleteComment(btn) {
+  const article = btn.closest('.comment');
+  if(!article) return;
+
+  const id = article.dataset.id;
+  const parent = findParentComment(id);
+  
+  if(parent.id === Number(id)) {
+    commentsData.comments = commentsData.comments.filter(comment => comment.id !== Number(id));
+    const next = article.nextElementSibling;
+
+    if(next && next.classList.contains('replies')) next.remove();
+  } else {
+    parent.replies = parent.replies.filter(reply => reply.id !== Number(id));
+  }
+  article.remove();
 }

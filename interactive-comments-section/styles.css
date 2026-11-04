@@ -344,6 +344,61 @@ main {
   background-color: var(--color-purple-200);
 }
 
+/* dialog */
+.delete-dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: min(90vw, 24rem);
+  margin: auto; 
+  background: #fff;
+}
+
+.delete-dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+
+.delete-dialog-title {
+  font-size: var(--font-size-1);
+  color: var(--color-grey-800);
+  margin-bottom: 1rem;
+}
+
+.delete-dialog-text {
+  color: var(--color-grey-500);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.delete-dialog-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.dialog-btn {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+}
+
+.dialog-btn-cancel {
+  background: var(--color-grey-500);
+}
+
+.dialog-btn-confirm {
+  background: var(--color-pink-400);
+}
+
+.dialog-btn:hover,
+.dialog-btn:focus-visible {
+  opacity: 0.6;
+}
 @media (min-width: 768px) {
   .reply-box {
     flex-direction: row;
