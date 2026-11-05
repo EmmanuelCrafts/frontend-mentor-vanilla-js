@@ -238,31 +238,60 @@ function handleClick (e) {
 
   const action = btn.dataset.action;
 
-  if(action === 'submit-reply') {
-     submitReply(btn);
-    return;
-  }
+  if (action === 'submit-reply') return submitReply(btn);
+  if (action === 'send') return submitComment(btn);
 
-  if(action === 'send') {
-    submitComment(btn);
-    return;
-  }
+  handleCommentAction(action, btn);
+}
 
 
+function handleCommentAction(action, btn) {
+  const article = btn.closest('.comment');
+  if (!article) return;
 
-  const article = btn.closest('.comment')
-  const id = article.dataset.id;
-  const comment = findCommentById(id);
+  const comment = findCommentById(article.dataset.id);
 
-  if (action === 'upvote') {
-    upvoteComment(comment, article);
-  } else if (action === 'downvote') {
+  switch (action) {
+    case 'upvote':
+      upvoteComment(comment, article);
+      break;
+    case 'downvote':
       downvoteComment(comment, article);
-  } else if(action === 'reply') {
+      break;
+    case 'reply':
       handleReply(comment, article);
-  } else if(action === 'delete') {
-    articleToDelete = article;
-    modal.showModal();
+      break;
+    case 'delete':
+      openDeleteModal(article);
+      break;
+    case 'edit':
+      editComment(article);
+      break;
+    case 'update':
+      updateComment(article, comment);
+      break;
+  }
+}
+
+function openDeleteModal(article) {
+  articleToDelete = article;
+  modal.showModal();
+}
+
+function handleModalClick(e) {
+ const button = e.target.closest('[data-action]');
+  if(!button) return;
+
+  const action = button.dataset.action;
+
+  if(action === 'cancel') {
+    modal.close();
+    return;
+  }
+
+  if(action === 'delete') {
+    deleteComment(articleToDelete);
+    modal.close();
   }
 }
 
@@ -378,7 +407,7 @@ function getValidContent(replyBox) {
       textArea.classList.add('input-error');
       textArea.focus();
       return null;
-  }
+     }
 
   return content;
 }
@@ -489,19 +518,46 @@ function deleteComment(article) {
   article.remove();
 }
 
-function handleModalClick(e) {
- const button = e.target.closest('[data-action]');
-  if(!button) return;
+function editComment(article) {
+ const p = article.querySelector('.comment-content');
+ const footer = article.querySelector('.comment-footer');
+ 
+ const textArea = document.createElement('textarea');
+ textArea.classList.add('reply-input');
+ textArea.rows = 5;
+ textArea.value = p.textContent;
 
-  const action = button.dataset.action;
+ const updateBtn = document.createElement('button');
+ updateBtn.classList.add('box-btn');
+ updateBtn.dataset.action = 'update';
+ updateBtn.textContent = 'update';
 
-  if(action === 'cancel') {
-    modal.close();
-    return;
-  }
+ footer.classList.toggle('is-editing');
+ p.replaceWith(textArea, updateBtn);
+ textArea.focus();
+}
 
-  if(action === 'delete') {
-    deleteComment(articleToDelete);
-    modal.close();
-  }
+function updateComment(article, comment) {
+  const content = extractContent(article);
+  const textArea = article.querySelector('.reply-input');
+
+    if(!content) {
+      textArea.classList.add('input-error');
+      textArea.focus();
+      return ;
+    }
+  
+  comment.content = content;
+
+  const p = document.createElement('p');
+  p.classList.add('comment-content');
+  p.textContent = content;
+
+  const footer = article.querySelector('.comment-footer');
+  const updateBtn = article.querySelector('[data-action="update"]');
+  
+  footer.classList.toggle('is-editing');
+
+  textArea.replaceWith(p);
+  updateBtn.remove();
 }

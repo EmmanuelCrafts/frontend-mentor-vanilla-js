@@ -344,6 +344,10 @@ main {
   background-color: var(--color-purple-200);
 }
 
+.is-editing {
+  display: none;
+}
+
 /* dialog */
 .delete-dialog {
   border: none;
