@@ -344,7 +344,7 @@ function submitReply(btn) {
 
   const previous = div.previousElementSibling;
   const id = previous.dataset.id;
-  const content = getValidContent(div);
+  const content = getValidContent(div, true);
   if(!content) return;
   
   const parent = findParentComment(id)
@@ -391,9 +391,9 @@ function placeReply(reply, previous, replyBox) {
   }
 }
 
-function getValidContent(replyBox) {
+function getValidContent(replyBox, stripMention = false) {
     const textArea = replyBox.querySelector('.reply-input');
-    const content = extractContent(replyBox);
+    const content = extractContent(replyBox, stripMention);
 
     if(!content) {
       textArea.classList.add('input-error');
@@ -405,15 +405,12 @@ function getValidContent(replyBox) {
 }
 
 
-function extractContent(div) {
+function extractContent(div, stripMention = false) {
   const textArea = div.querySelector('.reply-input');
   const content = textArea.value.trim();
 
-  const wordArr = content.split(' ');
-  const symbol = wordArr[0].slice(0,1);
-
-  if(symbol === '@') {
-    return wordArr.slice(1).join(' ');
+  if(stripMention) {
+    return content.replace(/^@\S+\s*/, '');
   }
 
   return content;
@@ -531,7 +528,7 @@ function editComment(article) {
 }
 
 function updateComment(article, comment) {
-  const content = extractContent(article);
+  const content = extractContent(article, Boolean(comment.replyingTo));
   const textArea = article.querySelector('.reply-input');
 
     if(!content) {
