@@ -74,18 +74,10 @@ function renderComment(comment, container = main, referenceNode = null) {
   commentHeader.appendChild(createdAt);
 
 //   content
-  const commentContent = document.createElement('p');
-  commentContent.classList.add('comment-content');
+  const paragragh = document.createElement('p');
+  paragragh.classList.add('comment-content');
 
-  if (comment.replyingTo) {
-    const replyingTo = document.createElement('span');
-    replyingTo.classList.add('replying-to');
-    replyingTo.textContent = `@${comment.replyingTo}`;
-    
-    commentContent.append(replyingTo, ' ');
-}
-
-  commentContent.append(comment.content);
+  fillContent(paragragh, comment);
 
 // footer
   const commentFooter = document.createElement('div');
@@ -183,7 +175,7 @@ function renderComment(comment, container = main, referenceNode = null) {
 
 
   article.appendChild(commentHeader);
-  article.appendChild(commentContent);
+  article.appendChild(paragragh);
   article.appendChild(commentFooter);
 
   container.insertBefore(article, referenceNode);
@@ -522,6 +514,7 @@ function editComment(article) {
  const p = article.querySelector('.comment-content');
  const footer = article.querySelector('.comment-footer');
  
+ footer.classList.add('is-editing');
  const textArea = document.createElement('textarea');
  textArea.classList.add('reply-input');
  textArea.rows = 5;
@@ -551,13 +544,26 @@ function updateComment(article, comment) {
 
   const p = document.createElement('p');
   p.classList.add('comment-content');
-  p.textContent = content;
+  fillContent(p, comment);
 
   const footer = article.querySelector('.comment-footer');
   const updateBtn = article.querySelector('[data-action="update"]');
   
-  footer.classList.toggle('is-editing');
+  footer.classList.remove('is-editing');
 
   textArea.replaceWith(p);
   updateBtn.remove();
+}
+
+function fillContent(p, comment) {
+  p.textContent = '';
+
+  if(comment.replyingTo) {
+    const span = document.createElement('span');
+    span.classList.add('replying-to');
+    span.textContent = `@${comment.replyingTo} `;
+    p.append(span, ' ');
+  }
+
+  p.append(comment.content);
 }
