@@ -522,7 +522,7 @@ function editComment(article) {
  updateBtn.dataset.action = 'update';
  updateBtn.textContent = 'update';
 
- footer.classList.toggle('is-editing');
+ footer.classList.add('is-editing');
  p.replaceWith(textArea, updateBtn);
  textArea.focus();
 }

@@ -117,6 +117,7 @@ body {
  
 main {
   width: 90%;
+  max-width: 730px;
   margin-inline: auto;
   padding-top: 32px;
   display: flex;
@@ -138,7 +139,8 @@ main {
 .comment-header {
   display: flex;
   align-items: center;
-  gap: var(--spacing-200);
+  flex-wrap: wrap;
+  gap: var(--spacing-100) var(--spacing-200);
   line-height: var(--line-height-150);
   letter-spacing: var(--letter-spacing-0);
 }
@@ -340,11 +342,16 @@ main {
   transition: background-color 0.2s ease;
 }
 
+.comment > .box-btn {
+  align-self: flex-end;
+}
+
 .box-btn:hover {
   background-color: var(--color-purple-200);
 }
 
-.is-editing {
+.is-editing .comment-score,
+.is-editing .comment-actions {
   display: none;
 }
 
@@ -403,14 +410,78 @@ main {
 .dialog-btn:focus-visible {
   opacity: 0.6;
 }
+
+
+/* ---------- Desktop ---------- */
 @media (min-width: 768px) {
+  main {
+    padding: var(--spacing-500) var(--spacing-200);
+    gap: var(--spacing-300);
+  }
+
+  /* comment card */
+  .comment {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "score header reply"
+      "score content content";
+    column-gap: var(--spacing-300);
+    row-gap: var(--spacing-200);
+    padding: var(--spacing-300);
+  }
+
+  /* lets score and reply/actions become direct grid items of .comment */
+  .comment-footer {
+    display: contents;
+  }
+
+  .comment-score {
+    grid-area: score;
+    flex-direction: column;
+    align-self: start;
+    padding: 6px 4px;
+  }
+
+  .comment-header {
+    grid-area: header;
+  }
+
+  .comment-reply-btn,
+  .comment-actions {
+    grid-area: reply;
+    justify-self: end;
+  }
+
+  .comment-content {
+    grid-area: content;
+  }
+
+  /* edit mode */
+  .comment > .reply-input {
+    grid-area: content;
+  }
+
+  .comment > .box-btn {
+    grid-column: 3;
+    grid-row: 3;
+    justify-self: end;
+  }
+
+  /* replies thread */
+  .replies {
+    gap: var(--spacing-300);
+    margin-left: var(--spacing-500);
+    padding-left: var(--spacing-500);
+  }
+
+  /* reply box: avatar left, textarea middle, send right */
   .reply-box {
     flex-direction: row;
     align-items: flex-start;
     padding: var(--spacing-300);
   }
 
-  /* avatar left, textarea middle, send right */
   .box-footer {
     display: contents;
   }
@@ -422,50 +493,9 @@ main {
   .reply-input {
     flex: 1;
   }
-}
- 
-/* ---------- Desktop ---------- */
-@media (min-width: 768px) {
-  main {
-    padding: var(--spacing-500) var(--spacing-200);
-    gap: var(--spacing-300);
-  }
- 
-  .comment {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas:
-      "score header reply"
-      "score content content";
-    column-gap: var(--spacing-300);
-    row-gap: var(--spacing-200);
-    padding: var(--spacing-300);
-  }
- 
-  /* Lets score and reply become direct grid items of .comment */
-  .comment-footer {
-    display: contents;
-  }
- 
-  .comment-score {
-    grid-area: score;
-    flex-direction: column;
-    align-self: start;
-    padding: 6px 4px;
-  }
- 
-  .comment-header {
-    grid-area: header;
-  }
- 
-  .comment-reply-btn {
-    grid-area: reply;
-    justify-self: end;
-  }
- 
-  .comment-content {
-    grid-area: content;
-  }
-}
- 
 
+  /* dialog */
+  .delete-dialog {
+    padding: 2rem;
+  }
+}
