@@ -43,155 +43,180 @@ function renderComment(comment, container = main, referenceNode = null) {
   article.dataset.id = comment.id;
   article.classList.add('comment');
 
-  const commentHeader = document.createElement('div');
-  commentHeader.classList.add('comment-header');
+  article.append(
+    createHeader(comment, isCurrentUser),
+    createContent(comment),
+    createFooter(comment, isCurrentUser)
+  );
 
-  const userImage = document.createElement('img');
-  userImage.classList.add('comment-avatar');
-  userImage.src = comment.user.image.png;
-  userImage.alt = comment.user.username;
+  container.insertBefore(article, referenceNode);
+  renderReplies(comment, container);
+}
+
+function createHeader(comment, isCurrentUser) {
+  const header = document.createElement('div');
+  header.classList.add('comment-header');
+
+  const avatar = document.createElement('img');
+  avatar.classList.add('comment-avatar');
+  avatar.src = comment.user.image.png;
+  avatar.alt = comment.user.username;
 
   const username = document.createElement('span');
   username.classList.add('comment-username');
   username.textContent = comment.user.username;
 
-  const createdAt = document.createElement('span');
-  createdAt.classList.add('comment-date');
-  createdAt.textContent = typeof comment.createdAt === 'number'
-  ? timeAgo(comment.createdAt)
-  : comment.createdAt;
-  
-  commentHeader.appendChild(userImage);
-  commentHeader.appendChild(username);
+  const date = document.createElement('span');
+  date.classList.add('comment-date');
+  date.textContent = formatDate(comment.createdAt);
 
-  if(isCurrentUser) {
-    const youBadge = document.createElement('span');
-    youBadge.classList.add('comment-you-badge');
-    youBadge.textContent = 'you';
-    commentHeader.appendChild(youBadge);
-  }
+  header.append(avatar, username);
 
-  commentHeader.appendChild(createdAt);
+  if (isCurrentUser) header.appendChild(createYouBadge());
 
-//   content
-  const paragragh = document.createElement('p');
-  paragragh.classList.add('comment-content');
+  header.appendChild(date);
 
-  fillContent(paragragh, comment);
-
-// footer
-  const commentFooter = document.createElement('div');
-  commentFooter.classList.add('comment-footer');
-
-//   score container
-  const commentScore = document.createElement('div');
-  commentScore.classList.add('comment-score')
-
-  const scorePlusBtn = document.createElement('button');
-  scorePlusBtn.classList.add('comment-score-btn');
-  scorePlusBtn.dataset.action = 'upvote';
-
-  const plusIcon = document.createElement('img');
-  plusIcon.classList.add('plus-icon')
-  plusIcon.src = "./images/icon-plus.svg";
-  plusIcon.alt = "plus icon";
-  scorePlusBtn.appendChild(plusIcon);
-
-  const commentScoreCount = document.createElement('span');
-  commentScoreCount.classList.add('score-count');
-  commentScoreCount.textContent = comment.score;
-
-  const scoreMinusBtn = document.createElement('button')
-  scoreMinusBtn.classList.add('comment-score-btn')
-  scoreMinusBtn.dataset.action = 'downvote';
-
-  const minusIcon = document.createElement('img');
-  minusIcon.classList.add('minus-icon')
-  minusIcon.src = "./images/icon-minus.svg";
-  minusIcon.alt = "minus icon";
-  scoreMinusBtn.appendChild(minusIcon);
-
-  commentScore.appendChild(scorePlusBtn);
-  commentScore.appendChild(commentScoreCount);
-  commentScore.appendChild(scoreMinusBtn);
-
-//   reply container
-  const replyBtn = document.createElement("button");
-  replyBtn.classList.add("comment-reply-btn");
-  replyBtn.dataset.action = "reply";
-
-  const replyIcon = document.createElement("img");
-  replyIcon.classList.add('reply-icon')
-  replyIcon.src = "./images/icon-reply.svg";
-  replyIcon.alt = "";
-
-  const replyText = document.createElement("span");
-  replyText.classList.add('reply-text');
-  replyText.textContent = "Reply";
-
-
-  replyBtn.append(replyIcon, replyText);
-
-  commentFooter.appendChild(commentScore);
-
-  if (isCurrentUser) {
-    const actions = document.createElement('div');
-    actions.classList.add('comment-actions');
-
-    // delete
-    const deleteBtn = document.createElement('button');
-    deleteBtn.classList.add('comment-delete-btn');
-    deleteBtn.dataset.action = 'delete';
-
-    const deleteIcon = document.createElement('img');
-    deleteIcon.src = './images/icon-delete.svg';
-    deleteIcon.alt = '';
-
-    const deleteText = document.createElement('span');
-    deleteText.textContent = 'Delete';
-
-    deleteBtn.append(deleteIcon, deleteText);
-
-    // edit
-    const editBtn = document.createElement('button');
-    editBtn.classList.add('comment-edit-btn');
-    editBtn.dataset.action = 'edit';
-
-    const editIcon = document.createElement('img');
-    editIcon.src = './images/icon-edit.svg';
-    editIcon.alt = '';
-
-    const editText = document.createElement('span');
-    editText.textContent = 'Edit';
-
-    editBtn.append(editIcon, editText);
-
-    actions.append(deleteBtn, editBtn);
-    commentFooter.appendChild(actions);
-
-  } else {
-    commentFooter.appendChild(replyBtn);
-  }
-
-
-  article.appendChild(commentHeader);
-  article.appendChild(paragragh);
-  article.appendChild(commentFooter);
-
-  container.insertBefore(article, referenceNode);
-
-  if(comment.replies && comment.replies.length > 0){
-    const replies = document.createElement('div');
-    replies.classList.add('replies');
-
-    comment.replies.forEach(reply => {
-        renderComment(reply, replies);
-    });
-    
-    container.appendChild(replies);
-  }
+  return header;
 }
 
+function createYouBadge() {
+  const badge = document.createElement('span');
+  badge.classList.add('comment-you-badge');
+  badge.textContent = 'you';
+
+  return badge;
+}
+
+function formatDate(createdAt) {
+  return typeof createdAt === 'number' ? timeAgo(createdAt) : createdAt;
+}
+
+/* ---------- content ---------- */
+
+function createContent(comment) {
+  const p = document.createElement('p');
+  p.classList.add('comment-content');
+  fillContent(p, comment);
+
+  return p;
+}
+
+function fillContent(p, comment) {
+  p.textContent = '';
+
+  if(comment.replyingTo) {
+    const span = document.createElement('span');
+    span.classList.add('replying-to');
+    span.textContent = `@${comment.replyingTo} `;
+    p.append(span, ' ');
+  }
+
+  p.append(comment.content);
+}
+
+/* ---------- footer ---------- */
+
+function createFooter(comment, isCurrentUser) {
+  const footer = document.createElement('div');
+  footer.classList.add('comment-footer');
+
+  footer.append(
+    createScore(comment),
+    isCurrentUser ? createActions() : createReplyButton()
+  );
+
+  return footer;
+}
+
+function createScore(comment) {
+  const score = document.createElement('div');
+  score.classList.add('comment-score');
+
+  const count = document.createElement('span');
+  count.classList.add('score-count');
+  count.textContent = comment.score;
+
+  score.append(
+    createScoreButton('upvote', 'plus-icon', './images/icon-plus.svg', 'plus icon'),
+    count,
+    createScoreButton('downvote', 'minus-icon', './images/icon-minus.svg', 'minus icon')
+  );
+
+  return score;
+}
+
+function createScoreButton(action, iconClass, iconSrc, iconAlt) {
+  const btn = document.createElement('button');
+  btn.classList.add('comment-score-btn');
+  btn.dataset.action = action;
+
+  const icon = document.createElement('img');
+  icon.classList.add(iconClass);
+  icon.src = iconSrc;
+  icon.alt = iconAlt;
+
+  btn.appendChild(icon);
+  return btn;
+}
+
+function createReplyButton() {
+  const btn = document.createElement('button');
+  btn.classList.add('comment-reply-btn');
+  btn.dataset.action = 'reply';
+
+  const icon = document.createElement('img');
+  icon.classList.add('reply-icon');
+  icon.src = './images/icon-reply.svg';
+  icon.alt = '';
+
+  const text = document.createElement('span');
+  text.classList.add('reply-text');
+  text.textContent = 'Reply';
+
+  btn.append(icon, text);
+  return btn;
+}
+
+function createActions() {
+  const actions = document.createElement('div');
+  actions.classList.add('comment-actions');
+
+  actions.append(
+    createActionButton('delete', 'comment-delete-btn', './images/icon-delete.svg', 'Delete'),
+    createActionButton('edit', 'comment-edit-btn', './images/icon-edit.svg', 'Edit')
+  );
+
+  return actions;
+}
+
+function createActionButton(action, className, iconSrc, label) {
+  const btn = document.createElement('button');
+  btn.classList.add(className);
+  btn.dataset.action = action;
+
+  const icon = document.createElement('img');
+  icon.src = iconSrc;
+  icon.alt = '';
+
+  const text = document.createElement('span');
+  text.textContent = label;
+
+  btn.append(icon, text);
+  return btn;
+}
+
+/* ---------- replies ---------- */
+
+function renderReplies(comment, container) {
+  if (!comment.replies?.length) return;
+
+  const replies = document.createElement('div');
+  replies.classList.add('replies');
+
+  comment.replies.forEach(reply => renderComment(reply, replies));
+
+  container.appendChild(replies);
+}
 
 function createReplyBox(action, label, placeholder, initialText = '') {
   const replyBox = document.createElement('div');
@@ -552,15 +577,3 @@ function updateComment(article, comment) {
   updateBtn.remove();
 }
 
-function fillContent(p, comment) {
-  p.textContent = '';
-
-  if(comment.replyingTo) {
-    const span = document.createElement('span');
-    span.classList.add('replying-to');
-    span.textContent = `@${comment.replyingTo} `;
-    p.append(span, ' ');
-  }
-
-  p.append(comment.content);
-}
