@@ -14,16 +14,13 @@ async function fetchComments() {
 }
 
 async function init() {
-  await fetchInitialData();
-}
-
-async function fetchInitialData() {
   if(!commentsData) {
     await fetchComments();
   }
 
   renderAllComments();
 }
+
 
 init()
 
@@ -369,6 +366,7 @@ function setVote(comment,article,newVote) {
   comment.score += newVote - oldVote;
   comment.userVote = newVote;
 
+  saveComments();
   score.textContent = comment.score;
 }
 
@@ -425,6 +423,7 @@ function submitComment(btn) {
  const comment = {...createComment(content), replies: []};
 
  commentsData.comments.push(comment);
+
  saveComments();
  renderComment(comment, main, div);
 
@@ -600,6 +599,7 @@ function updateComment(article, comment) {
     }
   
   comment.content = content;
+  saveComments();
 
   const p = document.createElement('p');
   p.classList.add('comment-content');
