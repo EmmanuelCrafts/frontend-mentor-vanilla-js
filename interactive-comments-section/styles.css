@@ -310,8 +310,6 @@ main {
   line-height: var(--line-height-150);
 }
 
-
-
 .reply-input::placeholder {
   color: var(--color-grey-500);
 }

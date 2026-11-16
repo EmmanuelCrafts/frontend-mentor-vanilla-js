@@ -1,21 +1,53 @@
 const main = document.querySelector("main");
 const modal = document.querySelector('.delete-dialog');
-let  commentsData = null;
+const STORAGE_KEY = 'comments'
+let  commentsData = loadComments();
 let articleToDelete = null;
+
 
 async function fetchComments() {
     const response = await fetch('./data.json');
     const data =  await response.json();
     commentsData = data;
+    
+    saveComments();
+}
 
-    commentsData.comments.forEach(comment => {
+async function init() {
+  await fetchInitialData();
+}
+
+async function fetchInitialData() {
+  if(!commentsData) {
+    await fetchComments();
+  }
+
+  renderAllComments();
+}
+
+init()
+
+function saveComments() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(commentsData));
+}
+
+function loadComments() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : null;
+  } catch {
+    return null; // corrupted -> fall back to fetching data.json
+  }
+}
+
+function renderAllComments() {
+   commentsData.comments.forEach(comment => {
         renderComment(comment);
     });
 
     main.appendChild(createReplyBox('send','Send', 'Add a comment...'));
 }
 
-fetchComments();
 
 // event delegation for all click events
 main.addEventListener('click' , handleClick);
@@ -378,6 +410,8 @@ function submitReply(btn) {
   const reply = {...createComment(content), replyingTo: comment.user.username} 
   parent.replies.push(reply);
 
+  saveComments();
+
   placeReply(reply, previous, div);
   div.remove();
 }
@@ -391,6 +425,7 @@ function submitComment(btn) {
  const comment = {...createComment(content), replies: []};
 
  commentsData.comments.push(comment);
+ saveComments();
  renderComment(comment, main, div);
 
  clearInput(div);
@@ -524,11 +559,13 @@ function deleteComment(article) {
   if(parent.id === Number(id)) {
     commentsData.comments = commentsData.comments.filter(comment => comment.id !== Number(id));
     const next = article.nextElementSibling;
-
     if(next && next.classList.contains('replies')) next.remove();
+    saveComments();
   } else {
     parent.replies = parent.replies.filter(reply => reply.id !== Number(id));
+    saveComments();
   }
+
   article.remove();
 }
 
